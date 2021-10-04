@@ -7,7 +7,7 @@ title: Hexo
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
+author: Rock070
 language: en
 timezone: ''
 
@@ -104,4 +104,5 @@ theme: minos
 deploy:
   type: git
   repo: https://github.com/Rock070/blog.rock070.git
-  branch: main
+  branch: articles
+  message: deploy
