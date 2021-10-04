@@ -104,5 +104,5 @@ theme: minos
 deploy:
   type: git
   repo: https://github.com/Rock070/blog.rock070.git
-  branch: articles
+  branch: main
   message: deploy
