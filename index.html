@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Rock070 Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="">
+
+
+
+
+
+<meta name="keywords" content="網頁前端,frontend,modern web, vue, ES6, Jest, CSS pattern, Unit Test">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/blog.rock070/css/style.css">
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/blog.rock070/">
+                
+                <div> Rock070 </div>
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/blog.rock070/about">關於我</a>
+            
+            <a class="navbar-item "
+               href="/blog.rock070/archives">文章列表</a>
+            
+            <a class="navbar-item "
+               href="/blog.rock070/categories">分類</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            
+            
+            
+
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/blog.rock070/2021/10/07/css-pattern/" itemprop="url">CSS 設計模式研究筆記</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2021-10-06T17:00:11.000Z" itemprop="datePublished">2021年10月7日</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/blog.rock070/categories/Vue/">Vue</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            16 分钟 讀完 (約 2473 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>CSS 是一個好理解但不好使用跟維護的語言，所以衍生出非常多的理論跟方法，目的是為了提高程式碼在開發時的可讀性、維護性、模組化、效率 …等等</p>
+<p>良好的 CSS 架構</p>
+<ol>
+<li>預測 Predictable</li>
+<li>複用 Reusable：樣式可以重複使用的，避免重複性高</li>
+<li>維護 Maintainable：可讀性高，後續調整或加東西，不需要大幅調整架構</li>
+<li>延展 Scalable：後續加東西，不需要大幅調整架構</li>
+</ol>
+<h2 id="一、物件導向-CSS：OOCSS-By-Nicole-Sullivan"><a href="#一、物件導向-CSS：OOCSS-By-Nicole-Sullivan" class="headerlink" title="一、物件導向 CSS：OOCSS By Nicole Sullivan"></a>一、物件導向 CSS：OOCSS By Nicole Sullivan</h2><h3 id="兩大原則"><a href="#兩大原則" class="headerlink" title="兩大原則"></a>兩大原則</h3><ul>
+<li><h3 id="Sperate-Structure-amp-Skin-分離結構與顏色"><a href="#Sperate-Structure-amp-Skin-分離結構與顏色" class="headerlink" title="Sperate Structure &amp; Skin - 分離結構與顏色"></a>Sperate Structure &amp; Skin - 分離結構與顏色</h3></li>
+</ul>
+<p>即將顏色樣式與大小樣式分離，針對元素中的顏色的樣式單獨抽出做分離，避免重複性高的 CSS。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box-1</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;  </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>) <span class="number">2px</span> <span class="number">0px</span> <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box-2</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">320px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>) <span class="number">2px</span> <span class="number">0px</span> <span class="number">2px</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.button</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">48px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>) <span class="number">2px</span> <span class="number">0px</span> <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box-1</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>; </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box-2</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">320px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.button</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">48px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.skin</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>) <span class="number">2px</span> <span class="number">0px</span> <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="Sperate-Container-amp-Content-容器與內容分離"><a href="#Sperate-Container-amp-Content-容器與內容分離" class="headerlink" title="Sperate Container &amp; Content - 容器與內容分離"></a>Sperate Container &amp; Content - 容器與內容分離</h3></li>
+</ul>
+<p>分離 html 與 css，盡量將可共用的 class 單獨分離出來，這樣好處是若有多處重複的樣式，可使用同一個 class。</p>
+<p>範例：box 內有一個標題跟一個內文，標題內有一部分特殊樣式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box-1</span> <span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box-1</span> <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: black;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box-1</span> <span class="selector-tag">div</span> <span class="selector-tag">span</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.title</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: black;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.green-text</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>簡單來說：使用 class 寫樣式，每個 class 又有不同用途，如大小、顏色等等</p>
+<p>範例：</p>
+<p><code>&lt;button class=&quot;btn btn-primary btn-large&quot;&gt;&lt;/button&gt;</code></p>
+<p>btn: 按鈕的基本樣式<br>btn-primary: 按鈕的顏色<br>btn-large: 按鈕的大小</p>
+<p>透過這樣分離的方式，來讓網頁樣式更便於管理、可讀性高、好維護的效果。</p>
+<p>範例：<a target="_blank" rel="noopener" href="https://getbootstrap.com/">Bootstrap</a>。</p>
+<h2 id="二、SMACSS-Scalable-and-Modular-Architecture-for-CSS"><a href="#二、SMACSS-Scalable-and-Modular-Architecture-for-CSS" class="headerlink" title="二、SMACSS(Scalable and Modular Architecture for CSS)"></a>二、SMACSS(Scalable and Modular Architecture for CSS)</h2><p><a target="_blank" rel="noopener" href="http://smacss.com/">SMACSS</a> 由 Jonathan Snook 提出</p>
+<p>顧名思義就是可擴展與模組化的設計模式。</p>
+<p>基本架構：</p>
+<h3 id="1-Base"><a href="#1-Base" class="headerlink" title="1. Base"></a>1. Base</h3><p>包含 reset CSS 與 HTML tag 常用的樣式設定。</p>
+<p>你應該有聽過、甚至使用過 reset CSS，<br>若不知道是什麼的話，我來解釋一下，由於瀏覽器預設會有一些 CSS 樣式（例如：間距），所以為了確保畫面樣式的一致性及達到設計需求，通常我們在 CSS 最前面放上 reset CSS，把一些 padding、margin 給清空。</p>
+<p>而 Base 的觀念裡面，除了 reset CSS，前端還要去思考哪些 HTML Tag 會經常用到樣式的設定，並直接在此處就加上 CSS。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># reset css</span><br><span class="line"><span class="selector-tag">body</span>, <span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>,</span><br><span class="line">  margin: <span class="number">0</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># <span class="selector-tag">html</span> tag 常用設定</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span> &#123;</span><br><span class="line">  <span class="attribute">outline</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-Layout"><a href="#2-Layout" class="headerlink" title="2. Layout"></a>2. Layout</h3><p>每頁都會出現的元素（主要組件）：header、footer</p>
+<p>通常會使用 ID 選擇器，如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#header</span>, <span class="selector-id">#article</span>, <span class="selector-id">#footer</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">960px</span>;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#article</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: solid <span class="number">#CCC</span>;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">1px</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Module"><a href="#3-Module" class="headerlink" title="3. Module"></a>3. Module</h3><p>兩頁以上會出現的元素（次要組件）：form、navigation item 之類的</p>
+<p>避免使用 ID 和元素選擇器，只使用 class，每個組件內可能都會有個別的元素</p>
+<p>當元素內只有一個 span 的時候，這樣使用起來是沒有問題的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;fld&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>Folder Name<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-class">.fld</span> <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">padding-left</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">icon.png</span>);</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但當 span 增加並需要另外的樣式時，就可能會需要同時修改 CSS 跟 html 的架構，具有較低的維護性，所以作者推薦這樣的寫法，向元素增加 class，提高了元素樣式的語意，更清楚知道當中的區別</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;fld&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fld-name&quot;</span>&gt;</span>Folder Name<span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fld-items&quot;</span>&gt;</span>(32 items)<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;fld-items&quot;</span>&gt;</span>(32 items)<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-class">.fld</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">padding-left</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">icon.png</span>);</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-class">.fld-name</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-size</span>: <span class="number">24px</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: orange;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-class">.fld-item</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-size</span>: <span class="number">14px</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: green;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+
+<h3 id="4-State"><a href="#4-State" class="headerlink" title="4. State"></a>4. State</h3><p>元素的狀態</p>
+<ol>
+<li>可使用 is 前綴符</li>
+<li>使用 JavaScript DOM 事件來為元素加上 class</li>
+<li>允許使用 !important，因為作者認為一個元素同時不會存在兩個狀態。</li>
+</ol>
+<p>例如點擊下拉選單後，選項欄位要延展出來變成 active 狀態，以下已重點樣式描述，</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.options</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.is-options-active</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block <span class="meta">!important</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-Theme"><a href="#5-Theme" class="headerlink" title="5. Theme"></a>5. Theme</h3><p>根據不同主題單獨抽離樣式的設計方法，以下範例可以看到，有三個 css 檔案，</p>
+<p><code>all.css</code>：主要管理主題間共同的樣式<br><code>theme-morning.css</code>： 定義 morning 主題的樣式<br><code>theme-night.css</code>： 定義 night 主題的樣式</p>
+<p>此架構可以讓主題可以切開來，按照需求引入主題檔案</p>
+<p>morning 主題：引入 <code>all.css</code> 與 <code>theme-morning.css</code><br>night 主題：引入 <code>all.css</code> 與 <code>theme-night.css</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">### all<span class="selector-class">.css</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.mod</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: solid <span class="number">1px</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">### theme-morning<span class="selector-class">.css</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.mod</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: white</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">### theme-night<span class="selector-class">.css</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.mod</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: black</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="三、BEM"><a href="#三、BEM" class="headerlink" title="三、BEM"></a>三、BEM</h2><p>Block(區塊)-Element（元素）-Modifier（修飾子）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;menu&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;item active&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;menu&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;menu__item&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;menu__item menu__item--active&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;menu__item&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Element 使用雙底線做分隔，Modifier 使用雙 dash 做分隔。</p>
+<p>menu 是區塊，menu__item 是 menu 的元素，active 是 menu__item 的一種狀態。</p>
+<h2 id="四、CSS-in-JS"><a href="#四、CSS-in-JS" class="headerlink" title="四、CSS in JS"></a>四、CSS in JS</h2><p>隨著前端框架的出現，前端的開發逐漸 component 化，一個頁面的個別元素可以切分 component </p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20191001/20114645O78QEhrJLG.png"></p>
+<p>圖片來源：六角學院</p>
+<p>例如在 Vue 中，一個元件一個檔案，將一個元件的樣式、事件、結構都封裝在 .vue 檔中內，這樣的格式可以達到 HTML、CSS、JS 分離的寫法，並非網頁的標準格式，所以還會需要通過 Vue-cli 中的 <code>vue-loader</code> 來做編譯，所以這樣的寫法是屬於 CSS in JS 的一種，只是透過 Vue 提供的語法糖變成這樣的架構。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> @<span class="attr">click</span>=<span class="string">&quot;clickHandler&quot;</span>&gt;</span> &#123;&#123; message &#125;&#125; <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  setup () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> message = <span class="string">&#x27;Hello Vue&#x27;</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> clickHandler = <span class="function">() =&gt;</span> &#123; </span></span><br><span class="line"><span class="javascript">      alert(<span class="string">&#x27;good!!&#x27;</span>) </span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">      message,</span></span><br><span class="line"><span class="javascript">      clickHandler</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">  &#125; </span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scope</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: red;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-size</span>: <span class="number">24px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>特別講一下，style 中的 scope 代表 Vue 會對該元件生成一個隨機的屬性（Attribute），透過 CSS Attribute selector 的方式來做到 CSS 的切分，這樣在不同的元件中的 div 樣式就不會互相干擾囉</p>
+<p><img src="https://i.imgur.com/x21vNi8.png"></p>
+<h3 id="styled-component（CSS-in-JS-Library）"><a href="#styled-component（CSS-in-JS-Library）" class="headerlink" title="styled-component（CSS in JS Library）"></a>styled-component（CSS in JS Library）</h3><p>React 社群推出的 <a target="_blank" rel="noopener" href="https://styled-components.com/">styled-component</a>，將 CSS 寫在 component 內，達到 CSS in JS 的作用，可以很直接的接收元件的 props 來控制 CSS，透過這樣的方式可以做到讓 CSS 狀態控制變得更彈性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Button = styled.button<span class="string">`</span></span><br><span class="line"><span class="string">  background: <span class="subst">$&#123;props =&gt; props.primary ? <span class="string">&quot;palevioletred&quot;</span> : <span class="string">&quot;white&quot;</span>&#125;</span>;</span></span><br><span class="line"><span class="string">  color: <span class="subst">$&#123;props =&gt; props.primary ? <span class="string">&quot;white&quot;</span> : <span class="string">&quot;palevioletred&quot;</span>&#125;</span>;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  font-size: 1em;</span></span><br><span class="line"><span class="string">  margin: 1em;</span></span><br><span class="line"><span class="string">  padding: 0.25em 1em;</span></span><br><span class="line"><span class="string">  border: 2px solid palevioletred;</span></span><br><span class="line"><span class="string">  border-radius: 3px;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Button</span>&gt;</span>Normal<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">primary</span>&gt;</span>Primary<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p><strong>優點：</strong></p>
+<ul>
+<li>單一元件的樣式、結構、邏輯，都寫在一個檔案內，比起舊式寫法（HTML、JS、CSS 檔案切開）好管理，若其他專案需要使用，元件也方便單獨切割。</li>
+<li>維護時不需另外去找對應的樣式檔案。</li>
+<li>html 與 css 命名合在一起，不必去彼此對照。</li>
+</ul>
+<p><strong>缺點：</strong></p>
+<ul>
+<li>元件切換主視覺需要重新寫一個 <code>&lt;ThemeComponent /&gt;</code>，因為若要使用單一元件，樣式差異很大的情況，透過 props 控制會變得很麻煩</li>
+<li>用字串的方式寫入樣式，少了 CSS 的 auto complete、編輯器提供的顏色</li>
+<li>要達到共用樣式必須將元件切小，才會有一定的共用度</li>
+</ul>
+<h2 id="五、原子化樣式（Atomic-CSS）"><a href="#五、原子化樣式（Atomic-CSS）" class="headerlink" title="五、原子化樣式（Atomic CSS）"></a>五、原子化樣式（Atomic CSS）</h2><p>Atomic CSS 由 Thierry Koblentz (Yahoo!)在 2013 年挑戰 <a target="_blank" rel="noopener" href="https://www.smashingmagazine.com/2013/10/challenging-css-best-practices-atomic-approach/">CSS 最佳實踐</a>中首次使用，將樣式的名稱指向每個單獨的 class ，並把名稱縮小化，將結構 html 與樣式 css 結合，當按鈕的樣式需要修改的時候，我們修改的是 HTML 而不是 CSS。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bw-2x bss p-1x&quot;</span>&gt;</span> 這是原子 CSS 範例 <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 原子 CSS */</span></span><br><span class="line"><span class="comment">/* Atomic CSS */</span></span><br><span class="line"><span class="selector-class">.bw-2x</span> &#123;</span><br><span class="line">  <span class="attribute">border-width</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.bss</span> &#123;</span><br><span class="line">  <span class="attribute">border-style</span>: solid;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sans</span> &#123;</span><br><span class="line">  <span class="attribute">font-style</span>: sans-serif;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.p-1x</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Not atomic, because the class contains 2 rules */</span></span><br><span class="line"><span class="selector-class">.p-1x-sans</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: sans-serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但會衍伸出的問題是，沒有一個命名的約定，若每個專案的命名者不同，那當你加入一個新專案的時候，就必須重新學習該專案的 class 命名方式，例如 A 專案對於 <code>border-width: 2px</code> 的命名是 <code>bw-2</code>，B 專案的命名是 <code>b-2</code>，這樣專案一多起來，使用上就會帶來大大的不便。</p>
+<p>後來誕生的 CSS 框架 <a target="_blank" rel="noopener" href="https://tailwindcss.com/docs/utility-first">tailwindcss</a> 提出了一個命名規範，並可以自行擴充樣式。</p>
+<p><img src="https://i.imgur.com/oH9feYW.png" alt="圖ㄧ"></p>
+<p>圖片源自 tailwindcss.com</p>
+<p><img src="https://i.imgur.com/8ZZD8e5.png" alt="圖二"></p>
+<p>圖片源自 tailwindcss.com</p>
+<h3 id="Tailwindcss-優缺點比較"><a href="#Tailwindcss-優缺點比較" class="headerlink" title="Tailwindcss 優缺點比較"></a>Tailwindcss 優缺點比較</h3><p>優點</p>
+<ul>
+<li>不需要去想 CSS 命名</li>
+<li>CSS 樣式的量通常不會變多，因為很少在撰寫 CSS 檔案了，共用性高</li>
+<li>修改樣式只需要修改 HTML</li>
+<li>沒有使用到的 CSS 將會在生產環境編譯時清除，達到輕巧化</li>
+</ul>
+<p>缺點</p>
+<ul>
+<li>需要學習一個既定的命名約定</li>
+<li>HTML 會變得更加龐大</li>
+</ul>
+<h2 id="六、寫在-JS-中的原子樣式（Atomic-CSS-in-JS-）"><a href="#六、寫在-JS-中的原子樣式（Atomic-CSS-in-JS-）" class="headerlink" title="六、寫在 JS 中的原子樣式（Atomic CSS in JS ）"></a>六、寫在 JS 中的原子樣式（Atomic CSS in JS ）</h2><p><em>待更新</em></p>
+<p>推薦文章：<a target="_blank" rel="noopener" href="https://sebastienlorber.com/atomic-css-in-js">Atomic-css-in-js</a></p>
+<h3 id="延伸閱讀："><a href="#延伸閱讀：" class="headerlink" title="延伸閱讀："></a>延伸閱讀：</h3><p><a target="_blank" rel="noopener" href="https://linyencheng.github.io/2020/05/27/css-atomic-css/?utm_source=link&utm_medium=article&utm_campaign=internal_link">Atomic CSS 優化樣式開發
+</a></p>
+<h3 id="參考來源："><a href="#參考來源：" class="headerlink" title="參考來源："></a>參考來源：</h3><p><a target="_blank" rel="noopener" href="https://cythilya.github.io/2018/06/05/css-methodologies/">CSS 的模組化方法：OOCSS、SMACSS、BEM、CSS Modules、CSS in JS</a></p>
+<p><a target="_blank" rel="noopener" href="https://kuro.tw/posts/2017/07/26/%E5%BE%9EVue%E4%BE%86%E7%9C%8BCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88%E7%9A%84%E7%99%BC%E5%B1%95/">從 Vue 來看 CSS 管理方案的發展</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@savemuse/smacss-%E6%95%99%E5%AD%B8-c94e858aa762">SMACSS 教學</a></p>
+<p><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10160128">Sass教學 (30) - SMACSS - State Rules</a></p>
+<p><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10236146">Day5. CSS 設計模式(一) - SMACSS
+</a></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Rock070&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+
+
+<script src="/blog.rock070/js/script.js"></script>
+
+
+    
+</body>
+</html>
