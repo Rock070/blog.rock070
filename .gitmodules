@@ -1,4 +1,4 @@
-[submodule "hexo-theme-minos"]
-	path = hexo-theme-minos
+[submodule "themes/minos"]
+	path = themes/minos
 	url = https://github.com/Rock070/hexo-theme-minos.git
 	branch = master
