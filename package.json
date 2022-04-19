@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "build": "hexo generate",
-    "clean": "hexo clean",
+    "clean": "hexo clean && rm -rf ./node_modules",
     "deploy": "hexo generate -d",
-    "server": "hexo server"
+    "server": "hexo server",
+    "reset": "yarn clean && git submodule update --init && yarn install"
   },
   "hexo": {
     "version": "5.4.0"
