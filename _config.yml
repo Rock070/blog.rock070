@@ -96,8 +96,8 @@ ignore:
 
 menu:
   關於我: about
-  文章列表: archives
-  分類: categories
+  # 文章列表: archives
+  文章分類: categories
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/

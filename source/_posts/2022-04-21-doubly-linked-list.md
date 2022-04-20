@@ -1,7 +1,7 @@
 ---
 title: Doubly Linked List（雙向連結串列）
 date: 2022-04-21 00:21:50
-categories: 資料結構
+categories: JS 資料結構
 ---
 
 在 [singly linked list](https://rock070.github.io/blog.rock070/2022/04/20/linked-list/) 的基礎上，做一些變更：
