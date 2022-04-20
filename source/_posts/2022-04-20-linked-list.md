@@ -302,6 +302,10 @@ const removeAt = (index) => {
 
 [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
 
+[141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
+
+[234. Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/)
+
 ## 參考文章
 
 - [鏈結串列 Linked List - 第 11 屆 iThome 鐵人賽
