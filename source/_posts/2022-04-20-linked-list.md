@@ -20,8 +20,10 @@ Linked List 連結串列，是資料結構中是常見、基本的資料型態�
 ![](https://i.imgur.com/nIFp6SU.png)
 ### 用 JavaScript 實作一個 Linked List
 
-本來想用 class 來實作，但最近看了這一篇關於為什麼不應該在 JS 中使用 class:
-[stop-writing-classes-in-javascript](https://javascript.plainenglish.io/stop-writing-classes-in-javascript-you-dont-need-to-use-this-instead-f6d143ef7a28) ，就直接使用函式來實作。
+[完整程式碼 - GitHub](https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/linked-list/index.js)，可以先 clone 下來，或是跟著下面一步一步建立函式。
+
+本來想用 class 來實作，但最近看了這一篇關於為什麼不應該在 JS 中使用 class 的文章
+[（stop-writing-classes-in-javascript）](https://javascript.plainenglish.io/stop-writing-classes-in-javascript-you-dont-need-to-use-this-instead-f6d143ef7a28) ，所以下面就直接使用函式來實作。
 
 先定義一個 Node，擁有 value 與 next(等於 Pointer，指向下一個 Node) 屬性
 
@@ -242,6 +244,15 @@ const removeAt = (index) => {
 }
 ```
 # Linked List 與 Array 的比較
+
+### Big O
+
+|                    | Array | Linked List | 
+| ----------         | ------| ---------- |
+| 存取資料             | O(1) | O(n) | 
+| 插入與刪除第一筆資料   | O(n) | O(1) | 
+| 插入與刪除最後一筆資料 | O(1) | O(n) | 
+| 插入與刪除中間值的資料 | O(n) | O(n) | 
 ## Linked List 
 
 特性
