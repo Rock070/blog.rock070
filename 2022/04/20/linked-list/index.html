@@ -112,7 +112,7 @@
         <span class="column is-narrow">
             
             
-            11 分钟 讀完 (約 1684 字)
+            12 分钟 讀完 (約 1792 字)
         </span>
         
     </div>
@@ -129,7 +129,8 @@
 </ol>
 <p>從下圖可以看到每一個 Node 都指向下一個 Node 位址，最後一個指向 Null。</p>
 <p><img src="https://i.imgur.com/nIFp6SU.png"></p>
-<h3 id="用-JavaScript-實作一個-Linked-List"><a href="#用-JavaScript-實作一個-Linked-List" class="headerlink" title="用 JavaScript 實作一個 Linked List"></a>用 JavaScript 實作一個 Linked List</h3><p>本來想用 class 來實作，但最近看了這一篇關於為什麼不應該在 JS 中使用 class:<br><a target="_blank" rel="noopener" href="https://javascript.plainenglish.io/stop-writing-classes-in-javascript-you-dont-need-to-use-this-instead-f6d143ef7a28">stop-writing-classes-in-javascript</a> ，就直接使用函式來實作。</p>
+<h3 id="用-JavaScript-實作一個-Linked-List"><a href="#用-JavaScript-實作一個-Linked-List" class="headerlink" title="用 JavaScript 實作一個 Linked List"></a>用 JavaScript 實作一個 Linked List</h3><p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/linked-list/index.js">完整程式碼 - GitHub</a>，可以先 clone 下來，或是跟著下面一步一步建立函式。</p>
+<p>本來想用 class 來實作，但最近看了這一篇關於為什麼不應該在 JS 中使用 class 的文章<br><a target="_blank" rel="noopener" href="https://javascript.plainenglish.io/stop-writing-classes-in-javascript-you-dont-need-to-use-this-instead-f6d143ef7a28">（stop-writing-classes-in-javascript）</a> ，所以下面就直接使用函式來實作。</p>
 <p>先定義一個 Node，擁有 value 與 next(等於 Pointer，指向下一個 Node) 屬性</p>
 <figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Node = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    value,</span><br><span class="line">    <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span></span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
@@ -159,7 +160,36 @@
 
 <h3 id="removeAt"><a href="#removeAt" class="headerlink" title="removeAt"></a>removeAt</h3><p>刪除某個 index 的節點，邏輯跟 <code>insertAt</code> 很像，但是方法改使用 pop &amp; shift。</p>
 <figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> removeAt = <span class="hljs-function">(<span class="hljs-params">index</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">if</span> (index &gt; length || index &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span> || head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> shift()</span><br><span class="line">  <span class="hljs-keyword">if</span> (index === length) <span class="hljs-keyword">return</span> pop()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> prevNode</span><br><span class="line">  <span class="hljs-keyword">let</span> nextNode</span><br><span class="line">  <span class="hljs-keyword">let</span> value</span><br><span class="line">  <span class="hljs-comment">// 使用遍歷的方式找到該節點，並結把前一個節點的 next 指向原節點的下一個節點</span></span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; index; i++) {</span><br><span class="line">    <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) prevNode = head</span><br><span class="line">    <span class="hljs-keyword">else</span> prevNode = prevNode.next</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 要移除的 node 的 value</span></span><br><span class="line">  value = prevNode.next.value</span><br><span class="line">  nextNode = prevNode.next.next</span><br><span class="line">  prevNode.next = nextNode</span><br><span class="line">  length--</span><br><span class="line">  <span class="hljs-keyword">return</span> value</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h1 id="Linked-List-與-Array-的比較"><a href="#Linked-List-與-Array-的比較" class="headerlink" title="Linked List 與 Array 的比較"></a>Linked List 與 Array 的比較</h1><h2 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h2><p>特性</p>
+<h1 id="Linked-List-與-Array-的比較"><a href="#Linked-List-與-Array-的比較" class="headerlink" title="Linked List 與 Array 的比較"></a>Linked List 與 Array 的比較</h1><h3 id="Big-O"><a href="#Big-O" class="headerlink" title="Big O"></a>Big O</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>Array</th>
+<th>Linked List</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存取資料</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>插入與刪除第一筆資料</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>插入與刪除最後一筆資料</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>插入與刪除中間值的資料</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+</tbody></table>
+<h2 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h2><p>特性</p>
 <ul>
 <li>沒有 index</li>
 <li>每個節點連結是透過 “next” 指標</li>
@@ -214,7 +244,9 @@
     
     
     <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/blog.rock070/2022/04/21/doubly-linked-list/">Doubly Linked List（雙向連結串列）</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
