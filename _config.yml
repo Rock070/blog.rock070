@@ -98,6 +98,9 @@ menu:
   關於我: about
   # 文章列表: archives
   文章分類: categories
+comment:
+  type: disqus
+  shortname: blog-rock070
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
@@ -111,3 +114,13 @@ deploy:
   repo: https://github.com/Rock070/blog.rock070.git
   branch: main
   message: deploy
+
+navbar_links:
+  Medium:
+    icon: fa-brands fa-medium
+    url: https://medium.com/@mirthful_satin_dinosaur_426
+    
+
+# Links at the bottom of the page.
+footer_links:
+  GitHub: https://github.com/Rock070
