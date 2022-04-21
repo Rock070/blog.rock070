@@ -1,7 +1,7 @@
 ---
 title: 學習動機與目標
 date: 2022-04-19 21:24:58
-categories: JS 演算法
+categories: algorithms
 ---
 
 ### 先說一下我的背景
