@@ -100,12 +100,12 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/blog.rock070/2022/04/21/queue/" itemprop="url">Queue 列隊</a>
+            <a href="/blog.rock070/2022/04/26/hash-table-3/" itemprop="url">Hash Table（三）實作一個 Hash Table</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2022-04-21T15:08:41.000Z" itemprop="datePublished">2022年4月21日</time>
+            <time datetime="2022-04-25T16:12:24.000Z" itemprop="datePublished">2022年4月26日</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -117,50 +117,89 @@
         <span class="column is-narrow">
             
             
-            3 分钟 讀完 (約 498 字)
+            7 分钟 讀完 (約 975 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><p><img src="https://i.imgur.com/d16YhEr.png"></p>
-<p><code>跟買電影票一樣，後來的人會排在隊伍後面，先買到票的人，會先離開。</code></p>
-<h5 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h5><ul>
-<li>先進先出 FIFO(first in first out)，跟排隊買電影票的概念一樣。</li>
-<li>元素沒有 index。</li>
-<li>元素的新增只能從 queue 的後方。</li>
-<li>元素的移除只能從 queue 的前方。</li>
-<li><code>enqueue</code> 意思是新增項目進 queue，<code>dequeue</code> 意思是移除 queue 內的項目。</li>
-</ul>
-<h2 id="使用-Linked-List-實作-Stack"><a href="#使用-Linked-List-實作-Stack" class="headerlink" title="使用 Linked List 實作 Stack"></a>使用 Linked List 實作 Stack</h2><p>在 Queue 的概念中，我們建立的 Linked List 只能使用 <code>push</code>, <code>shift</code> 方法，不能使用 <code>shift</code>, <code>unshift</code>, <code>insertAt</code>, <code>removeAt</code>。</p>
-<blockquote>
-<p>要實作的方法：<br>push：在隊伍後方新增元素<br>shift：把隊伍前方的元素移除</p>
-</blockquote>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Node = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    value,</span><br><span class="line">    <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> Queue = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> head = <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">let</span> length = <span class="hljs-number">0</span></span><br><span class="line">  <span class="hljs-comment">// 在隊伍後方新增元素</span></span><br><span class="line">  <span class="hljs-keyword">const</span> push = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> { </span><br><span class="line">    <span class="hljs-keyword">let</span> newNode = Node(value)</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) head = newNode</span><br><span class="line">    <span class="hljs-keyword">else</span> {</span><br><span class="line">      <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">      <span class="hljs-keyword">while</span> (currentNode.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">        currentNode = currentNode.next</span><br><span class="line">      }</span><br><span class="line">      currentNode.next = newNode</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    length++</span><br><span class="line">  }  </span><br><span class="line">  <span class="hljs-comment">// 把隊伍前方的元素移除</span></span><br><span class="line">  <span class="hljs-keyword">const</span> shift = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {</span><br><span class="line">      <span class="hljs-keyword">let</span> node = head</span><br><span class="line">      head = <span class="hljs-literal">null</span></span><br><span class="line">      length = <span class="hljs-number">0</span></span><br><span class="line">      <span class="hljs-keyword">return</span> node </span><br><span class="line">    }</span><br><span class="line">    head = head.next</span><br><span class="line">    length--</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> printAll = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) {</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Nothing in this linked list'</span>)</span><br><span class="line">      <span class="hljs-keyword">return</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(currentNode.value)</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    head,</span><br><span class="line">    length,</span><br><span class="line">    push,</span><br><span class="line">    shift,</span><br><span class="line">    printAll</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> myQueue = Queue()</span><br><span class="line">myQueue.push(<span class="hljs-string">'Mike'</span>)</span><br><span class="line">myQueue.push(<span class="hljs-string">'Harry'</span>)</span><br><span class="line">myQueue.push(<span class="hljs-string">'James'</span>)</span><br><span class="line">myQueue.shift()</span><br><span class="line">myQueue.printAll()</span><br></pre></td></tr></tbody></table></figure>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/hash-table/index.js">完整程式碼 - GitHub</a>，可以先 clone 下來，或是跟著下面一步一步建立函式。</p>
+<p>接下來我們會在 Hash Table 中建立幾個方法，讓我們可以 set and get。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 內部使用的 hash function</span></span><br><span class="line">hash1</span><br><span class="line">hash2</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 對外暴露的方法：設定、取得、印出</span></span><br><span class="line">set,</span><br><span class="line">get,</span><br><span class="line">printAll,</span><br></pre></td></tr></tbody></table></figure>
 
-<blockquote>
-<p>印出結果：<br>Harry<br>James</p>
-</blockquote>
-<h3 id="Queue-觀念練習題"><a href="#Queue-觀念練習題" class="headerlink" title="Queue 觀念練習題"></a>Queue 觀念練習題</h3><p>以下會提供一系列的運算，請試著回答問題：</p>
-<ol>
-<li>當題目的運算都結束後，queue 內還有幾個項目？</li>
-<li>queue 的尾巴（tail）是什麼？</li>
-<li>queue 的頭（head）是什麼？</li>
-</ol>
-<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">enqueue pencil</span><br><span class="line">enqueue pen</span><br><span class="line">enqueue stapler</span><br><span class="line">enqueue phone</span><br><span class="line">dequeue </span><br><span class="line">dequeue </span><br><span class="line">enqueue tablet</span><br><span class="line">enqueue notes</span><br><span class="line">dequeue</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>一、初始化 hash table</strong></p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> hashTable = <span class="hljs-function">(<span class="hljs-params">size</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 建立一個 hash table 可以存資料</span></span><br><span class="line">  <span class="hljs-keyword">let</span> table = [];</span><br><span class="line">  <span class="hljs-comment">// 先根據 hash table 的長度來將建立二維陣列，方便處理衝突的情況。</span></span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) table.push([]);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<h4 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h4><blockquote>
-<p>最後 stack 會剩下三個元素</p>
-<p>(tail) notes tablet phone (head)</p>
+<p><strong>二、實作第一個 hash 方法：division method</strong></p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> hash1 = <span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> key % size</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>三、實作第二個 hash 方法：multiplication method</strong></p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> hash2 = <span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> {</span><br><span class="line">  A = (<span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">5</span>) - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span></span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.floor(size * ((key * A) % <span class="hljs-number">1</span>))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>四、set 將資料存進 hash table</strong></p>
+<p>需傳入 key 與 value，KEY 經過 hash 之後生成 index，把 value 存在 table[index] 中。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> set = <span class="hljs-function">(<span class="hljs-params">key, value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> index = hash2(key)</span><br><span class="line">  table[index].push({key, value})</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>五、get 取得值</strong></p>
+<p>先將傳入的 key 進行 hash 得到 index，搜尋 table[index]，得到該位置的陣列後，搜尋陣列中相同的 key 值，即可得到該 value。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> get = <span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> index = hash2(key);</span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; table[index].length; i++) {</span><br><span class="line">    <span class="hljs-keyword">if</span> (table[index][i].key === key) <span class="hljs-keyword">return</span> table[index][i]</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>六、印出 hash table</strong></p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> printAll = <span class="hljs-function">() =&gt;</span> { <span class="hljs-built_in">console</span>.log(table) }</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>執行程式碼</strong> </p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 建立一個長度為六的 hash table</span></span><br><span class="line"><span class="hljs-keyword">let</span> myHashTable = hashTable(<span class="hljs-number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 設定四筆資料</span></span><br><span class="line">myHashTable.set(<span class="hljs-number">11424</span>, <span class="hljs-string">'Mike'</span>)</span><br><span class="line">myHashTable.set(<span class="hljs-number">6254</span>, <span class="hljs-string">"James"</span>);</span><br><span class="line">myHashTable.set(<span class="hljs-number">554</span>, <span class="hljs-string">"Kevin"</span>);</span><br><span class="line">myHashTable.set(<span class="hljs-number">4174</span>, <span class="hljs-string">"Drake"</span>);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 取得並印出 id 為 4174 的資料</span></span><br><span class="line"><span class="hljs-built_in">console</span>.log(myHashTable.get(<span class="hljs-number">4174</span>))</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 印出 hash table</span></span><br><span class="line">myHashTable.printAll()</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="output"><a href="#output" class="headerlink" title="output"></a><strong>output</strong></h4><figure class="highlight json hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">{ key: <span class="hljs-number">4174</span>, value: 'Drake' }</span><br><span class="line">[</span><br><span class="line">  [],</span><br><span class="line">  [ { key: <span class="hljs-number">6254</span>, value: 'James' } ],</span><br><span class="line">  [ { key: <span class="hljs-number">11424</span>, value: 'Mike' }, { key: <span class="hljs-number">554</span>, value: 'Kevin' } ],</span><br><span class="line">  [],</span><br><span class="line">  [ { key: <span class="hljs-number">4174</span>, value: 'Drake' } ],</span><br><span class="line">  []</span><br><span class="line">]</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h3 id="當-hash-function-中的-Key-不是數字"><a href="#當-hash-function-中的-Key-不是數字" class="headerlink" title="當 hash function 中的 Key 不是數字"></a>當 hash function 中的 Key 不是數字</h3><p>前面實作了簡單的 hash table，但實際中我們的 key 並不會都只是單純的數字，有各種形態，像是字串，如顏色表：</p>
+<table>
+<thead>
+<tr>
+<th>敘述</th>
+<th>hex</th>
+<th>rgb</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>white</td>
+<td>#FFFFFF</td>
+<td>rgb(255, 255, 255)</td>
+</tr>
+<tr>
+<td>red</td>
+<td>#FF0000</td>
+<td>rgb(255, 0, 0)</td>
+</tr>
+<tr>
+<td>magenta</td>
+<td>#FF00FF</td>
+<td>rgb(255, 0, 255)</td>
+</tr>
+</tbody></table>
+<p>不知道大家在撰寫樣式的時候有沒有用過這種寫法：<code>color: white</code>，用敘述的方式讓顏色指定為白色，非常的方便，讓我們不需要去記 hex 的色票。</p>
+<p>但瀏覽器是如何知道 <code>color: white</code>，是要將顏色指向 <code>#FFFFFF</code>的呢？</p>
+<p>想像一下瀏覽器在資料庫內存了一個 table 記錄對應的： <code>敘述</code>、<code>hex</code>、<code>rgb</code>。</p>
+<p>當我們使用 <code>color: white</code> 的語法，瀏覽器就會去撈資料庫的資料，找到相對應的 hex 是 <code>#FFFFFF</code>。</p>
+<p>但是會遇到一個問題，之前都是使用 <code>number</code> 的型態當作 key 來進行 hash，如：<code>id: 571</code> =&gt; <code>id: 5</code>，但在上面的情況中，沒有數字可以直接使用，那我們要用什麼當作 key 來進行 hash 呢？</p>
+<blockquote>
+<p>把字串轉換成數字</p>
 </blockquote>
-<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3 個</span><br><span class="line">notes</span><br><span class="line">phone</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="LeetCode-練習題"><a href="#LeetCode-練習題" class="headerlink" title="LeetCode 練習題"></a>LeetCode 練習題</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-stack-using-queues/">225. Implement Stack using Queues</a></p>
-<h3 id="補充：Dequeue-雙向佇列"><a href="#補充：Dequeue-雙向佇列" class="headerlink" title="補充：Dequeue 雙向佇列"></a>補充：Dequeue 雙向佇列</h3><p>也可以寫作 deque，雙向佇列（<code>doubled-ended queue</code>），也是 statck 與 queue 的綜合體。</p>
-<h4 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h4><ul>
-<li>前後都可以新增元素</li>
-<li>前後都可以移除元素</li>
-</ul>
-</body></html>
+<p>我們可以把字串先轉成數字再進行 set，可以採用各種不同的方法</p>
+<p><strong>1. 把字串的長度當成 key：</strong></p>
+<p>是最簡單的方法，但不是很好的做法因為很容易發生衝突。</p>
+<p><strong>2. 將字串轉為 ASCII</strong></p>
+<p>把字串個別轉成 ASCII 並且相加。</p>
+<p><strong>3. 任何你想得到的組合算法</strong></p>
+<p>調換字串的位置，ASCII、相乘、相加、相除 …等等。</p>
+<h3 id="實作第二個方法-將字串轉為-ASCII"><a href="#實作第二個方法-將字串轉為-ASCII" class="headerlink" title="實作第二個方法: 將字串轉為 ASCII"></a>實作第二個方法: 將字串轉為 ASCII</h3><p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/hash-table/parse-non-number-version.js">完整程式碼 - GitHub</a></p>
+<p>延續上一個 hash table 的程式碼，新增一個 parse 方法。</p>
+<p><strong>一、parse 把字串型態的 key 轉換成 ASCII 並相加</strong></p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> parse = <span class="hljs-function">(<span class="hljs-params">str</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>;</span><br><span class="line">  <span class="hljs-keyword">for</span> (char <span class="hljs-keyword">of</span> str) sum += char.charCodeAt();</span><br><span class="line">  <span class="hljs-keyword">return</span> sum % size;</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>二、hash function 多判斷型別</strong></p>
+<p>若非數字型別則使用 parse 解析為數字，再進行 hash。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> hash2 = <span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> parseKey;</span><br><span class="line">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> key !== <span class="hljs-string">"number"</span>) parseKey = parse(key);</span><br><span class="line">  <span class="hljs-keyword">else</span> parseKey = key;</span><br><span class="line"></span><br><span class="line">  A = (<span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">5</span>) - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.floor(size * ((parseKey * A) % <span class="hljs-number">1</span>));</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure></body></html>
     
     </div>
     
@@ -186,9 +225,9 @@
         
         <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/2/">2</a></li>
         
-        <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/3/">3</a></li>
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/4/">4</a></li>
+        <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/7/">7</a></li>
         
     </ul>
 </nav>
