@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>文章列表: 2022 - Rock070 Blog</title>
+<title>Hash Table（三）什麼是 Hash Table 雜湊表？ - Rock070 Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -89,45 +89,97 @@
 
     <section class="section">
     <div class="container">
-    
-    
-        <div class="archive content">
-            <h4 class="title is-4" id="2022">2022</h4>
-            <div class="articles">
+      <div data-nosnippet style="margin-bottom: 1rem; padding: 12px 24px; border-radius: 12px; background:#ffe4c4; display: none;">
+        我最近正好奇著大家讀完我的技術文章後的感想，有空的話可以幫我填一下：<a href="https://forms.gle/QuTY9yvKK3KRiGDj6" target="_blank">表單連結</a>
+      </div>
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Hash Table（三）什麼是 Hash Table 雜湊表？
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2022-04-25T16:12:23.000Z" itemprop="datePublished">2022年4月26日</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/blog.rock070/categories/data-structure/">data structure</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
             
-                <div class="article content flexbox">
-                    <time class="is-text-small monospace mr1" datetime="2022-04-25T16:12:23.000Z" itemprop="datePublished">
-                        04月26日</time>
-                    <h6 class="title is-6"><a href="/blog.rock070/2022/04/26/hash-table-4/">Hash Table（三）什麼是 Hash Table 雜湊表？</a></h6>
-                </div>
             
-            </div>
-        </div>
-    
-    
-    
-<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-    <div class="pagination-previous">
-        <a href="/blog.rock070/archives/2022/">上一頁</a>
+            1 分钟 讀完 (約 178 字)
+        </span>
+        
     </div>
-    <div class="pagination-next">
-        <a href="/blog.rock070/archives/2022/3/">下一頁</a>
-    </div>
-    <ul class="pagination-list is-hidden-mobile">
-        
-        <li><a class="pagination-link" href="/blog.rock070/archives/2022/">1</a></li>
-        
-        <li><a class="pagination-link is-current" href="/blog.rock070/archives/2022/2/">2</a></li>
-        
-        <li><a class="pagination-link" href="/blog.rock070/archives/2022/3/">3</a></li>
-        
-        <li><span class="pagination-ellipsis">&hellip;</span></li>
-        
-        <li><a class="pagination-link" href="/blog.rock070/archives/2022/9/">9</a></li>
-        
-    </ul>
-</nav>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
+        <html><head></head><body><p><img src="https://assets.matters.news/embed/2e178023-5650-4453-8199-bbb80a1e5a91.png"></p>
+<ul>
+<li>Hash Table 是一個陣列，陣列中每個元素都是一個 bucket。</li>
+<li>選出每筆資料都有的一個值當作 key（如姓名、編號），經過 <code>hash</code> 函式後可以得到索引，藉此知道資料要放在 Hash Table 中哪個 bucket 中。</li>
+<li>若遍歷原始資料 hash 過後，得到重覆的索引，就稱作衝突，可以用 Array 或是 Linked List 的結構讓資料共存在 bucket 內。</li>
+<li>公開的方法：set、get、delete</li>
+<li>私有的方法：hash</li>
+</ul>
+<p>時間複雜度</p>
+<ul>
+<li>set：O(1)</li>
+<li>Delete: O(1)</li>
+<li>get: O(1)：能夠透過 hash function 直接找出該 key 對應的 bucket</li>
+</ul>
+</body></html>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/blog.rock070/2022/04/26/hash-table-3/">Hash Table（四）實作一個 Hash Table</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/blog.rock070/2022/04/25/hash-table-2/">Hash Table（二）Hash Function 雜湊法？</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">評論</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://rock070.github.io/blog.rock070/2022/04/26/hash-table-4/';
+        this.page.identifier = '2022/04/26/hash-table-4/';
+        
+        this.language = 'zh';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'blog-rock070' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
     </div>
 </section>
     <footer class="footer">
