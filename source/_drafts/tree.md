@@ -26,8 +26,7 @@ use queue
 
 ### Depth-First Tree Traversal（深度優先）
 
-
-Pre-Order 
+#### Pre-Order 
 
 處理根節點後，透過遞迴的方式處理所有的子樹(subtree)，直到遍歷所有的節點。
 
@@ -38,10 +37,24 @@ Pre-Order
   5, 11, 5,  9, 4
 ]
 
-In-Order 
+![](https://upload.wikimedia.org/wikipedia/commons/a/ac/Preorder-traversal.gif)
+![](https://i.imgur.com/9nPCdFX.png)
+
+#### In-Order 
+
+![](https://i.imgur.com/RR8U5me.png)
+![](https://upload.wikimedia.org/wikipedia/commons/4/48/Inorder-traversal.gif)
 
 原則：left, root, right
 
 [
   2, 7, 10, 5, 6, 11, 2, 4, 9, 5
 ]
+
+#### Post-Order
+
+原則：left, right, root
+
+![](https://upload.wikimedia.org/wikipedia/commons/2/28/Postorder-traversal.gif)
+
+![](https://i.imgur.com/fTmIINn.png)

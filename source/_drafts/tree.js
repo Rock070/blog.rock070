@@ -1,6 +1,6 @@
 // const Queue = () => {
-//   let list = []
-//   let add = value => list.push(value)
+  //   let add = value => list.push(value)
+  //   let list = []
 
 //   return {
 //     add,
@@ -16,7 +16,7 @@
 //     myQueue.add()
 //   }
 // }
-[2, 7, 2, 10, 6, 5, 11, 5, 9, 4]
+// [2, 7, 2, 10, 6, 5, 11, 5, 9, 4]
 
 const tree = {
   value: 2,
@@ -83,21 +83,17 @@ const tree = {
 
 // let result = preOrder(tree)
 // console.log(result)
-
-const InOrder = (root) => {
+const InOrder = root => {
   let queue = [];
 
   const traversal = (node) => {
     if (node.children !== null) {
       for (let i = 0; i < node.children.length; i++) {
         traversal(node.children[i]);
-        if (i === 0) {
-          queue.concat([node.children[i], node.value]); 
-        }
-        if (i === node.children.length - 1) queue.push(node.children[i])
+        if (node.children[i].children === null) queue.push(node.children[i].value);
+
+        if (i === 0) queue.push(node.value);
       }
-    } else {
-      queue.push(node.value);
     }
   };
 
@@ -108,6 +104,27 @@ const InOrder = (root) => {
 
 let result = InOrder(tree);
 console.log(result);
+[2, 7, 10, 5, 6, 11, 2, 4, 9, 5];
 
+// const PostOrder = root => {
+//   let queue = [];
 
+//   const traversal = (node) => {
+//     if (node.children !== null) {
+//       for (let i = 0; i < node.children.length; i++) {
+//         let temp = JSON.parse(JSON.stringify(node.children[i]))
+//         traversal(temp);
+//       }
+//     }
 
+//     queue.push(node.value);
+//   };
+
+//   traversal(root);
+
+//   return queue;
+// };
+
+// let result = PostOrder(tree);
+// console.log(result);
+// // [2, 7, 10, 5, 6, 11, 2, 4, 9, 5];
