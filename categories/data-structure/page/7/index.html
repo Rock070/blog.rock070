@@ -100,12 +100,12 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/blog.rock070/2022/04/21/doubly-linked-list/" itemprop="url">Doubly Linked List（雙向連結串列）</a>
+            <a href="/blog.rock070/2022/04/21/queue/" itemprop="url">Queue 列隊</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2022-04-20T16:21:50.000Z" itemprop="datePublished">2022年4月21日</time>
+            <time datetime="2022-04-21T15:08:41.000Z" itemprop="datePublished">2022年4月21日</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -117,28 +117,49 @@
         <span class="column is-narrow">
             
             
-            1 分钟 讀完 (約 167 字)
+            3 分钟 讀完 (約 498 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><p>在 <a href="https://rock070.github.io/blog.rock070/2022/04/20/linked-list/">singly linked list</a> 的基礎上，做一些變更：</p>
+        <html><head></head><body><p><img src="https://i.imgur.com/d16YhEr.png"></p>
+<p><code>跟買電影票一樣，後來的人會排在隊伍後面，先買到票的人，會先離開。</code></p>
+<h5 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h5><ul>
+<li>先進先出 FIFO(first in first out)，跟排隊買電影票的概念一樣。</li>
+<li>元素沒有 index。</li>
+<li>元素的新增只能從 queue 的後方。</li>
+<li>元素的移除只能從 queue 的前方。</li>
+<li><code>enqueue</code> 意思是新增項目進 queue，<code>dequeue</code> 意思是移除 queue 內的項目。</li>
+</ul>
+<h2 id="使用-Linked-List-實作-Stack"><a href="#使用-Linked-List-實作-Stack" class="headerlink" title="使用 Linked List 實作 Stack"></a>使用 Linked List 實作 Stack</h2><p>在 Queue 的概念中，我們建立的 Linked List 只能使用 <code>push</code>, <code>shift</code> 方法，不能使用 <code>shift</code>, <code>unshift</code>, <code>insertAt</code>, <code>removeAt</code>。</p>
+<blockquote>
+<p>要實作的方法：<br>push：在隊伍後方新增元素<br>shift：把隊伍前方的元素移除</p>
+</blockquote>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Node = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    value,</span><br><span class="line">    <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> Queue = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> head = <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">let</span> length = <span class="hljs-number">0</span></span><br><span class="line">  <span class="hljs-comment">// 在隊伍後方新增元素</span></span><br><span class="line">  <span class="hljs-keyword">const</span> push = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> { </span><br><span class="line">    <span class="hljs-keyword">let</span> newNode = Node(value)</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) head = newNode</span><br><span class="line">    <span class="hljs-keyword">else</span> {</span><br><span class="line">      <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">      <span class="hljs-keyword">while</span> (currentNode.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">        currentNode = currentNode.next</span><br><span class="line">      }</span><br><span class="line">      currentNode.next = newNode</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    length++</span><br><span class="line">  }  </span><br><span class="line">  <span class="hljs-comment">// 把隊伍前方的元素移除</span></span><br><span class="line">  <span class="hljs-keyword">const</span> shift = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {</span><br><span class="line">      <span class="hljs-keyword">let</span> node = head</span><br><span class="line">      head = <span class="hljs-literal">null</span></span><br><span class="line">      length = <span class="hljs-number">0</span></span><br><span class="line">      <span class="hljs-keyword">return</span> node </span><br><span class="line">    }</span><br><span class="line">    head = head.next</span><br><span class="line">    length--</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> printAll = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) {</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Nothing in this linked list'</span>)</span><br><span class="line">      <span class="hljs-keyword">return</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(currentNode.value)</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    head,</span><br><span class="line">    length,</span><br><span class="line">    push,</span><br><span class="line">    shift,</span><br><span class="line">    printAll</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> myQueue = Queue()</span><br><span class="line">myQueue.push(<span class="hljs-string">'Mike'</span>)</span><br><span class="line">myQueue.push(<span class="hljs-string">'Harry'</span>)</span><br><span class="line">myQueue.push(<span class="hljs-string">'James'</span>)</span><br><span class="line">myQueue.shift()</span><br><span class="line">myQueue.printAll()</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>印出結果：<br>Harry<br>James</p>
+</blockquote>
+<h3 id="Queue-觀念練習題"><a href="#Queue-觀念練習題" class="headerlink" title="Queue 觀念練習題"></a>Queue 觀念練習題</h3><p>以下會提供一系列的運算，請試著回答問題：</p>
 <ol>
-<li>每個節點都新增一個 prev 屬性，指向上一個節點，第一個節點的 prev 指向 null。</li>
-<li>Linked List 屬性新增 tail 指向最後一個節點。</li>
+<li>當題目的運算都結束後，queue 內還有幾個項目？</li>
+<li>queue 的尾巴（tail）是什麼？</li>
+<li>queue 的頭（head）是什麼？</li>
 </ol>
-<p><img src="https://i.imgur.com/RNy8pQg.png"></p>
-<h3 id="相對於-singly-linked-list-的優缺點"><a href="#相對於-singly-linked-list-的優缺點" class="headerlink" title="相對於 singly linked list 的優缺點"></a>相對於 singly linked list 的優缺點</h3><p>優點</p>
-<ul>
-<li>可以簡單地做到反向存取，從尾巴的節點開始取值</li>
-<li>因為可以反向存去的關係，時間複雜度較 singly linked list 少一半</li>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">enqueue pencil</span><br><span class="line">enqueue pen</span><br><span class="line">enqueue stapler</span><br><span class="line">enqueue phone</span><br><span class="line">dequeue </span><br><span class="line">dequeue </span><br><span class="line">enqueue tablet</span><br><span class="line">enqueue notes</span><br><span class="line">dequeue</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h4><blockquote>
+<p>最後 stack 會剩下三個元素</p>
+<p>(tail) notes tablet phone (head)</p>
+</blockquote>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3 個</span><br><span class="line">notes</span><br><span class="line">phone</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="LeetCode-練習題"><a href="#LeetCode-練習題" class="headerlink" title="LeetCode 練習題"></a>LeetCode 練習題</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-stack-using-queues/">225. Implement Stack using Queues</a></p>
+<h3 id="補充：Dequeue-雙向佇列"><a href="#補充：Dequeue-雙向佇列" class="headerlink" title="補充：Dequeue 雙向佇列"></a>補充：Dequeue 雙向佇列</h3><p>也可以寫作 deque，雙向佇列（<code>doubled-ended queue</code>），也是 statck 與 queue 的綜合體。</p>
+<h4 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h4><ul>
+<li>前後都可以新增元素</li>
+<li>前後都可以移除元素</li>
 </ul>
-<p>缺點</p>
-<ul>
-<li>要花更多的記憶體空間</li>
-</ul>
-<h2 id="leetcode-練習"><a href="#leetcode-練習" class="headerlink" title="leetcode 練習"></a>leetcode 練習</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/">430. Flatten a Multilevel Doubly Linked List</a></p>
 </body></html>
     
     </div>
@@ -170,6 +191,10 @@
         <li><a class="pagination-link is-current" href="/blog.rock070/categories/data-structure/7/">7</a></li>
         
         <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/8/">8</a></li>
+        
+        <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/9/">9</a></li>
+        
+        <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/10/">10</a></li>
         
     </ul>
 </nav>

@@ -93,12 +93,12 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/blog.rock070/2022/04/26/hash-table-3/" itemprop="url">Hash Table（四）實作一個 Hash Table</a>
+            <a href="/blog.rock070/2022/04/27/tree-traversal/" itemprop="url">樹的走訪：寬度優先走訪（BFS）、深度優先走訪（DFS）</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2022-04-25T16:12:24.000Z" itemprop="datePublished">2022年4月26日</time>
+            <time datetime="2022-04-27T15:17:41.000Z" itemprop="datePublished">2022年4月27日</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -110,89 +110,53 @@
         <span class="column is-narrow">
             
             
-            7 分钟 讀完 (約 975 字)
+            8 分钟 讀完 (約 1130 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/hash-table/index.js">完整程式碼 - GitHub</a>，可以先 clone 下來，或是跟著下面一步一步建立函式。</p>
-<p>接下來我們會在 Hash Table 中建立幾個方法，讓我們可以 set and get。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 內部使用的 hash function</span></span><br><span class="line">hash1</span><br><span class="line">hash2</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 對外暴露的方法：設定、取得、印出</span></span><br><span class="line">set,</span><br><span class="line">get,</span><br><span class="line">printAll,</span><br></pre></td></tr></tbody></table></figure>
+        <html><head></head><body><p>走訪的意思是，從根節點開始，逐個走訪各個節點，不同的拜訪順序，在程式碼的實作有很大的落差。</p>
+<p>依照走訪原則，可以分為兩種：</p>
+<ol>
+<li>寬度優先走訪 Breadth-First Tree Traversal</li>
+<li>深度優先走訪 Depth-First Tree Traversal(PreOrder, InOrder, PostOrder)</li>
+</ol>
+<h3 id="一、寬度優先走訪-Breadth-First-Tree-Traversal"><a href="#一、寬度優先走訪-Breadth-First-Tree-Traversal" class="headerlink" title="一、寬度優先走訪 Breadth-First Tree Traversal"></a><strong>一、寬度優先走訪 Breadth-First Tree Traversal</strong></h3><p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--1Aaplbiq--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://miro.medium.com/max/1400/1%2A3NKvODZparRFVKEwtVmrkw.gif"></p>
+<p>寬度優先的概念其實很簡單，從根開始，同一層都先走訪完之後，再進入下一層：如圖：level 1 的 1 開始，走訪完後進入 level 2 走訪 2, 3，再進入 level 走訪 4, 5, 6, 7。</p>
+<p><img src="https://i.imgur.com/lNZAO62.png"></p>
+<p>以上圖為例，這個樹狀圖有四層，分別為<br>第一層: 2<br>第二層: 7, 5<br>第三層: 2, 10, 6, 9<br>第四層: 5, 11, 4</p>
+<p>走訪的順序就會是： [ 2, 7, 5, 2, 10, 6, 9, 2, 11, 4 ]</p>
+<h4 id="用-JavaScript-實作寬度優先走訪"><a href="#用-JavaScript-實作寬度優先走訪" class="headerlink" title="用 JavaScript 實作寬度優先走訪"></a>用 JavaScript 實作寬度優先走訪</h4><p>實作一個 <code>BFTT</code> 函式，input 為 <code>Tree</code>，output 為依照 <code>寬度優先走訪</code> 的順序組成 <code>result</code> 陣列。</p>
+<p>有一個 Tree，每個節點都叫做 <code>TreeNode</code>，<code>TreeNode</code> 有兩個屬性 <code>value</code> 與 <code>children</code>，value 為數字，children 為 <code>TreeNode</code> 陣列或是 <code>null</code>。</p>
+<h5 id="Tree-Node-型別"><a href="#Tree-Node-型別" class="headerlink" title="Tree Node 型別"></a>Tree Node 型別</h5><figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@typedef <span class="hljs-type">{ Object }</span> <span class="hljs-variable">TreeNode</span></span></span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@property <span class="hljs-type">{ number }</span> <span class="hljs-variable">value</span></span></span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@property <span class="hljs-type">{ Array[TreeNode] | null }</span></span></span></span><br><span class="line"><span class="hljs-comment"> * /</span></span><br></pre></td></tr></tbody></table></figure>
 
-<p><strong>一、初始化 hash table</strong></p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> hashTable = <span class="hljs-function">(<span class="hljs-params">size</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 建立一個 hash table 可以存資料</span></span><br><span class="line">  <span class="hljs-keyword">let</span> table = [];</span><br><span class="line">  <span class="hljs-comment">// 先根據 hash table 的長度來將建立二維陣列，方便處理衝突的情況。</span></span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) table.push([]);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h5><figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> tree = {</span><br><span class="line">  <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>,</span><br><span class="line">  <span class="hljs-attr">children</span>: [</span><br><span class="line">    { </span><br><span class="line">      <span class="hljs-attr">value</span>: <span class="hljs-number">7</span>,</span><br><span class="line">      <span class="hljs-attr">children</span>: [</span><br><span class="line">        { <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">        { <span class="hljs-attr">value</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">        {</span><br><span class="line">          <span class="hljs-attr">value</span>: <span class="hljs-number">6</span>,</span><br><span class="line">          <span class="hljs-attr">children</span>: [</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">11</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">          ],</span><br><span class="line">        },</span><br><span class="line">      ],</span><br><span class="line">    },</span><br><span class="line">    {</span><br><span class="line">      <span class="hljs-attr">value</span>: <span class="hljs-number">5</span>,</span><br><span class="line">      <span class="hljs-attr">children</span>: [</span><br><span class="line">        {</span><br><span class="line">          <span class="hljs-attr">value</span>: <span class="hljs-number">9</span>,</span><br><span class="line">          <span class="hljs-attr">children</span>: [</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> }</span><br><span class="line">          ],</span><br><span class="line">        },</span><br><span class="line">      ],</span><br><span class="line">    },</span><br><span class="line">  ],</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
 
-<p><strong>二、實作第一個 hash 方法：division method</strong></p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> hash1 = <span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> key % size</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>一層層遍歷 children，存進 queue，然後依照 <code>queue 的特性：先進先出</code>，從 queue 內排序第一的開始處理，處理完則離開 queue。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/tree/master/data-structure/tree/BFS">完成程式碼 - GitHub</a></p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> BFTT = <span class="hljs-function"><span class="hljs-params">root</span> =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = []</span><br><span class="line">  <span class="hljs-keyword">let</span> queue = []</span><br><span class="line"></span><br><span class="line">  queue.push(root)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> traversal = <span class="hljs-function">(<span class="hljs-params">tree</span>) =&gt;</span> {</span><br><span class="line">    result.push(tree.value)</span><br><span class="line">    <span class="hljs-keyword">let</span> subTree = tree.children</span><br><span class="line">    <span class="hljs-keyword">if</span> (subTree) {</span><br><span class="line">      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; subTree.length; i++) {</span><br><span class="line">        queue.push(subTree[i]);</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="hljs-keyword">while</span> (queue.length !== <span class="hljs-number">0</span>) {</span><br><span class="line">    traversal(queue[<span class="hljs-number">0</span>]);</span><br><span class="line">    queue.shift()</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> result</span><br><span class="line">}</span><br><span class="line"><span class="hljs-keyword">let</span> result = BFTT(tree);</span><br><span class="line"><span class="hljs-built_in">console</span>.log(result)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// [2, 7, 5, 2, 10, 6, 9, 2, 11, 4];</span></span><br></pre></td></tr></tbody></table></figure>
 
-<p><strong>三、實作第二個 hash 方法：multiplication method</strong></p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> hash2 = <span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> {</span><br><span class="line">  A = (<span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">5</span>) - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span></span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.floor(size * ((key * A) % <span class="hljs-number">1</span>))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="二、Depth-First-Tree-Traversal（深度優先走訪）"><a href="#二、Depth-First-Tree-Traversal（深度優先走訪）" class="headerlink" title="二、Depth-First Tree Traversal（深度優先走訪）"></a><strong>二、Depth-First Tree Traversal（深度優先走訪）</strong></h3><p><code>深度優先走訪</code> 根據每個 <code>subTree</code> 的走訪順序，又可以區分為三種：<code>Pre-Order</code>、<code>In-Order</code>、<code>Post-Order</code>。</p>
+<h4 id="1-Pre-Order"><a href="#1-Pre-Order" class="headerlink" title="1. Pre-Order"></a><strong>1. Pre-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Preorder-traversal.gif"><br>先遇到的節點先處理。</p>
+<p>順序：root, left, right</p>
+<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若顯示紅色則為無法再走下去的情況，這時就會則回到上一層繼續走訪，直到沒辦法再繼續下去。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/pre-order-binary.js">完整程式碼 - GitHub</a></p>
+<p>實作方法：先遇到的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> preOrder = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {</span><br><span class="line">    result.push(node.value);</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left)</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right);</span><br><span class="line">  };</span><br><span class="line"></span><br><span class="line">  traversal(root);</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> result;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// PreOrder: ["F", "B", "A", "D", "C", "E", "G", "I", "H"]</span></span><br></pre></td></tr></tbody></table></figure>
 
-<p><strong>四、set 將資料存進 hash table</strong></p>
-<p>需傳入 key 與 value，KEY 經過 hash 之後生成 index，把 value 存在 table[index] 中。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> set = <span class="hljs-function">(<span class="hljs-params">key, value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> index = hash2(key)</span><br><span class="line">  table[index].push({key, value})</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>五、get 取得值</strong></p>
-<p>先將傳入的 key 進行 hash 得到 index，搜尋 table[index]，得到該位置的陣列後，搜尋陣列中相同的 key 值，即可得到該 value。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> get = <span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> index = hash2(key);</span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; table[index].length; i++) {</span><br><span class="line">    <span class="hljs-keyword">if</span> (table[index][i].key === key) <span class="hljs-keyword">return</span> table[index][i]</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>六、印出 hash table</strong></p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> printAll = <span class="hljs-function">() =&gt;</span> { <span class="hljs-built_in">console</span>.log(table) }</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>執行程式碼</strong> </p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 建立一個長度為六的 hash table</span></span><br><span class="line"><span class="hljs-keyword">let</span> myHashTable = hashTable(<span class="hljs-number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 設定四筆資料</span></span><br><span class="line">myHashTable.set(<span class="hljs-number">11424</span>, <span class="hljs-string">'Mike'</span>)</span><br><span class="line">myHashTable.set(<span class="hljs-number">6254</span>, <span class="hljs-string">"James"</span>);</span><br><span class="line">myHashTable.set(<span class="hljs-number">554</span>, <span class="hljs-string">"Kevin"</span>);</span><br><span class="line">myHashTable.set(<span class="hljs-number">4174</span>, <span class="hljs-string">"Drake"</span>);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 取得並印出 id 為 4174 的資料</span></span><br><span class="line"><span class="hljs-built_in">console</span>.log(myHashTable.get(<span class="hljs-number">4174</span>))</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 印出 hash table</span></span><br><span class="line">myHashTable.printAll()</span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="output"><a href="#output" class="headerlink" title="output"></a><strong>output</strong></h4><figure class="highlight json hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">{ key: <span class="hljs-number">4174</span>, value: 'Drake' }</span><br><span class="line">[</span><br><span class="line">  [],</span><br><span class="line">  [ { key: <span class="hljs-number">6254</span>, value: 'James' } ],</span><br><span class="line">  [ { key: <span class="hljs-number">11424</span>, value: 'Mike' }, { key: <span class="hljs-number">554</span>, value: 'Kevin' } ],</span><br><span class="line">  [],</span><br><span class="line">  [ { key: <span class="hljs-number">4174</span>, value: 'Drake' } ],</span><br><span class="line">  []</span><br><span class="line">]</span><br></pre></td></tr></tbody></table></figure>
-
-<hr>
-<h3 id="當-hash-function-中的-Key-不是數字"><a href="#當-hash-function-中的-Key-不是數字" class="headerlink" title="當 hash function 中的 Key 不是數字"></a>當 hash function 中的 Key 不是數字</h3><p>前面實作了簡單的 hash table，但實際中我們的 key 並不會都只是單純的數字，有各種形態，像是字串，如顏色表：</p>
-<table>
-<thead>
-<tr>
-<th>敘述</th>
-<th>hex</th>
-<th>rgb</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>white</td>
-<td>#FFFFFF</td>
-<td>rgb(255, 255, 255)</td>
-</tr>
-<tr>
-<td>red</td>
-<td>#FF0000</td>
-<td>rgb(255, 0, 0)</td>
-</tr>
-<tr>
-<td>magenta</td>
-<td>#FF00FF</td>
-<td>rgb(255, 0, 255)</td>
-</tr>
-</tbody></table>
-<p>不知道大家在撰寫樣式的時候有沒有用過這種寫法：<code>color: white</code>，用敘述的方式讓顏色指定為白色，非常的方便，讓我們不需要去記 hex 的色票。</p>
-<p>但瀏覽器是如何知道 <code>color: white</code>，是要將顏色指向 <code>#FFFFFF</code>的呢？</p>
-<p>想像一下瀏覽器在資料庫內存了一個 table 記錄對應的： <code>敘述</code>、<code>hex</code>、<code>rgb</code>。</p>
-<p>當我們使用 <code>color: white</code> 的語法，瀏覽器就會去撈資料庫的資料，找到相對應的 hex 是 <code>#FFFFFF</code>。</p>
-<p>但是會遇到一個問題，之前都是使用 <code>number</code> 的型態當作 key 來進行 hash，如：<code>id: 571</code> =&gt; <code>id: 5</code>，但在上面的情況中，沒有數字可以直接使用，那我們要用什麼當作 key 來進行 hash 呢？</p>
-<blockquote>
-<p>把字串轉換成數字</p>
-</blockquote>
-<p>我們可以把字串先轉成數字再進行 set，可以採用各種不同的方法</p>
-<p><strong>1. 把字串的長度當成 key：</strong></p>
-<p>是最簡單的方法，但不是很好的做法因為很容易發生衝突。</p>
-<p><strong>2. 將字串轉為 ASCII</strong></p>
-<p>把字串個別轉成 ASCII 並且相加。</p>
-<p><strong>3. 任何你想得到的組合算法</strong></p>
-<p>調換字串的位置，ASCII、相乘、相加、相除 …等等。</p>
-<h3 id="實作第二個方法-將字串轉為-ASCII"><a href="#實作第二個方法-將字串轉為-ASCII" class="headerlink" title="實作第二個方法: 將字串轉為 ASCII"></a>實作第二個方法: 將字串轉為 ASCII</h3><p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/hash-table/parse-non-number-version.js">完整程式碼 - GitHub</a></p>
-<p>延續上一個 hash table 的程式碼，新增一個 parse 方法。</p>
-<p><strong>一、parse 把字串型態的 key 轉換成 ASCII 並相加</strong></p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> parse = <span class="hljs-function">(<span class="hljs-params">str</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>;</span><br><span class="line">  <span class="hljs-keyword">for</span> (char <span class="hljs-keyword">of</span> str) sum += char.charCodeAt();</span><br><span class="line">  <span class="hljs-keyword">return</span> sum % size;</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>二、hash function 多判斷型別</strong></p>
-<p>若非數字型別則使用 parse 解析為數字，再進行 hash。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> hash2 = <span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> parseKey;</span><br><span class="line">  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> key !== <span class="hljs-string">"number"</span>) parseKey = parse(key);</span><br><span class="line">  <span class="hljs-keyword">else</span> parseKey = key;</span><br><span class="line"></span><br><span class="line">  A = (<span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">5</span>) - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.floor(size * ((parseKey * A) % <span class="hljs-number">1</span>));</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure></body></html>
+<h4 id="2-In-Order"><a href="#2-In-Order" class="headerlink" title="2. In-Order"></a><strong>2. In-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Inorder-traversal.gif"></p>
+<p>順序： left, root, right</p>
+<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若該節點為目前最左邊的節點，則推入 <code>Inorder</code> 陣列中；若顯示紅色則為無法再走下去的情況，這時就會則繼續尋找最左邊的節點，直到沒辦法再繼續下去。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/in-order-binary.js">完整程式碼 - GitHub</a></p>
+<p>實作方法：越左的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> InOrder = <span class="hljs-function"><span class="hljs-params">root</span> =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function"><span class="hljs-params">node</span> =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left)</span><br><span class="line">    result.push(node.value)</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right)</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  traversal(root)</span><br><span class="line">  <span class="hljs-keyword">return</span> result</span><br><span class="line">};</span><br><span class="line"><span class="hljs-comment">// // ["A", "B", "C", "D", "E", "F", "G", "H", "I"];</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="3-Post-Order"><a href="#3-Post-Order" class="headerlink" title="3. Post-Order"></a><strong>3. Post-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Postorder-traversal.gif"></p>
+<p>順序：left, root, right</p>
+<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若該節點為目前最左邊的節點，則推入 <code>Postorder</code> 陣列中，若找不到最左節點，就會將右邊的節點推入；若顯示紅色則為無法再走下去的情況，這時就會則繼續尋找，直到沒辦法再繼續下去。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/post-order-binary.js">完整程式碼 - GitHub</a></p>
+<p>實作方法：越左的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> PostOrder = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> queue = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left);</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right);</span><br><span class="line"></span><br><span class="line">    queue.push(node.value);</span><br><span class="line">  };</span><br><span class="line"></span><br><span class="line">  traversal(root);</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> queue;</span><br><span class="line">};</span><br><span class="line"><span class="hljs-comment">// ['A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F']</span></span><br></pre></td></tr></tbody></table></figure></body></html>
     
     </div>
     
@@ -206,12 +170,12 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/blog.rock070/2022/04/26/hash-table-4/" itemprop="url">Hash Table（三）什麼是 Hash Table 雜湊表？</a>
+            <a href="/blog.rock070/2022/04/27/tree/" itemprop="url">Tree 樹</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2022-04-25T16:12:23.000Z" itemprop="datePublished">2022年4月26日</time>
+            <time datetime="2022-04-27T15:16:41.000Z" itemprop="datePublished">2022年4月27日</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -223,25 +187,34 @@
         <span class="column is-narrow">
             
             
-            1 分钟 讀完 (約 178 字)
+            2 分钟 讀完 (約 374 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><p><img src="https://assets.matters.news/embed/2e178023-5650-4453-8199-bbb80a1e5a91.png"></p>
+        <html><head></head><body><p><img src="https://www.geeksforgeeks.org/wp-content/uploads/binary-tree-to-DLL.png"></p>
 <ul>
-<li>Hash Table 是一個陣列，陣列中每個元素都是一個 bucket。</li>
-<li>選出每筆資料都有的一個值當作 key（如姓名、編號），經過 <code>hash</code> 函式後可以得到索引，藉此知道資料要放在 Hash Table 中哪個 bucket 中。</li>
-<li>若遍歷原始資料 hash 過後，得到重覆的索引，就稱作衝突，可以用 Array 或是 Linked List 的結構讓資料共存在 bucket 內。</li>
-<li>公開的方法：set、get、delete</li>
-<li>私有的方法：hash</li>
+<li>Tree 是一種不會循環的 Graph</li>
+<li>Tree 必須有一個唯一的 root</li>
 </ul>
-<p>時間複雜度</p>
+<p>Tree 的應用</p>
 <ul>
-<li>set：O(1)</li>
-<li>Delete: O(1)</li>
-<li>get: O(1)：能夠透過 hash function 直接找出該 key 對應的 bucket</li>
+<li>file system </li>
+</ul>
+<p>檔案系統就是一種樹狀資料結構的應用，同樣可以適用於廣度優先搜尋法與深度優先搜尋法</p>
+<p>下方有 food 根目錄跟 fruit、meat 子目錄與目錄內的 <code>jpg</code> 檔案</p>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">food</span><br><span class="line">  |--- fruit</span><br><span class="line">         |--- apple.jpg</span><br><span class="line">         |--- orange.jpg</span><br><span class="line">  |--- meat</span><br><span class="line">         |--- beef.jpg</span><br><span class="line">         |--- pork.jpg</span><br></pre></td></tr></tbody></table></figure>
+
+<p>若採用 <code>深度優先搜尋法</code>，只要看到目錄就會進入。進入 food 這個根目錄後，看到 <code>fruit</code> 目錄後，會直接進入並看到 <code>apple.jpg</code> 與 <code>orange.jpg</code>。接著再回到上一層，進入 <code>meat</code> 目錄看到 <code>beef.jpg</code> 與 <code>pork.jpg</code></p>
+<p>若採用 <code>廣度優先搜尋法</code>，進入 food 這個根目錄後，會看完所有的目錄，所以會看到 <code>fruit</code> 目錄與 <code>meat</code> 目錄，再來進入 fruit 目錄內，看到 <code>apple.jpg</code> 與 <code>orange.jpg</code> 檔案。接著再回到上一層，進入 <code>meat</code> 目錄看到 <code>beef.jpg</code> 與 <code>pork.jpg</code>。</p>
+<ul>
+<li>DOM (Document Object Model)</li>
+</ul>
+<p><img src="https://i.imgur.com/h0HoGRC.png"></p>
+<p>有接觸過網頁前端開發的人應該都有看過這個模型，是由 W3C 提出的瀏覽器的標準化模型，目前主流的瀏覽器皆已按照此模型設計。</p>
+<h3 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://magiclen.org/dfs-bfs">深度優先搜尋(DFS)和廣度優先搜尋(BFS)演算法，實用的節點搜尋法</a></li>
 </ul>
 </body></html>
     
@@ -271,7 +244,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/blog.rock070/5/">5</a></li>
+        <li><a class="pagination-link" href="/blog.rock070/6/">6</a></li>
         
     </ul>
 </nav>

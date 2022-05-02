@@ -100,12 +100,12 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/blog.rock070/2022/04/21/stack/" itemprop="url">Stack 堆疊</a>
+            <a href="/blog.rock070/2022/04/22/hash-table-1/" itemprop="url">Hash Table（ㄧ）為什麼要有雜湊表？</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2022-04-21T15:07:40.000Z" itemprop="datePublished">2022年4月21日</time>
+            <time datetime="2022-04-21T18:03:57.000Z" itemprop="datePublished">2022年4月22日</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -117,48 +117,261 @@
         <span class="column is-narrow">
             
             
-            4 分钟 讀完 (約 534 字)
+            3 分钟 讀完 (約 438 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><p>Stack 堆疊 與 <a href="https://rock070.github.io/blog.rock070/2022/04/21/queue/">Queue 列隊
-</a>  通常會放在一起講，兩種都是屬於抽象的資料類型，只是一種概念，在軟體工程中被廣泛運用。</p>
-<p>可用任何方式實現 stack &amp; queue，如: 連結串列（Linked List）、陣列（Array）。</p>
-<p><img src="https://i.imgur.com/9fdhOBG.png"></p>
-<h3 id="stack-堆疊"><a href="#stack-堆疊" class="headerlink" title="stack 堆疊"></a>stack 堆疊</h3><p><code>像在堆石頭的一樣，只能從上方一直疊上去，要讓石頭變少，也是上方移除。</code></p>
-<p><img src="https://i.imgur.com/3tZCAhK.png"></p>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
-<li>後進先出 LIFO(Last in first out)</li>
-<li>元素沒有 index</li>
-<li>元素的新增與移除只能從 stack 的上方</li>
-</ol>
-<h2 id="使用-Linked-List-實作-Stack"><a href="#使用-Linked-List-實作-Stack" class="headerlink" title="使用 Linked List 實作 Stack"></a>使用 Linked List 實作 Stack</h2><p>如果不了解 Linked List 的，可以參考這一篇 <a href="https://rock070.github.io/blog.rock070/2022/04/20/linked-list/">Linked List(連結串列)</a>。</p>
-<p>在 Stack 的概念中，我們建立的 Linked List 只能使用 <code>push</code>, <code>pop</code> 方法，不能使用 <code>shift</code>, <code>unshift</code>, <code>insertAt</code>, <code>removeAt</code>。</p>
-<blockquote>
-<p>要實作的方法：<br>push： 在最上層新增元素<br>pop： 把最上層的元素移除</p>
+        <html><head></head><body><h2 id="為什麼要有-Hash-Table"><a href="#為什麼要有-Hash-Table" class="headerlink" title="為什麼要有 Hash Table?"></a>為什麼要有 Hash Table?</h2><p>先想一下，若有 10 幾筆資料，記錄了棒球員的編號、姓名與年薪。<br>如果需要搜尋編號 100 的球員年薪，要如何做搜尋？</p>
+<h5 id="一、線性搜索（sequentail-search）："><a href="#一、線性搜索（sequentail-search）：" class="headerlink" title="一、線性搜索（sequentail search）："></a>一、線性搜索（sequentail search）：</h5><p>最簡單且最直接的就是把資料存進陣列裡，從索引 1 開始逐一搜尋，直到找到編號 100 的球員。<br>這樣的做法可說是暴力，會花費的<strong>時間複雜度為 O</strong>(<strong>n</strong>)，但佔用較少的記憶體空間。</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>姓名</th>
+<th>編號</th>
+<th>年薪（萬美金）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Ricky</td>
+<td>38</td>
+<td>50</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Rock</td>
+<td>4</td>
+<td>90</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Johnson</td>
+<td>222</td>
+<td>92</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Jack</td>
+<td>1</td>
+<td>22</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Rebacca</td>
+<td>5</td>
+<td>44</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Tom</td>
+<td>99</td>
+<td>65</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Nick</td>
+<td>100</td>
+<td>43</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Jason</td>
+<td>555</td>
+<td>93</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Peter</td>
+<td>666</td>
+<td>92</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Lulu</td>
+<td>49</td>
+<td>67</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Vincent</td>
+<td>77</td>
+<td>101</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Peggy</td>
+<td>333</td>
+<td>42</td>
+</tr>
+<tr>
+<td>13</td>
+<td>George</td>
+<td>664</td>
+<td>26</td>
+</tr>
+</tbody></table>
+<h5 id="二、使編號與索引相同："><a href="#二、使編號與索引相同：" class="headerlink" title="二、使編號與索引相同："></a>二、使編號與索引相同：</h5><p>將資料整理成 Array 的格式，將編號與索引對在一起，如編號 99 就放在 索引 99 的位置。這個方法可以提高搜尋的速度，**時間複雜度：O(1)**，直接透過 index 就可以取得資料，如: Arr[100] 可得到編號 100 的球員資料。</p>
+<p>但這樣，各個球員索引中間的空間也都被佔用了，<strong>會花費相當大的記憶體空間</strong>，如下方表格，雖然球員資料只有 13 筆，但卻佔用了 666 個空間。</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>姓名</th>
+<th>編號</th>
+<th>年薪（萬美金）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Jack</td>
+<td>1</td>
+<td>22</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Rock</td>
+<td>4</td>
+<td>90</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Rebacca</td>
+<td>5</td>
+<td>44</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>38</td>
+<td>Ricky</td>
+<td>38</td>
+<td>50</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>49</td>
+<td>Lulu</td>
+<td>49</td>
+<td>67</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>77</td>
+<td>Vincent</td>
+<td>77</td>
+<td>101</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>99</td>
+<td>Tom</td>
+<td>99</td>
+<td>65</td>
+</tr>
+<tr>
+<td>100</td>
+<td>Nick</td>
+<td>100</td>
+<td>43</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>222</td>
+<td>Johnson</td>
+<td>222</td>
+<td>92</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>333</td>
+<td>Peggy</td>
+<td>333</td>
+<td>42</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>555</td>
+<td>Jason</td>
+<td>555</td>
+<td>93</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>664</td>
+<td>George</td>
+<td>664</td>
+<td>26</td>
+</tr>
+<tr>
+<td>…..</td>
+<td>……</td>
+<td>……</td>
+<td>..</td>
+</tr>
+<tr>
+<td>666</td>
+<td>Peter</td>
+<td>666</td>
+<td>92</td>
+</tr>
+</tbody></table>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><blockquote>
+<p>Hash Table 兼顧快與節省空間。</p>
 </blockquote>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Node = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    value,</span><br><span class="line">    <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> Stack = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> head = <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">let</span> length = <span class="hljs-number">0</span></span><br><span class="line">  <span class="hljs-comment">// 在最上層新增元素</span></span><br><span class="line">  <span class="hljs-keyword">const</span> push = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> { </span><br><span class="line">    <span class="hljs-keyword">let</span> newNode = Node(value)</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) head = newNode</span><br><span class="line">    <span class="hljs-keyword">else</span> {</span><br><span class="line">      <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">      <span class="hljs-keyword">while</span> (currentNode.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">        currentNode = currentNode.next</span><br><span class="line">      }</span><br><span class="line">      currentNode.next = newNode</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    length++</span><br><span class="line">  }  </span><br><span class="line">  <span class="hljs-comment">// 把最上層的元素移除</span></span><br><span class="line">  <span class="hljs-keyword">const</span> pop = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {</span><br><span class="line">      <span class="hljs-keyword">let</span> node = head</span><br><span class="line">      head = <span class="hljs-literal">null</span></span><br><span class="line">      length = <span class="hljs-number">0</span></span><br><span class="line">      <span class="hljs-keyword">return</span> node</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode.next.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-keyword">let</span> popNode = currentNode.next</span><br><span class="line">    currentNode.next = <span class="hljs-literal">null</span></span><br><span class="line">    length--</span><br><span class="line">    <span class="hljs-keyword">return</span> popNode</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> printAll = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) {</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Nothing in this linked list'</span>)</span><br><span class="line">      <span class="hljs-keyword">return</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(currentNode.value)</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    head,</span><br><span class="line">    length,</span><br><span class="line">    push,</span><br><span class="line">    pop,</span><br><span class="line">    printAll</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> myStack = Stack()</span><br><span class="line">myStack.push(<span class="hljs-string">'Mike'</span>)</span><br><span class="line">myStack.push(<span class="hljs-string">'Harry'</span>)</span><br><span class="line">myStack.push(<span class="hljs-string">'James'</span>)</span><br><span class="line">myStack.pop()</span><br><span class="line">myStack.printAll()</span><br></pre></td></tr></tbody></table></figure>
-<blockquote>
-<p>印出結果：<br>Mike<br>Harry</p>
-</blockquote>
-<h3 id="Stack-觀念練習題"><a href="#Stack-觀念練習題" class="headerlink" title="Stack 觀念練習題"></a>Stack 觀念練習題</h3><p>以下會提供一系列的運算，請試著回答問題：</p>
+<p>上述的兩個方法，都會導致不如意的情況：</p>
 <ol>
-<li>當運算都結束後，stack 內還有幾個項目？</li>
-<li>stack 的最上方（top）是什麼？</li>
+<li>速度快，但記憶體佔用多</li>
+<li>記憶體佔用少，但速度快</li>
 </ol>
-<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">push flour</span><br><span class="line">push milk</span><br><span class="line">push eggs</span><br><span class="line">pop </span><br><span class="line">push leavening</span><br><span class="line">push sugar</span><br><span class="line">pop</span><br><span class="line">pop</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><blockquote>
-<p>最後 stack 會剩下兩個元素</p>
-<p>milk(top)<br>flour</p>
-</blockquote>
-<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 個</span><br><span class="line">milk</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="LeetCoode-練習題"><a href="#LeetCoode-練習題" class="headerlink" title="LeetCoode 練習題"></a>LeetCoode 練習題</h3><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-parentheses/">20. Valid Parentheses</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/min-stack/">155. Min Stack</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/">1047. Remove All Adjacent Duplicates In String</a></p>
+<p>Hash Table 就是用來解決這個兩難的情況，他可以同時節省空間的佔用，也可以節省時間。</p>
 </body></html>
     
     </div>
@@ -191,7 +404,9 @@
         
         <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/7/">7</a></li>
         
-        <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/8/">8</a></li>
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        
+        <li><a class="pagination-link" href="/blog.rock070/categories/data-structure/10/">10</a></li>
         
     </ul>
 </nav>

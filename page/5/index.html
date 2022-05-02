@@ -93,69 +93,45 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/blog.rock070/2022/04/19/algorithms-motivation/" itemprop="url">學習動機與目標</a>
+            <a href="/blog.rock070/2022/04/21/doubly-linked-list/" itemprop="url">Doubly Linked List（雙向連結串列）</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2022-04-19T13:24:58.000Z" itemprop="datePublished">2022年4月19日</time>
+            <time datetime="2022-04-20T16:21:50.000Z" itemprop="datePublished">2022年4月21日</time>
         </span>
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/blog.rock070/categories/algorithms/">algorithms</a>
+            <a class="article-category-link" href="/blog.rock070/categories/data-structure/">data structure</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            3 分钟 讀完 (約 441 字)
+            1 分钟 讀完 (約 167 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><h3 id="先說一下我的背景"><a href="#先說一下我的背景" class="headerlink" title="先說一下我的背景"></a>先說一下我的背景</h3><p>我讀的科系跟軟體知識完全沒有關係，是大四下對軟體開發有興趣，學了之後就奮不顧身的踏進了網頁開發的領域。</p>
-<p>目前是資歷一年的前端工程師，工作之後在切版都沒有什麼問題，邏輯的設計上都可以應付，但總覺得自己寫出的程式碼與資深同事寫出來的總是有落差，研究了一陣子演算法之後，發現對自己的開發的邏輯跟思考脈絡有很大的幫助，所以決定開始一系列的學習，也希望自己可以朝成為資深工程師的路更前進一步。</p>
-<p>接下來會寫一系列的演算法與資料結構相關系列筆記跟心得，也會搭配一些 LeetCode 的題目，脈絡會根據下方參考資料中綜合出一個版本。</p>
-<h3 id="學習目標與文章架構（待邊寫邊更新）"><a href="#學習目標與文章架構（待邊寫邊更新）" class="headerlink" title="學習目標與文章架構（待邊寫邊更新）"></a>學習目標與文章架構（待邊寫邊更新）</h3><ul>
-<li><p>什麼是 Big O</p>
-</li>
-<li><p>演算法</p>
+        <html><head></head><body><p>在 <a href="https://rock070.github.io/blog.rock070/2022/04/20/linked-list/">singly linked list</a> 的基礎上，做一些變更：</p>
+<ol>
+<li>每個節點都新增一個 prev 屬性，指向上一個節點，第一個節點的 prev 指向 null。</li>
+<li>Linked List 屬性新增 tail 指向最後一個節點。</li>
+</ol>
+<p><img src="https://i.imgur.com/RNy8pQg.png"></p>
+<h3 id="相對於-singly-linked-list-的優缺點"><a href="#相對於-singly-linked-list-的優缺點" class="headerlink" title="相對於 singly linked list 的優缺點"></a>相對於 singly linked list 的優缺點</h3><p>優點</p>
 <ul>
-<li>六種排序（bubble、insertion、selection、merge、heap、quick）</li>
-<li>搜尋（Linear、binary）</li>
-<li>遞迴(recursion)</li>
-<li>Dynamic Programming</li>
-<li>Greedy</li>
+<li>可以簡單地做到反向存取，從尾巴的節點開始取值</li>
+<li>因為可以反向存去的關係，時間複雜度較 singly linked list 少一半</li>
 </ul>
-</li>
-<li><p>資料結構 </p>
+<p>缺點</p>
 <ul>
-<li>B Linked List</li>
-<li>B Doubly Linked List</li>
-<li>B Queue</li>
-<li>B Stack</li>
-<li>B Hash Table</li>
-<li>B Heap - max and min heap versions</li>
-<li>B Priority Queue</li>
-<li>A Trie</li>
-<li>A Tree</li>
-<li>A Binary Search Tree</li>
-<li>A AVL Tree</li>
-<li>A Red-Black Tree</li>
-<li>A Graph (both directed and undirected)</li>
-<li>A Bloom Filter</li>
+<li>要花更多的記憶體空間</li>
 </ul>
-</li>
-</ul>
-<h3 id="javascript-演算法與資料結構路線圖與參考文章"><a href="#javascript-演算法與資料結構路線圖與參考文章" class="headerlink" title="javascript 演算法與資料結構路線圖與參考文章"></a>javascript 演算法與資料結構路線圖與參考文章</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/trekhleb/javascript-algorithms">trekhleb/javascript-algorithms</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/sisterAn/JavaScript-Algorithms">sisterAn/JavaScript-Algorithms</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.udemy.com/course/algorithm-data-structure/">資料結構與演算法 (JavaScript) - Udemy</a></li>
-<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/users/20106426/ironman/2136">前端工程師用 javaScript 學演算法 - hannahpun 第 11 屆 iThome 鐵人賽</a></li>
-</ul>
+<h2 id="leetcode-練習"><a href="#leetcode-練習" class="headerlink" title="leetcode 練習"></a>leetcode 練習</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/">430. Flatten a Multilevel Doubly Linked List</a></p>
 </body></html>
     
     </div>
@@ -170,157 +146,151 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/blog.rock070/2021/10/07/css-pattern/" itemprop="url">CSS 設計模式研究筆記</a>
+            <a href="/blog.rock070/2022/04/20/linked-list/" itemprop="url">Linked List(連結串列)</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2021-10-06T17:00:11.000Z" itemprop="datePublished">2021年10月7日</time>
+            <time datetime="2022-04-20T11:33:03.000Z" itemprop="datePublished">2022年4月20日</time>
         </span>
         
         <span class="column is-narrow article-category">
             <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/blog.rock070/categories/CSS/">CSS</a>
+            <a class="article-category-link" href="/blog.rock070/categories/data-structure/">data structure</a>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            16 分钟 讀完 (約 2473 字)
+            12 分钟 讀完 (約 1812 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <html><head></head><body><p>CSS 是一個好理解但不好使用跟維護的語言，所以衍生出非常多的理論跟方法，目的是為了提高程式碼在開發時的可讀性、維護性、模組化、效率 …等等</p>
-<p>良好的 CSS 架構</p>
-<ol>
-<li>預測 Predictable</li>
-<li>複用 Reusable：樣式可以重複使用的，避免重複性高</li>
-<li>維護 Maintainable：可讀性高，後續調整或加東西，不需要大幅調整架構</li>
-<li>延展 Scalable：後續加東西，不需要大幅調整架構</li>
+        <html><head></head><body><p>Linked List 連結串列，是資料結構中是常見、基本的資料型態，由 Node(節點）組成，每個節點各自儲存在非連續的記憶體位址，並透過 Pointer(指標) 來紀錄下一個節點的位址，最後一個節點的 pointer 指向 Null。</p>
+<h4 id="Linked-List-有兩項屬性："><a href="#Linked-List-有兩項屬性：" class="headerlink" title="Linked List 有兩項屬性："></a>Linked List 有兩項屬性：</h4><ol>
+<li>length(連結長度)</li>
+<li>head(第一個 Node 位址)</li>
 </ol>
-<h2 id="一、物件導向-CSS：OOCSS-By-Nicole-Sullivan"><a href="#一、物件導向-CSS：OOCSS-By-Nicole-Sullivan" class="headerlink" title="一、物件導向 CSS：OOCSS By Nicole Sullivan"></a>一、物件導向 CSS：OOCSS By Nicole Sullivan</h2><h3 id="兩大原則"><a href="#兩大原則" class="headerlink" title="兩大原則"></a>兩大原則</h3><ul>
-<li><h3 id="Sperate-Structure-amp-Skin-分離結構與顏色"><a href="#Sperate-Structure-amp-Skin-分離結構與顏色" class="headerlink" title="Sperate Structure &amp; Skin - 分離結構與顏色"></a>Sperate Structure &amp; Skin - 分離結構與顏色</h3></li>
-</ul>
-<p>即將顏色樣式與大小樣式分離，針對元素中的顏色的樣式單獨抽出做分離，避免重複性高的 CSS。</p>
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.box-1</span> {</span><br><span class="line">  <span class="hljs-attribute">width</span>: <span class="hljs-number">200px</span>;  </span><br><span class="line">  <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;</span><br><span class="line">  <span class="hljs-attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;</span><br><span class="line">  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>) <span class="hljs-number">2px</span> <span class="hljs-number">0px</span> <span class="hljs-number">2px</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.box-2</span> {</span><br><span class="line">  <span class="hljs-attribute">width</span>: <span class="hljs-number">320px</span>;</span><br><span class="line">  <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;</span><br><span class="line">  <span class="hljs-attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="hljs-attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;</span><br><span class="line">  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>) <span class="hljs-number">2px</span> <span class="hljs-number">0px</span> <span class="hljs-number">2px</span>;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.button</span> {</span><br><span class="line">  <span class="hljs-attribute">width</span>: <span class="hljs-number">120px</span>;</span><br><span class="line">  <span class="hljs-attribute">height</span>: <span class="hljs-number">48px</span>;</span><br><span class="line">  <span class="hljs-attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;</span><br><span class="line">  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>) <span class="hljs-number">2px</span> <span class="hljs-number">0px</span> <span class="hljs-number">2px</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.box-1</span> {</span><br><span class="line">  <span class="hljs-attribute">width</span>: <span class="hljs-number">200px</span>; </span><br><span class="line">  <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.box-2</span> {</span><br><span class="line">  <span class="hljs-attribute">width</span>: <span class="hljs-number">320px</span>;</span><br><span class="line">  <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;</span><br><span class="line">  <span class="hljs-attribute">overflow</span>: hidden;</span><br><span class="line">	</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.button</span> {</span><br><span class="line">  <span class="hljs-attribute">width</span>: <span class="hljs-number">120px</span>;</span><br><span class="line">  <span class="hljs-attribute">height</span>: <span class="hljs-number">48px</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.skin</span> {</span><br><span class="line">  <span class="hljs-attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;</span><br><span class="line">  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>) <span class="hljs-number">2px</span> <span class="hljs-number">0px</span> <span class="hljs-number">2px</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<ul>
-<li><h3 id="Sperate-Container-amp-Content-容器與內容分離"><a href="#Sperate-Container-amp-Content-容器與內容分離" class="headerlink" title="Sperate Container &amp; Content - 容器與內容分離"></a>Sperate Container &amp; Content - 容器與內容分離</h3></li>
-</ul>
-<p>分離 html 與 css，盡量將可共用的 class 單獨分離出來，這樣好處是若有多處重複的樣式，可使用同一個 class。</p>
-<p>範例：box 內有一個標題跟一個內文，標題內有一部分特殊樣式：</p>
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.box-1</span> <span class="hljs-selector-tag">div</span> {</span><br><span class="line">  <span class="hljs-attribute">color</span>: red;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.box-1</span> <span class="hljs-selector-tag">p</span> {</span><br><span class="line">  <span class="hljs-attribute">color</span>: black;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.box-1</span> <span class="hljs-selector-tag">div</span> <span class="hljs-selector-tag">span</span> {</span><br><span class="line">  <span class="hljs-attribute">color</span>: green;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.title</span> {</span><br><span class="line">  <span class="hljs-attribute">color</span>: red;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.content</span> {</span><br><span class="line">  <span class="hljs-attribute">color</span>: black;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.green-text</span> {</span><br><span class="line">  <span class="hljs-attribute">color</span>: green;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-
-<p>簡單來說：使用 class 寫樣式，每個 class 又有不同用途，如大小、顏色等等</p>
-<p>範例：</p>
-<p><code>&lt;button class="btn btn-primary btn-large"&gt;&lt;/button&gt;</code></p>
-<p>btn: 按鈕的基本樣式<br>btn-primary: 按鈕的顏色<br>btn-large: 按鈕的大小</p>
-<p>透過這樣分離的方式，來讓網頁樣式更便於管理、可讀性高、好維護的效果。</p>
-<p>範例：<a target="_blank" rel="noopener" href="https://getbootstrap.com/">Bootstrap</a>。</p>
-<h2 id="二、SMACSS-Scalable-and-Modular-Architecture-for-CSS"><a href="#二、SMACSS-Scalable-and-Modular-Architecture-for-CSS" class="headerlink" title="二、SMACSS(Scalable and Modular Architecture for CSS)"></a>二、SMACSS(Scalable and Modular Architecture for CSS)</h2><p><a target="_blank" rel="noopener" href="http://smacss.com/">SMACSS</a> 由 Jonathan Snook 提出</p>
-<p>顧名思義就是可擴展與模組化的設計模式。</p>
-<p>基本架構：</p>
-<h3 id="1-Base"><a href="#1-Base" class="headerlink" title="1. Base"></a>1. Base</h3><p>包含 reset CSS 與 HTML tag 常用的樣式設定。</p>
-<p>你應該有聽過、甚至使用過 reset CSS，<br>若不知道是什麼的話，我來解釋一下，由於瀏覽器預設會有一些 CSS 樣式（例如：間距），所以為了確保畫面樣式的一致性及達到設計需求，通常我們在 CSS 最前面放上 reset CSS，把一些 padding、margin 給清空。</p>
-<p>而 Base 的觀念裡面，除了 reset CSS，前端還要去思考哪些 HTML Tag 會經常用到樣式的設定，並直接在此處就加上 CSS。</p>
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># reset css</span><br><span class="line"><span class="hljs-selector-tag">body</span>, <span class="hljs-selector-tag">html</span> {</span><br><span class="line">  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>,</span><br><span class="line">  margin: <span class="hljs-number">0</span>,</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># <span class="hljs-selector-tag">html</span> tag 常用設定</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-tag">input</span> {</span><br><span class="line">  <span class="hljs-attribute">outline</span>: none;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span> {</span><br><span class="line">  <span class="hljs-attribute">text-decoration</span>: none;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-
-<h3 id="2-Layout"><a href="#2-Layout" class="headerlink" title="2. Layout"></a>2. Layout</h3><p>每頁都會出現的元素（主要組件）：header、footer</p>
-<p>通常會使用 ID 選擇器，如：</p>
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-id">#header</span>, <span class="hljs-selector-id">#article</span>, <span class="hljs-selector-id">#footer</span> {</span><br><span class="line">  <span class="hljs-attribute">width</span>: <span class="hljs-number">960px</span>;</span><br><span class="line">  <span class="hljs-attribute">height</span>: auto;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-id">#article</span> {</span><br><span class="line">  <span class="hljs-attribute">border</span>: solid <span class="hljs-number">#CCC</span>;</span><br><span class="line">  <span class="hljs-attribute">border-width</span>: <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="3-Module"><a href="#3-Module" class="headerlink" title="3. Module"></a>3. Module</h3><p>兩頁以上會出現的元素（次要組件）：form、navigation item 之類的</p>
-<p>避免使用 ID 和元素選擇器，只使用 class，每個組件內可能都會有個別的元素</p>
-<p>當元素內只有一個 span 的時候，這樣使用起來是沒有問題的：</p>
-<figure class="highlight html hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fld"</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Folder Name<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="hljs-css"></span></span><br><span class="line"><span class="hljs-css"><span class="hljs-selector-class">.fld</span> <span class="hljs-selector-tag">span</span> {</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">20px</span>;</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">icon.png</span>);</span></span><br><span class="line"><span class="hljs-css">}</span></span><br><span class="line"><span class="hljs-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>但當 span 增加並需要另外的樣式時，就可能會需要同時修改 CSS 跟 html 的架構，具有較低的維護性，所以作者推薦這樣的寫法，向元素增加 class，提高了元素樣式的語意，更清楚知道當中的區別</p>
-<figure class="highlight html hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fld"</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fld-name"</span>&gt;</span>Folder Name<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> </span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fld-items"</span>&gt;</span>(32 items)<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fld-items"</span>&gt;</span>(32 items)<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="hljs-css"></span></span><br><span class="line"><span class="hljs-css"></span></span><br><span class="line"><span class="hljs-css"><span class="hljs-selector-class">.fld</span> {</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">20px</span>;</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">icon.png</span>);</span></span><br><span class="line"><span class="hljs-css">}</span></span><br><span class="line"><span class="hljs-css"></span></span><br><span class="line"><span class="hljs-css"><span class="hljs-selector-class">.fld-name</span> {</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">24px</span>;</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">color</span>: orange;</span></span><br><span class="line"><span class="hljs-css">}</span></span><br><span class="line"><span class="hljs-css"></span></span><br><span class="line"><span class="hljs-css"><span class="hljs-selector-class">.fld-item</span> {</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">color</span>: green;</span></span><br><span class="line"><span class="hljs-css">}</span></span><br><span class="line"><span class="hljs-css"></span></span><br><span class="line"><span class="hljs-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>  </span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="4-State"><a href="#4-State" class="headerlink" title="4. State"></a>4. State</h3><p>元素的狀態</p>
-<ol>
-<li>可使用 is 前綴符</li>
-<li>使用 JavaScript DOM 事件來為元素加上 class</li>
-<li>允許使用 !important，因為作者認為一個元素同時不會存在兩個狀態。</li>
+<h4 id="Node-有兩項屬性："><a href="#Node-有兩項屬性：" class="headerlink" title="Node 有兩項屬性："></a>Node 有兩項屬性：</h4><ol>
+<li>value</li>
+<li>Pointer（下一個 Node 的位址，最後一個 Node 指向 null）</li>
 </ol>
-<p>例如點擊下拉選單後，選項欄位要延展出來變成 active 狀態，以下已重點樣式描述，</p>
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-class">.options</span> {</span><br><span class="line">  <span class="hljs-attribute">display</span>: none</span><br><span class="line">}</span><br><span class="line"><span class="hljs-selector-class">.is-options-active</span> {</span><br><span class="line">  <span class="hljs-attribute">display</span>: block <span class="hljs-meta">!important</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>從下圖可以看到每一個 Node 都指向下一個 Node 位址，最後一個指向 Null。</p>
+<p><img src="https://i.imgur.com/nIFp6SU.png"></p>
+<h3 id="用-JavaScript-實作一個-Linked-List"><a href="#用-JavaScript-實作一個-Linked-List" class="headerlink" title="用 JavaScript 實作一個 Linked List"></a>用 JavaScript 實作一個 Linked List</h3><p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/linked-list/index.js">完整程式碼 - GitHub</a>，可以先 clone 下來，或是跟著下面一步一步建立函式。</p>
+<p>本來想用 class 來實作，但最近看了這一篇關於為什麼不應該在 JS 中使用 class 的文章<br><a target="_blank" rel="noopener" href="https://javascript.plainenglish.io/stop-writing-classes-in-javascript-you-dont-need-to-use-this-instead-f6d143ef7a28">（stop-writing-classes-in-javascript）</a> ，所以下面就直接使用函式來實作。</p>
+<p>先定義一個 Node，擁有 value 與 next(等於 Pointer，指向下一個 Node) 屬性</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Node = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    value,</span><br><span class="line">    <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span></span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="5-Theme"><a href="#5-Theme" class="headerlink" title="5. Theme"></a>5. Theme</h3><p>根據不同主題單獨抽離樣式的設計方法，以下範例可以看到，有三個 css 檔案，</p>
-<p><code>all.css</code>：主要管理主題間共同的樣式<br><code>theme-morning.css</code>： 定義 morning 主題的樣式<br><code>theme-night.css</code>： 定義 night 主題的樣式</p>
-<p>此架構可以讓主題可以切開來，按照需求引入主題檔案</p>
-<p>morning 主題：引入 <code>all.css</code> 與 <code>theme-morning.css</code><br>night 主題：引入 <code>all.css</code> 與 <code>theme-night.css</code></p>
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">### all<span class="hljs-selector-class">.css</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.mod</span> {</span><br><span class="line">  <span class="hljs-attribute">border</span>: solid <span class="hljs-number">1px</span> </span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">### theme-morning<span class="hljs-selector-class">.css</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.mod</span> {</span><br><span class="line">  <span class="hljs-attribute">border-color</span>: white</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">### theme-night<span class="hljs-selector-class">.css</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-class">.mod</span> {</span><br><span class="line">  <span class="hljs-attribute">border-color</span>: black</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h2 id="三、BEM"><a href="#三、BEM" class="headerlink" title="三、BEM"></a>三、BEM</h2><p>Block(區塊)-Element（元素）-Modifier（修飾子）</p>
-<figure class="highlight html hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu"</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"item"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"item active"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"item"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>再來定義一個 Linked List，擁有 length(連結長度) 與 head（指向第一個 Node）屬性</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> LinkedList = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> head = <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">let</span> length = <span class="hljs-number">0</span></span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    head,</span><br><span class="line">    length,</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight html hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu"</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu__item"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu__item menu__item--active"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu__item"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>接下來我們會在 <code>LinkedList</code> 這個函式內建立一些方法，有些方法，類似於 JS 中 Array.prototype 提供的方法：</p>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">push</span><br><span class="line">pop</span><br><span class="line">printAll</span><br><span class="line">shift</span><br><span class="line">get</span><br><span class="line">unshift</span><br><span class="line">insertAt</span><br><span class="line">removeAt</span><br></pre></td></tr></tbody></table></figure>
 
-<p>Element 使用雙底線做分隔，Modifier 使用雙 dash 做分隔。</p>
-<p>menu 是區塊，menu__item 是 menu 的元素，active 是 menu__item 的一種狀態。</p>
-<h2 id="四、CSS-in-JS"><a href="#四、CSS-in-JS" class="headerlink" title="四、CSS in JS"></a>四、CSS in JS</h2><p>隨著前端框架的出現，前端的開發逐漸 component 化，一個頁面的個別元素可以切分 component </p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20191001/20114645O78QEhrJLG.png"></p>
-<p>圖片來源：六角學院</p>
-<p>例如在 Vue 中，一個元件一個檔案，將一個元件的樣式、事件、結構都封裝在 .vue 檔中內，這樣的格式可以達到 HTML、CSS、JS 分離的寫法，並非網頁的標準格式，所以還會需要通過 Vue-cli 中的 <code>vue-loader</code> 來做編譯，所以這樣的寫法是屬於 CSS in JS 的一種，只是透過 Vue 提供的語法糖變成這樣的架構。</p>
-<figure class="highlight html hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"clickHandler"</span>&gt;</span> {{ message }} <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="hljs-javascript"></span></span><br><span class="line"><span class="hljs-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {</span></span><br><span class="line"><span class="hljs-javascript">  setup () {</span></span><br><span class="line"><span class="hljs-javascript">    <span class="hljs-keyword">const</span> message = <span class="hljs-string">'Hello Vue'</span></span></span><br><span class="line"><span class="hljs-javascript">    <span class="hljs-keyword">const</span> clickHandler = <span class="hljs-function">() =&gt;</span> { </span></span><br><span class="line"><span class="hljs-javascript">      alert(<span class="hljs-string">'good!!'</span>) </span></span><br><span class="line"><span class="hljs-javascript">    }</span></span><br><span class="line"><span class="hljs-javascript">    <span class="hljs-keyword">return</span> {</span></span><br><span class="line"><span class="hljs-javascript">      message,</span></span><br><span class="line"><span class="hljs-javascript">      clickHandler</span></span><br><span class="line"><span class="hljs-javascript">    }</span></span><br><span class="line"><span class="hljs-javascript">  } </span></span><br><span class="line"><span class="hljs-javascript">}</span></span><br><span class="line"><span class="hljs-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">scope</span>&gt;</span><span class="hljs-css"></span></span><br><span class="line"><span class="hljs-css"><span class="hljs-selector-tag">div</span> {</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">color</span>: red;</span></span><br><span class="line"><span class="hljs-css">  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">24px</span>;</span></span><br><span class="line"><span class="hljs-css">}</span></span><br><span class="line"><span class="hljs-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h3><p>在連結的結尾加上一個 Node</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> push = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> { </span><br><span class="line">  <span class="hljs-comment">// 建立一個 Node</span></span><br><span class="line">  <span class="hljs-keyword">let</span> newNode = Node(value)</span><br><span class="line">  <span class="hljs-comment">// 當連結內沒有 Node 的時候，指定新的 Node 為第一個 Node</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) head = newNode</span><br><span class="line">  <span class="hljs-comment">// 當連結內已經有 Node 的時候，把最後一個 Node 的 next 指定為新的 Node</span></span><br><span class="line">  <span class="hljs-keyword">else</span> {</span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">    currentNode.next = newNode</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 連結長度 +1</span></span><br><span class="line">  length++</span><br><span class="line">} </span><br></pre></td></tr></tbody></table></figure>
 
-<p>特別講一下，style 中的 scope 代表 Vue 會對該元件生成一個隨機的屬性（Attribute），透過 CSS Attribute selector 的方式來做到 CSS 的切分，這樣在不同的元件中的 div 樣式就不會互相干擾囉</p>
-<p><img src="https://i.imgur.com/x21vNi8.png"></p>
-<h3 id="styled-component（CSS-in-JS-Library）"><a href="#styled-component（CSS-in-JS-Library）" class="headerlink" title="styled-component（CSS in JS Library）"></a>styled-component（CSS in JS Library）</h3><p>React 社群推出的 <a target="_blank" rel="noopener" href="https://styled-components.com/">styled-component</a>，將 CSS 寫在 component 內，達到 CSS in JS 的作用，可以很直接的接收元件的 props 來控制 CSS，透過這樣的方式可以做到讓 CSS 狀態控制變得更彈性。</p>
-<figure class="highlight javascript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Button = styled.button<span class="hljs-string">`</span></span><br><span class="line"><span class="hljs-string">  background: <span class="hljs-subst">${props =&gt; props.primary ? <span class="hljs-string">"palevioletred"</span> : <span class="hljs-string">"white"</span>}</span>;</span></span><br><span class="line"><span class="hljs-string">  color: <span class="hljs-subst">${props =&gt; props.primary ? <span class="hljs-string">"white"</span> : <span class="hljs-string">"palevioletred"</span>}</span>;</span></span><br><span class="line"><span class="hljs-string"></span></span><br><span class="line"><span class="hljs-string">  font-size: 1em;</span></span><br><span class="line"><span class="hljs-string">  margin: 1em;</span></span><br><span class="line"><span class="hljs-string">  padding: 0.25em 1em;</span></span><br><span class="line"><span class="hljs-string">  border: 2px solid palevioletred;</span></span><br><span class="line"><span class="hljs-string">  border-radius: 3px;</span></span><br><span class="line"><span class="hljs-string">`</span>;</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  <span class="hljs-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span></span><br><span class="line"><span class="hljs-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">Button</span>&gt;</span>Normal<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span></span><br><span class="line"><span class="hljs-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">primary</span>&gt;</span>Primary<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span></span><br><span class="line"><span class="hljs-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Pop"><a href="#Pop" class="headerlink" title="Pop"></a>Pop</h3><p>把最後一個 Node 排除</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> pop = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-comment">// 當 Linked List 沒有 Node 的時候返回 null</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">    <span class="hljs-comment">// 當 linked List 長度為 1 的時候把 head 跟 length 調整為初始化</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {</span><br><span class="line">      <span class="hljs-keyword">let</span> node = head</span><br><span class="line">      head = <span class="hljs-literal">null</span></span><br><span class="line">      length = <span class="hljs-number">0</span></span><br><span class="line">      <span class="hljs-keyword">return</span> node</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-comment">// 把倒數第二個 Node 的 next 改成 null，並把 Linked List 的長度 - 1</span></span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode.next.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-keyword">let</span> popNode = currentNode.next</span><br><span class="line">    currentNode.next = <span class="hljs-literal">null</span></span><br><span class="line">    length--</span><br><span class="line">    <span class="hljs-keyword">return</span> popNode</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="printAll"><a href="#printAll" class="headerlink" title="printAll"></a>printAll</h3><p>印出 Linked List 內所有的值</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> printAll = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 沒有節點則印出 nothing</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) {</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Nothing in this linked list'</span>)</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 遍歷所有節點</span></span><br><span class="line">  <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">  <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span>) {</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(currentNode.value)</span><br><span class="line">    currentNode = currentNode.next</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p><strong>優點：</strong></p>
+<h3 id="shift"><a href="#shift" class="headerlink" title="shift"></a>shift</h3><p>將 Linked List 的第一個節點移除，只需要將 Linked List 的 Head 改成第二個節點就可以了。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> shift = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 若沒有節點則回傳 null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-comment">// 若節點只有一個，就把 linkedList 初始化</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {</span><br><span class="line">    <span class="hljs-keyword">let</span> node = head</span><br><span class="line">    head = <span class="hljs-literal">null</span></span><br><span class="line">    length = <span class="hljs-number">0</span></span><br><span class="line">    <span class="hljs-keyword">return</span> node </span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 若不止一個節點，則把 head 變成第二個節點開始，並長度 - 1</span></span><br><span class="line">  head = head.next</span><br><span class="line">  length--</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>根據 index 來找值，與 array 不同的是，需要從第一個節點開始找，直到找到 index 指定的節點</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> get = <span class="hljs-function">(<span class="hljs-params">index</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 若 index 大於 Linked List 長度或小於 0 則回傳 null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index &gt; length || index &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-comment">// 若只有一個節點，則回傳第一個節點的值</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> head.value</span><br><span class="line">  <span class="hljs-comment">// 若不止一個節點則進入迴圈開始尋找</span></span><br><span class="line">  <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">  <span class="hljs-comment">// 從 i = 1 開始是因為上一行已經指定第一個節點了</span></span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= index; i++) {</span><br><span class="line">    currentNode = currentNode.next</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-keyword">return</span> currentNode.value</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="unshift"><a href="#unshift" class="headerlink" title="unshift"></a>unshift</h3><p>在 head 前新增一個節點，並指定新節點為 head</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> unshift = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 建立新節點</span></span><br><span class="line">  <span class="hljs-keyword">let</span> newNode = Node(value)</span><br><span class="line">  <span class="hljs-comment">// 若已經有至少一個節點，則將新節點的 next 指向原本的 head</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head !== <span class="hljs-literal">null</span>) newNode.next = head</span><br><span class="line">  head = newNode</span><br><span class="line">  length++</span><br><span class="line">  <span class="hljs-keyword">return</span> newNode</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="insertAt"><a href="#insertAt" class="headerlink" title="insertAt"></a>insertAt</h3><p>在某個 index 插入一個節點</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> insertAt = <span class="hljs-function">(<span class="hljs-params">index, value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 若 index 大於長度或小於 0 則返回 null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index &gt; length || index &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-comment">// 若 index = 0 或是原本就沒有節點，則使用上方寫過的 unshift 來新增</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span> || head === <span class="hljs-literal">null</span>) {</span><br><span class="line">    unshift(value)</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 若 index 剛好等於串列的長度，則使用上方寫過的 push 來新增</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index === length) {</span><br><span class="line">    push(value)</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 若都沒有上述情況，使用遍歷的方式找到 index 的節點，將前一個節點的 next 指向新節點，並將新節點的 next 指向原本的該 index 的節點</span></span><br><span class="line">  <span class="hljs-keyword">let</span> prevNode</span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; index; i++) {</span><br><span class="line">    <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) prevNode = head</span><br><span class="line">    <span class="hljs-keyword">else</span> prevNode = prevNode.next</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-keyword">const</span> newNode = Node(value)</span><br><span class="line">  newNode.next = prevNode.next</span><br><span class="line">  prevNode.next = newNode</span><br><span class="line">  length++</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="removeAt"><a href="#removeAt" class="headerlink" title="removeAt"></a>removeAt</h3><p>刪除某個 index 的節點，邏輯跟 <code>insertAt</code> 很像，但是方法改使用 pop &amp; shift。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> removeAt = <span class="hljs-function">(<span class="hljs-params">index</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">if</span> (index &gt; length || index &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span> || head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> shift()</span><br><span class="line">  <span class="hljs-keyword">if</span> (index === length) <span class="hljs-keyword">return</span> pop()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> prevNode</span><br><span class="line">  <span class="hljs-keyword">let</span> nextNode</span><br><span class="line">  <span class="hljs-keyword">let</span> value</span><br><span class="line">  <span class="hljs-comment">// 使用遍歷的方式找到該節點，並結把前一個節點的 next 指向原節點的下一個節點</span></span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; index; i++) {</span><br><span class="line">    <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) prevNode = head</span><br><span class="line">    <span class="hljs-keyword">else</span> prevNode = prevNode.next</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 要移除的 node 的 value</span></span><br><span class="line">  value = prevNode.next.value</span><br><span class="line">  nextNode = prevNode.next.next</span><br><span class="line">  prevNode.next = nextNode</span><br><span class="line">  length--</span><br><span class="line">  <span class="hljs-keyword">return</span> value</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="Linked-List-與-Array-的比較"><a href="#Linked-List-與-Array-的比較" class="headerlink" title="Linked List 與 Array 的比較"></a>Linked List 與 Array 的比較</h1><h3 id="Big-O"><a href="#Big-O" class="headerlink" title="Big O"></a>Big O</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>Array</th>
+<th>Linked List</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存取資料</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>插入與刪除第一筆資料</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>插入與刪除最後一筆資料</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>插入與刪除中間值的資料</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+</tbody></table>
+<h2 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h2><p>特性</p>
 <ul>
-<li>單一元件的樣式、結構、邏輯，都寫在一個檔案內，比起舊式寫法（HTML、JS、CSS 檔案切開）好管理，若其他專案需要使用，元件也方便單獨切割。</li>
-<li>維護時不需另外去找對應的樣式檔案。</li>
-<li>html 與 css 命名合在一起，不必去彼此對照。</li>
+<li>沒有 index</li>
+<li>每個節點連結是透過 “next” 指標</li>
 </ul>
-<p><strong>缺點：</strong></p>
+<p>優點</p>
 <ul>
-<li>元件切換主視覺需要重新寫一個 <code>&lt;ThemeComponent /&gt;</code>，因為若要使用單一元件，樣式差異很大的情況，透過 props 控制會變得很麻煩</li>
-<li>用字串的方式寫入樣式，少了 CSS 的 auto complete、編輯器提供的顏色</li>
-<li>要達到共用樣式必須將元件切小，才會有一定的共用度</li>
-</ul>
-<h2 id="五、原子化樣式（Atomic-CSS）"><a href="#五、原子化樣式（Atomic-CSS）" class="headerlink" title="五、原子化樣式（Atomic CSS）"></a>五、原子化樣式（Atomic CSS）</h2><p>Atomic CSS 由 Thierry Koblentz (Yahoo!)在 2013 年挑戰 <a target="_blank" rel="noopener" href="https://www.smashingmagazine.com/2013/10/challenging-css-best-practices-atomic-approach/">CSS 最佳實踐</a>中首次使用，將樣式的名稱指向每個單獨的 class ，並把名稱縮小化，將結構 html 與樣式 css 結合，當按鈕的樣式需要修改的時候，我們修改的是 HTML 而不是 CSS。</p>
-<figure class="highlight html hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bw-2x bss p-1x"</span>&gt;</span> 這是原子 CSS 範例 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* 原子 CSS */</span></span><br><span class="line"><span class="hljs-comment">/* Atomic CSS */</span></span><br><span class="line"><span class="hljs-selector-class">.bw-2x</span> {</span><br><span class="line">  <span class="hljs-attribute">border-width</span>: <span class="hljs-number">2px</span>;</span><br><span class="line">}</span><br><span class="line"><span class="hljs-selector-class">.bss</span> {</span><br><span class="line">  <span class="hljs-attribute">border-style</span>: solid;</span><br><span class="line">}</span><br><span class="line"><span class="hljs-selector-class">.sans</span> {</span><br><span class="line">  <span class="hljs-attribute">font-style</span>: sans-serif;</span><br><span class="line">}</span><br><span class="line"><span class="hljs-selector-class">.p-1x</span> {</span><br><span class="line">  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;</span><br><span class="line">}</span><br><span class="line"><span class="hljs-comment">/* Not atomic, because the class contains 2 rules */</span></span><br><span class="line"><span class="hljs-selector-class">.p-1x-sans</span> {</span><br><span class="line">  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;</span><br><span class="line">  <span class="hljs-attribute">font-style</span>: sans-serif;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>但會衍伸出的問題是，沒有一個命名的約定，若每個專案的命名者不同，那當你加入一個新專案的時候，就必須重新學習該專案的 class 命名方式，例如 A 專案對於 <code>border-width: 2px</code> 的命名是 <code>bw-2</code>，B 專案的命名是 <code>b-2</code>，這樣專案一多起來，使用上就會帶來大大的不便。</p>
-<p>後來誕生的 CSS 框架 <a target="_blank" rel="noopener" href="https://tailwindcss.com/docs/utility-first">tailwindcss</a> 提出了一個命名規範，並可以自行擴充樣式。</p>
-<p><img src="https://i.imgur.com/oH9feYW.png" alt="圖ㄧ"></p>
-<p>圖片源自 tailwindcss.com</p>
-<p><img src="https://i.imgur.com/8ZZD8e5.png" alt="圖二"></p>
-<p>圖片源自 tailwindcss.com</p>
-<h3 id="Tailwindcss-優缺點比較"><a href="#Tailwindcss-優缺點比較" class="headerlink" title="Tailwindcss 優缺點比較"></a>Tailwindcss 優缺點比較</h3><p>優點</p>
-<ul>
-<li>不需要去想 CSS 命名</li>
-<li>CSS 樣式的量通常不會變多，因為很少在撰寫 CSS 檔案了，共用性高</li>
-<li>修改樣式只需要修改 HTML</li>
-<li>沒有使用到的 CSS 將會在生產環境編譯時清除，達到輕巧化</li>
+<li>新增刪除資料較快，因為不需要調整 index</li>
+<li>資料數量是動態的，不像 Array 有 resize 的問題。</li>
 </ul>
 <p>缺點</p>
 <ul>
-<li>需要學習一個既定的命名約定</li>
-<li>HTML 會變得更加龐大</li>
+<li>因為沒有 index，所以在查找特定 node 的時候，需要從連結的頭開始找，時間複雜度為 O(N)</li>
+<li>比 Array 使用更多的記憶體空間，因為每一個 node 都需要額外的空間來存儲存 pointer</li>
+<li>儲存在記憶體的位址並不連續，需要到各個 node 位址去存取，相對 Array 連續的位址會更花時間。</li>
+<li>因為單向性的關係，要反向存取是非常麻煩的。</li>
 </ul>
-<h2 id="六、寫在-JS-中的原子樣式（Atomic-CSS-in-JS-）"><a href="#六、寫在-JS-中的原子樣式（Atomic-CSS-in-JS-）" class="headerlink" title="六、寫在 JS 中的原子樣式（Atomic CSS in JS ）"></a>六、寫在 JS 中的原子樣式（Atomic CSS in JS ）</h2><p><em>待更新</em></p>
-<p>推薦文章：<a target="_blank" rel="noopener" href="https://sebastienlorber.com/atomic-css-in-js">Atomic-css-in-js</a></p>
-<h3 id="延伸閱讀："><a href="#延伸閱讀：" class="headerlink" title="延伸閱讀："></a>延伸閱讀：</h3><p><a target="_blank" rel="noopener" href="https://linyencheng.github.io/2020/05/27/css-atomic-css/?utm_source=link&amp;utm_medium=article&amp;utm_campaign=internal_link">Atomic CSS 優化樣式開發
-</a></p>
-<h3 id="參考來源："><a href="#參考來源：" class="headerlink" title="參考來源："></a>參考來源：</h3><p><a target="_blank" rel="noopener" href="https://cythilya.github.io/2018/06/05/css-methodologies/">CSS 的模組化方法：OOCSS、SMACSS、BEM、CSS Modules、CSS in JS</a></p>
-<p><a target="_blank" rel="noopener" href="https://kuro.tw/posts/2017/07/26/%E5%BE%9EVue%E4%BE%86%E7%9C%8BCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88%E7%9A%84%E7%99%BC%E5%B1%95/">從 Vue 來看 CSS 管理方案的發展</a></p>
-<p><a target="_blank" rel="noopener" href="https://medium.com/@savemuse/smacss-%E6%95%99%E5%AD%B8-c94e858aa762">SMACSS 教學</a></p>
-<p><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10160128">Sass教學 (30) - SMACSS - State Rules</a></p>
-<p><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10236146">Day5. CSS 設計模式(一) - SMACSS
-</a></p>
+<p>適用時機</p>
+<ul>
+<li>無法預期資料數量的時候，因為不用 resize</li>
+<li>需要頻繁地進行新增或刪除的動作</li>
+<li>不需要快速查詢資料</li>
+</ul>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>特性</p>
+<ul>
+<li>有 index</li>
+</ul>
+<p>優點</p>
+<ul>
+<li>可以快速的存取任意的 index 元素，時間複雜度為 O(1)。</li>
+<li>不需存 pointer 紀錄，較省記憶體空間</li>
+</ul>
+<p>缺點</p>
+<ul>
+<li>插入與刪除的方法是較花時間的，以 shift 為例，刪掉第一個元素之後，陣列中所有的元素的 index 都需調整</li>
+</ul>
+<p>適用時機</p>
+<ul>
+<li>希望可以快速存取資料</li>
+<li>已知陣列大小</li>
+<li>較少的記憶體空間使用</li>
+</ul>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>在 JavaScript 中實在想不到什麼情境會使用 Linked List，目前想到只有在大量的資料處理的時候會用的，若有其他的情境可以使用，請分享給我知道 XD</p>
+<h2 id="leetcode-練習"><a href="#leetcode-練習" class="headerlink" title="leetcode 練習"></a>leetcode 練習</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/reverse-linked-list/">206. Reverse Linked List</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/linked-list-cycle/">141. Linked List Cycle</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/palindrome-linked-list/">234. Palindrome Linked List</a></p>
+<h2 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10216257">鏈結串列 Linked List - 第 11 屆 iThome 鐵人賽
+</a></li>
+<li><a href="alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a></li>
+</ul>
 </body></html>
     
     </div>
@@ -338,7 +308,7 @@
     <div class="pagination-previous">
         <a href="/blog.rock070/4/">上一頁</a>
     </div>
-    <div class="pagination-next is-invisible is-hidden-mobile">
+    <div class="pagination-next">
         <a href="/blog.rock070/6/">下一頁</a>
     </div>
     <ul class="pagination-list is-hidden-mobile">
@@ -350,6 +320,8 @@
         <li><a class="pagination-link" href="/blog.rock070/4/">4</a></li>
         
         <li><a class="pagination-link is-current" href="/blog.rock070/5/">5</a></li>
+        
+        <li><a class="pagination-link" href="/blog.rock070/6/">6</a></li>
         
     </ul>
 </nav>

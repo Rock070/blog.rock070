@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>樹的走訪：寬度優先走訪（BFS）、深度優先走訪（DFS） - Rock070 Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="">
+
+
+
+
+
+<meta name="keywords" content="網頁前端,frontend,modern web, vue, ES6, Jest, CSS pattern, Unit Test">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/blog.rock070/css/style.css">
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/blog.rock070/">
+                
+                <span>Rock070</span>
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/blog.rock070/about">關於我</a>
+            
+            <a class="navbar-item "
+               href="/blog.rock070/categories">文章分類</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            
+            
+            <a class="navbar-item" target="_blank" title="Medium" href="https://medium.com/@mirthful_satin_dinosaur_426">
+                
+                <i class="fa-brands fa-medium"></i>
+                
+            </a>
+               
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+      <div data-nosnippet style="margin-bottom: 1rem; padding: 12px 24px; border-radius: 12px; background:#ffe4c4; display: none;">
+        我最近正好奇著大家讀完我的技術文章後的感想，有空的話可以幫我填一下：<a href="https://forms.gle/QuTY9yvKK3KRiGDj6" target="_blank">表單連結</a>
+      </div>
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            樹的走訪：寬度優先走訪（BFS）、深度優先走訪（DFS）
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2022-04-27T15:17:41.000Z" itemprop="datePublished">2022年4月27日</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/blog.rock070/categories/data-structure/">data structure</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 分钟 讀完 (約 1130 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>走訪的意思是，從根節點開始，逐個走訪各個節點，不同的拜訪順序，在程式碼的實作有很大的落差。</p>
+<p>依照走訪原則，可以分為兩種：</p>
+<ol>
+<li>寬度優先走訪 Breadth-First Tree Traversal</li>
+<li>深度優先走訪 Depth-First Tree Traversal(PreOrder, InOrder, PostOrder)</li>
+</ol>
+<h3 id="一、寬度優先走訪-Breadth-First-Tree-Traversal"><a href="#一、寬度優先走訪-Breadth-First-Tree-Traversal" class="headerlink" title="一、寬度優先走訪 Breadth-First Tree Traversal"></a><strong>一、寬度優先走訪 Breadth-First Tree Traversal</strong></h3><p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--1Aaplbiq--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://miro.medium.com/max/1400/1%2A3NKvODZparRFVKEwtVmrkw.gif"></p>
+<p>寬度優先的概念其實很簡單，從根開始，同一層都先走訪完之後，再進入下一層：如圖：level 1 的 1 開始，走訪完後進入 level 2 走訪 2, 3，再進入 level 走訪 4, 5, 6, 7。</p>
+<p><img src="https://i.imgur.com/lNZAO62.png"></p>
+<p>以上圖為例，這個樹狀圖有四層，分別為<br>第一層: 2<br>第二層: 7, 5<br>第三層: 2, 10, 6, 9<br>第四層: 5, 11, 4</p>
+<p>走訪的順序就會是： [ 2, 7, 5, 2, 10, 6, 9, 2, 11, 4 ]</p>
+<h4 id="用-JavaScript-實作寬度優先走訪"><a href="#用-JavaScript-實作寬度優先走訪" class="headerlink" title="用 JavaScript 實作寬度優先走訪"></a>用 JavaScript 實作寬度優先走訪</h4><p>實作一個 <code>BFTT</code> 函式，input 為 <code>Tree</code>，output 為依照 <code>寬度優先走訪</code> 的順序組成 <code>result</code> 陣列。</p>
+<p>有一個 Tree，每個節點都叫做 <code>TreeNode</code>，<code>TreeNode</code> 有兩個屬性 <code>value</code> 與 <code>children</code>，value 為數字，children 為 <code>TreeNode</code> 陣列或是 <code>null</code>。</p>
+<h5 id="Tree-Node-型別"><a href="#Tree-Node-型別" class="headerlink" title="Tree Node 型別"></a>Tree Node 型別</h5><figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@typedef <span class="hljs-type">{ Object }</span> <span class="hljs-variable">TreeNode</span></span></span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@property <span class="hljs-type">{ number }</span> <span class="hljs-variable">value</span></span></span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@property <span class="hljs-type">{ Array[TreeNode] | null }</span></span></span></span><br><span class="line"><span class="hljs-comment"> * /</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h5><figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> tree = {</span><br><span class="line">  <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>,</span><br><span class="line">  <span class="hljs-attr">children</span>: [</span><br><span class="line">    { </span><br><span class="line">      <span class="hljs-attr">value</span>: <span class="hljs-number">7</span>,</span><br><span class="line">      <span class="hljs-attr">children</span>: [</span><br><span class="line">        { <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">        { <span class="hljs-attr">value</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">        {</span><br><span class="line">          <span class="hljs-attr">value</span>: <span class="hljs-number">6</span>,</span><br><span class="line">          <span class="hljs-attr">children</span>: [</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">11</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">          ],</span><br><span class="line">        },</span><br><span class="line">      ],</span><br><span class="line">    },</span><br><span class="line">    {</span><br><span class="line">      <span class="hljs-attr">value</span>: <span class="hljs-number">5</span>,</span><br><span class="line">      <span class="hljs-attr">children</span>: [</span><br><span class="line">        {</span><br><span class="line">          <span class="hljs-attr">value</span>: <span class="hljs-number">9</span>,</span><br><span class="line">          <span class="hljs-attr">children</span>: [</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> }</span><br><span class="line">          ],</span><br><span class="line">        },</span><br><span class="line">      ],</span><br><span class="line">    },</span><br><span class="line">  ],</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>一層層遍歷 children，存進 queue，然後依照 <code>queue 的特性：先進先出</code>，從 queue 內排序第一的開始處理，處理完則離開 queue。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/tree/master/data-structure/tree/BFS">完成程式碼 - GitHub</a></p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> BFTT = <span class="hljs-function"><span class="hljs-params">root</span> =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = []</span><br><span class="line">  <span class="hljs-keyword">let</span> queue = []</span><br><span class="line"></span><br><span class="line">  queue.push(root)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> traversal = <span class="hljs-function">(<span class="hljs-params">tree</span>) =&gt;</span> {</span><br><span class="line">    result.push(tree.value)</span><br><span class="line">    <span class="hljs-keyword">let</span> subTree = tree.children</span><br><span class="line">    <span class="hljs-keyword">if</span> (subTree) {</span><br><span class="line">      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; subTree.length; i++) {</span><br><span class="line">        queue.push(subTree[i]);</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="hljs-keyword">while</span> (queue.length !== <span class="hljs-number">0</span>) {</span><br><span class="line">    traversal(queue[<span class="hljs-number">0</span>]);</span><br><span class="line">    queue.shift()</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> result</span><br><span class="line">}</span><br><span class="line"><span class="hljs-keyword">let</span> result = BFTT(tree);</span><br><span class="line"><span class="hljs-built_in">console</span>.log(result)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// [2, 7, 5, 2, 10, 6, 9, 2, 11, 4];</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="二、Depth-First-Tree-Traversal（深度優先走訪）"><a href="#二、Depth-First-Tree-Traversal（深度優先走訪）" class="headerlink" title="二、Depth-First Tree Traversal（深度優先走訪）"></a><strong>二、Depth-First Tree Traversal（深度優先走訪）</strong></h3><p><code>深度優先走訪</code> 根據每個 <code>subTree</code> 的走訪順序，又可以區分為三種：<code>Pre-Order</code>、<code>In-Order</code>、<code>Post-Order</code>。</p>
+<h4 id="1-Pre-Order"><a href="#1-Pre-Order" class="headerlink" title="1. Pre-Order"></a><strong>1. Pre-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Preorder-traversal.gif"><br>先遇到的節點先處理。</p>
+<p>順序：root, left, right</p>
+<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若顯示紅色則為無法再走下去的情況，這時就會則回到上一層繼續走訪，直到沒辦法再繼續下去。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/pre-order-binary.js">完整程式碼 - GitHub</a></p>
+<p>實作方法：先遇到的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> preOrder = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {</span><br><span class="line">    result.push(node.value);</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left)</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right);</span><br><span class="line">  };</span><br><span class="line"></span><br><span class="line">  traversal(root);</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> result;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// PreOrder: ["F", "B", "A", "D", "C", "E", "G", "I", "H"]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="2-In-Order"><a href="#2-In-Order" class="headerlink" title="2. In-Order"></a><strong>2. In-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Inorder-traversal.gif"></p>
+<p>順序： left, root, right</p>
+<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若該節點為目前最左邊的節點，則推入 <code>Inorder</code> 陣列中；若顯示紅色則為無法再走下去的情況，這時就會則繼續尋找最左邊的節點，直到沒辦法再繼續下去。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/in-order-binary.js">完整程式碼 - GitHub</a></p>
+<p>實作方法：越左的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> InOrder = <span class="hljs-function"><span class="hljs-params">root</span> =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function"><span class="hljs-params">node</span> =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left)</span><br><span class="line">    result.push(node.value)</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right)</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  traversal(root)</span><br><span class="line">  <span class="hljs-keyword">return</span> result</span><br><span class="line">};</span><br><span class="line"><span class="hljs-comment">// // ["A", "B", "C", "D", "E", "F", "G", "H", "I"];</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="3-Post-Order"><a href="#3-Post-Order" class="headerlink" title="3. Post-Order"></a><strong>3. Post-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Postorder-traversal.gif"></p>
+<p>順序：left, root, right</p>
+<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若該節點為目前最左邊的節點，則推入 <code>Postorder</code> 陣列中，若找不到最左節點，就會將右邊的節點推入；若顯示紅色則為無法再走下去的情況，這時就會則繼續尋找，直到沒辦法再繼續下去。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/post-order-binary.js">完整程式碼 - GitHub</a></p>
+<p>實作方法：越左的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> PostOrder = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> queue = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left);</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right);</span><br><span class="line"></span><br><span class="line">    queue.push(node.value);</span><br><span class="line">  };</span><br><span class="line"></span><br><span class="line">  traversal(root);</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> queue;</span><br><span class="line">};</span><br><span class="line"><span class="hljs-comment">// ['A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F']</span></span><br></pre></td></tr></tbody></table></figure></body></html>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/blog.rock070/2022/04/27/tree/">Tree 樹</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">評論</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://rock070.github.io/blog.rock070/2022/04/27/tree-traversal/';
+        this.page.identifier = '2022/04/27/tree-traversal/';
+        
+        this.language = 'zh';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'blog-rock070' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Rock070&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/Rock070">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+
+
+<script src="/blog.rock070/js/script.js"></script>
+
+
+    
+</body>
+</html>
