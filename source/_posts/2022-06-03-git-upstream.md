@@ -44,7 +44,9 @@ git branch -vv
 
 - 方法二
 
-git push -u 遠端庫名/
+git push -u 遠端庫名/分支名
+
+同時會把 commit 推向遠端
 
 ```shell
 # 假設現在本地的 HEAD 在 develop
@@ -60,7 +62,3 @@ git branch -vv
   main    bc952a8 [origin/main: ahead 4, behind 13] deploy
 (END)
 ```
-
-## 參考文章
-
-[What Is Git Upstream And How To Set Upstream Branch](https://phoenixnap.com/kb/git-set-upstream)
