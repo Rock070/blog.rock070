@@ -105,7 +105,7 @@
         <span class="column is-narrow">
             
             
-            2 分钟 讀完 (約 236 字)
+            2 分钟 讀完 (約 227 字)
         </span>
         
     </div>
@@ -128,11 +128,9 @@
 <ul>
 <li>方法二</li>
 </ul>
-<p>git push -u 遠端庫名/</p>
-<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> 假設現在本地的 HEAD 在 develop</span></span><br><span class="line"></span><br><span class="line">git branch -u origin main</span><br><span class="line"></span><br><span class="line">Branch 'develop' set up to track remote branch 'main' from 'origin'.</span><br><span class="line">Everything up-to-date</span><br><span class="line"></span><br><span class="line">git branch -vv </span><br><span class="line"></span><br><span class="line">* develop 5c22fb6 [origin/main: ahead 42, behind 13] docs(README): 新增分支介紹</span><br><span class="line">  main    bc952a8 [origin/main: ahead 4, behind 13] deploy</span><br><span class="line">(END)</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h2><p><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/git-set-upstream">What Is Git Upstream And How To Set Upstream Branch</a></p>
-</body></html>
+<p>git push -u 遠端庫名/分支名</p>
+<p>同時會把 commit 推向遠端</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> 假設現在本地的 HEAD 在 develop</span></span><br><span class="line"></span><br><span class="line">git branch -u origin main</span><br><span class="line"></span><br><span class="line">Branch 'develop' set up to track remote branch 'main' from 'origin'.</span><br><span class="line">Everything up-to-date</span><br><span class="line"></span><br><span class="line">git branch -vv </span><br><span class="line"></span><br><span class="line">* develop 5c22fb6 [origin/main: ahead 42, behind 13] docs(README): 新增分支介紹</span><br><span class="line">  main    bc952a8 [origin/main: ahead 4, behind 13] deploy</span><br><span class="line">(END)</span><br></pre></td></tr></tbody></table></figure></body></html>
     
     </div>
     
