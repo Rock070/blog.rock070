@@ -93,6 +93,79 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/blog.rock070/2022/04/21/stack/" itemprop="url">Stack 堆疊</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2022-04-21T15:07:40.000Z" itemprop="datePublished">2022年4月21日</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/blog.rock070/categories/data-structure/">data structure</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            4 分钟 讀完 (約 534 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>Stack 堆疊 與 <a href="https://rock070.github.io/blog.rock070/2022/04/21/queue/">Queue 列隊
+</a>  通常會放在一起講，兩種都是屬於抽象的資料類型，只是一種概念，在軟體工程中被廣泛運用。</p>
+<p>可用任何方式實現 stack &amp; queue，如: 連結串列（Linked List）、陣列（Array）。</p>
+<p><img src="https://i.imgur.com/9fdhOBG.png"></p>
+<h3 id="stack-堆疊"><a href="#stack-堆疊" class="headerlink" title="stack 堆疊"></a>stack 堆疊</h3><p><code>像在堆石頭的一樣，只能從上方一直疊上去，要讓石頭變少，也是上方移除。</code></p>
+<p><img src="https://i.imgur.com/3tZCAhK.png"></p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
+<li>後進先出 LIFO(Last in first out)</li>
+<li>元素沒有 index</li>
+<li>元素的新增與移除只能從 stack 的上方</li>
+</ol>
+<h2 id="使用-Linked-List-實作-Stack"><a href="#使用-Linked-List-實作-Stack" class="headerlink" title="使用 Linked List 實作 Stack"></a>使用 Linked List 實作 Stack</h2><p>如果不了解 Linked List 的，可以參考這一篇 <a href="https://rock070.github.io/blog.rock070/2022/04/20/linked-list/">Linked List(連結串列)</a>。</p>
+<p>在 Stack 的概念中，我們建立的 Linked List 只能使用 <code>push</code>, <code>pop</code> 方法，不能使用 <code>shift</code>, <code>unshift</code>, <code>insertAt</code>, <code>removeAt</code>。</p>
+<blockquote>
+<p>要實作的方法：<br>push： 在最上層新增元素<br>pop： 把最上層的元素移除</p>
+</blockquote>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Node = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    value,</span><br><span class="line">    <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span></span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> Stack = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> head = <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">let</span> length = <span class="hljs-number">0</span></span><br><span class="line">  <span class="hljs-comment">// 在最上層新增元素</span></span><br><span class="line">  <span class="hljs-keyword">const</span> push = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> { </span><br><span class="line">    <span class="hljs-keyword">let</span> newNode = Node(value)</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) head = newNode</span><br><span class="line">    <span class="hljs-keyword">else</span> {</span><br><span class="line">      <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">      <span class="hljs-keyword">while</span> (currentNode.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">        currentNode = currentNode.next</span><br><span class="line">      }</span><br><span class="line">      currentNode.next = newNode</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    length++</span><br><span class="line">  }  </span><br><span class="line">  <span class="hljs-comment">// 把最上層的元素移除</span></span><br><span class="line">  <span class="hljs-keyword">const</span> pop = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {</span><br><span class="line">      <span class="hljs-keyword">let</span> node = head</span><br><span class="line">      head = <span class="hljs-literal">null</span></span><br><span class="line">      length = <span class="hljs-number">0</span></span><br><span class="line">      <span class="hljs-keyword">return</span> node</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode.next.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-keyword">let</span> popNode = currentNode.next</span><br><span class="line">    currentNode.next = <span class="hljs-literal">null</span></span><br><span class="line">    length--</span><br><span class="line">    <span class="hljs-keyword">return</span> popNode</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> printAll = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) {</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Nothing in this linked list'</span>)</span><br><span class="line">      <span class="hljs-keyword">return</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(currentNode.value)</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    head,</span><br><span class="line">    length,</span><br><span class="line">    push,</span><br><span class="line">    pop,</span><br><span class="line">    printAll</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> myStack = Stack()</span><br><span class="line">myStack.push(<span class="hljs-string">'Mike'</span>)</span><br><span class="line">myStack.push(<span class="hljs-string">'Harry'</span>)</span><br><span class="line">myStack.push(<span class="hljs-string">'James'</span>)</span><br><span class="line">myStack.pop()</span><br><span class="line">myStack.printAll()</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>印出結果：<br>Mike<br>Harry</p>
+</blockquote>
+<h3 id="Stack-觀念練習題"><a href="#Stack-觀念練習題" class="headerlink" title="Stack 觀念練習題"></a>Stack 觀念練習題</h3><p>以下會提供一系列的運算，請試著回答問題：</p>
+<ol>
+<li>當運算都結束後，stack 內還有幾個項目？</li>
+<li>stack 的最上方（top）是什麼？</li>
+</ol>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">push flour</span><br><span class="line">push milk</span><br><span class="line">push eggs</span><br><span class="line">pop </span><br><span class="line">push leavening</span><br><span class="line">push sugar</span><br><span class="line">pop</span><br><span class="line">pop</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><blockquote>
+<p>最後 stack 會剩下兩個元素</p>
+<p>milk(top)<br>flour</p>
+</blockquote>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 個</span><br><span class="line">milk</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="LeetCoode-練習題"><a href="#LeetCoode-練習題" class="headerlink" title="LeetCoode 練習題"></a>LeetCoode 練習題</h3><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-parentheses/">20. Valid Parentheses</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/min-stack/">155. Min Stack</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/">1047. Remove All Adjacent Duplicates In String</a></p>
+</body></html>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/blog.rock070/2022/04/21/doubly-linked-list/" itemprop="url">Doubly Linked List（雙向連結串列）</a>
         
     </h1>
@@ -143,165 +216,6 @@
 
 
     
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/blog.rock070/2022/04/20/linked-list/" itemprop="url">Linked List(連結串列)</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2022-04-20T11:33:03.000Z" itemprop="datePublished">2022年4月20日</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/blog.rock070/categories/data-structure/">data structure</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            12 分钟 讀完 (約 1812 字)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <html><head></head><body><p>Linked List 連結串列，是資料結構中是常見、基本的資料型態，由 Node(節點）組成，每個節點各自儲存在非連續的記憶體位址，並透過 Pointer(指標) 來紀錄下一個節點的位址，最後一個節點的 pointer 指向 Null。</p>
-<h4 id="Linked-List-有兩項屬性："><a href="#Linked-List-有兩項屬性：" class="headerlink" title="Linked List 有兩項屬性："></a>Linked List 有兩項屬性：</h4><ol>
-<li>length(連結長度)</li>
-<li>head(第一個 Node 位址)</li>
-</ol>
-<h4 id="Node-有兩項屬性："><a href="#Node-有兩項屬性：" class="headerlink" title="Node 有兩項屬性："></a>Node 有兩項屬性：</h4><ol>
-<li>value</li>
-<li>Pointer（下一個 Node 的位址，最後一個 Node 指向 null）</li>
-</ol>
-<p>從下圖可以看到每一個 Node 都指向下一個 Node 位址，最後一個指向 Null。</p>
-<p><img src="https://i.imgur.com/nIFp6SU.png"></p>
-<h3 id="用-JavaScript-實作一個-Linked-List"><a href="#用-JavaScript-實作一個-Linked-List" class="headerlink" title="用 JavaScript 實作一個 Linked List"></a>用 JavaScript 實作一個 Linked List</h3><p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/linked-list/index.js">完整程式碼 - GitHub</a>，可以先 clone 下來，或是跟著下面一步一步建立函式。</p>
-<p>本來想用 class 來實作，但最近看了這一篇關於為什麼不應該在 JS 中使用 class 的文章<br><a target="_blank" rel="noopener" href="https://javascript.plainenglish.io/stop-writing-classes-in-javascript-you-dont-need-to-use-this-instead-f6d143ef7a28">（stop-writing-classes-in-javascript）</a> ，所以下面就直接使用函式來實作。</p>
-<p>先定義一個 Node，擁有 value 與 next(等於 Pointer，指向下一個 Node) 屬性</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> Node = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    value,</span><br><span class="line">    <span class="hljs-attr">next</span>: <span class="hljs-literal">null</span></span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>再來定義一個 Linked List，擁有 length(連結長度) 與 head（指向第一個 Node）屬性</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> LinkedList = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> head = <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">let</span> length = <span class="hljs-number">0</span></span><br><span class="line">  <span class="hljs-keyword">return</span> {</span><br><span class="line">    head,</span><br><span class="line">    length,</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-
-<p>接下來我們會在 <code>LinkedList</code> 這個函式內建立一些方法，有些方法，類似於 JS 中 Array.prototype 提供的方法：</p>
-<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">push</span><br><span class="line">pop</span><br><span class="line">printAll</span><br><span class="line">shift</span><br><span class="line">get</span><br><span class="line">unshift</span><br><span class="line">insertAt</span><br><span class="line">removeAt</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h3><p>在連結的結尾加上一個 Node</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> push = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> { </span><br><span class="line">  <span class="hljs-comment">// 建立一個 Node</span></span><br><span class="line">  <span class="hljs-keyword">let</span> newNode = Node(value)</span><br><span class="line">  <span class="hljs-comment">// 當連結內沒有 Node 的時候，指定新的 Node 為第一個 Node</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) head = newNode</span><br><span class="line">  <span class="hljs-comment">// 當連結內已經有 Node 的時候，把最後一個 Node 的 next 指定為新的 Node</span></span><br><span class="line">  <span class="hljs-keyword">else</span> {</span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">    currentNode.next = newNode</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 連結長度 +1</span></span><br><span class="line">  length++</span><br><span class="line">} </span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="Pop"><a href="#Pop" class="headerlink" title="Pop"></a>Pop</h3><p>把最後一個 Node 排除</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> pop = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">    <span class="hljs-comment">// 當 Linked List 沒有 Node 的時候返回 null</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">    <span class="hljs-comment">// 當 linked List 長度為 1 的時候把 head 跟 length 調整為初始化</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {</span><br><span class="line">      <span class="hljs-keyword">let</span> node = head</span><br><span class="line">      head = <span class="hljs-literal">null</span></span><br><span class="line">      length = <span class="hljs-number">0</span></span><br><span class="line">      <span class="hljs-keyword">return</span> node</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-comment">// 把倒數第二個 Node 的 next 改成 null，並把 Linked List 的長度 - 1</span></span><br><span class="line">    <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">    <span class="hljs-keyword">while</span> (currentNode.next.next !== <span class="hljs-literal">null</span>) {</span><br><span class="line">      currentNode = currentNode.next</span><br><span class="line">    }</span><br><span class="line">    <span class="hljs-keyword">let</span> popNode = currentNode.next</span><br><span class="line">    currentNode.next = <span class="hljs-literal">null</span></span><br><span class="line">    length--</span><br><span class="line">    <span class="hljs-keyword">return</span> popNode</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="printAll"><a href="#printAll" class="headerlink" title="printAll"></a>printAll</h3><p>印出 Linked List 內所有的值</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> printAll = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 沒有節點則印出 nothing</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) {</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Nothing in this linked list'</span>)</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 遍歷所有節點</span></span><br><span class="line">  <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">  <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span>) {</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(currentNode.value)</span><br><span class="line">    currentNode = currentNode.next</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="shift"><a href="#shift" class="headerlink" title="shift"></a>shift</h3><p>將 Linked List 的第一個節點移除，只需要將 Linked List 的 Head 改成第二個節點就可以了。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> shift = <span class="hljs-function">() =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 若沒有節點則回傳 null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-comment">// 若節點只有一個，就把 linkedList 初始化</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) {</span><br><span class="line">    <span class="hljs-keyword">let</span> node = head</span><br><span class="line">    head = <span class="hljs-literal">null</span></span><br><span class="line">    length = <span class="hljs-number">0</span></span><br><span class="line">    <span class="hljs-keyword">return</span> node </span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 若不止一個節點，則把 head 變成第二個節點開始，並長度 - 1</span></span><br><span class="line">  head = head.next</span><br><span class="line">  length--</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>根據 index 來找值，與 array 不同的是，需要從第一個節點開始找，直到找到 index 指定的節點</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> get = <span class="hljs-function">(<span class="hljs-params">index</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 若 index 大於 Linked List 長度或小於 0 則回傳 null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index &gt; length || index &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-comment">// 若只有一個節點，則回傳第一個節點的值</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> head.value</span><br><span class="line">  <span class="hljs-comment">// 若不止一個節點則進入迴圈開始尋找</span></span><br><span class="line">  <span class="hljs-keyword">let</span> currentNode = head</span><br><span class="line">  <span class="hljs-comment">// 從 i = 1 開始是因為上一行已經指定第一個節點了</span></span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= index; i++) {</span><br><span class="line">    currentNode = currentNode.next</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-keyword">return</span> currentNode.value</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="unshift"><a href="#unshift" class="headerlink" title="unshift"></a>unshift</h3><p>在 head 前新增一個節點，並指定新節點為 head</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> unshift = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 建立新節點</span></span><br><span class="line">  <span class="hljs-keyword">let</span> newNode = Node(value)</span><br><span class="line">  <span class="hljs-comment">// 若已經有至少一個節點，則將新節點的 next 指向原本的 head</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (head !== <span class="hljs-literal">null</span>) newNode.next = head</span><br><span class="line">  head = newNode</span><br><span class="line">  length++</span><br><span class="line">  <span class="hljs-keyword">return</span> newNode</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="insertAt"><a href="#insertAt" class="headerlink" title="insertAt"></a>insertAt</h3><p>在某個 index 插入一個節點</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> insertAt = <span class="hljs-function">(<span class="hljs-params">index, value</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-comment">// 若 index 大於長度或小於 0 則返回 null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index &gt; length || index &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-comment">// 若 index = 0 或是原本就沒有節點，則使用上方寫過的 unshift 來新增</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span> || head === <span class="hljs-literal">null</span>) {</span><br><span class="line">    unshift(value)</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 若 index 剛好等於串列的長度，則使用上方寫過的 push 來新增</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index === length) {</span><br><span class="line">    push(value)</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 若都沒有上述情況，使用遍歷的方式找到 index 的節點，將前一個節點的 next 指向新節點，並將新節點的 next 指向原本的該 index 的節點</span></span><br><span class="line">  <span class="hljs-keyword">let</span> prevNode</span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; index; i++) {</span><br><span class="line">    <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) prevNode = head</span><br><span class="line">    <span class="hljs-keyword">else</span> prevNode = prevNode.next</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-keyword">const</span> newNode = Node(value)</span><br><span class="line">  newNode.next = prevNode.next</span><br><span class="line">  prevNode.next = newNode</span><br><span class="line">  length++</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="removeAt"><a href="#removeAt" class="headerlink" title="removeAt"></a>removeAt</h3><p>刪除某個 index 的節點，邏輯跟 <code>insertAt</code> 很像，但是方法改使用 pop &amp; shift。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> removeAt = <span class="hljs-function">(<span class="hljs-params">index</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">if</span> (index &gt; length || index &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span> || head === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> shift()</span><br><span class="line">  <span class="hljs-keyword">if</span> (index === length) <span class="hljs-keyword">return</span> pop()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> prevNode</span><br><span class="line">  <span class="hljs-keyword">let</span> nextNode</span><br><span class="line">  <span class="hljs-keyword">let</span> value</span><br><span class="line">  <span class="hljs-comment">// 使用遍歷的方式找到該節點，並結把前一個節點的 next 指向原節點的下一個節點</span></span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; index; i++) {</span><br><span class="line">    <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) prevNode = head</span><br><span class="line">    <span class="hljs-keyword">else</span> prevNode = prevNode.next</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-comment">// 要移除的 node 的 value</span></span><br><span class="line">  value = prevNode.next.value</span><br><span class="line">  nextNode = prevNode.next.next</span><br><span class="line">  prevNode.next = nextNode</span><br><span class="line">  length--</span><br><span class="line">  <span class="hljs-keyword">return</span> value</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h1 id="Linked-List-與-Array-的比較"><a href="#Linked-List-與-Array-的比較" class="headerlink" title="Linked List 與 Array 的比較"></a>Linked List 與 Array 的比較</h1><h3 id="Big-O"><a href="#Big-O" class="headerlink" title="Big O"></a>Big O</h3><table>
-<thead>
-<tr>
-<th></th>
-<th>Array</th>
-<th>Linked List</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>存取資料</td>
-<td>O(1)</td>
-<td>O(n)</td>
-</tr>
-<tr>
-<td>插入與刪除第一筆資料</td>
-<td>O(n)</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>插入與刪除最後一筆資料</td>
-<td>O(1)</td>
-<td>O(n)</td>
-</tr>
-<tr>
-<td>插入與刪除中間值的資料</td>
-<td>O(n)</td>
-<td>O(n)</td>
-</tr>
-</tbody></table>
-<h2 id="Linked-List"><a href="#Linked-List" class="headerlink" title="Linked List"></a>Linked List</h2><p>特性</p>
-<ul>
-<li>沒有 index</li>
-<li>每個節點連結是透過 “next” 指標</li>
-</ul>
-<p>優點</p>
-<ul>
-<li>新增刪除資料較快，因為不需要調整 index</li>
-<li>資料數量是動態的，不像 Array 有 resize 的問題。</li>
-</ul>
-<p>缺點</p>
-<ul>
-<li>因為沒有 index，所以在查找特定 node 的時候，需要從連結的頭開始找，時間複雜度為 O(N)</li>
-<li>比 Array 使用更多的記憶體空間，因為每一個 node 都需要額外的空間來存儲存 pointer</li>
-<li>儲存在記憶體的位址並不連續，需要到各個 node 位址去存取，相對 Array 連續的位址會更花時間。</li>
-<li>因為單向性的關係，要反向存取是非常麻煩的。</li>
-</ul>
-<p>適用時機</p>
-<ul>
-<li>無法預期資料數量的時候，因為不用 resize</li>
-<li>需要頻繁地進行新增或刪除的動作</li>
-<li>不需要快速查詢資料</li>
-</ul>
-<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>特性</p>
-<ul>
-<li>有 index</li>
-</ul>
-<p>優點</p>
-<ul>
-<li>可以快速的存取任意的 index 元素，時間複雜度為 O(1)。</li>
-<li>不需存 pointer 紀錄，較省記憶體空間</li>
-</ul>
-<p>缺點</p>
-<ul>
-<li>插入與刪除的方法是較花時間的，以 shift 為例，刪掉第一個元素之後，陣列中所有的元素的 index 都需調整</li>
-</ul>
-<p>適用時機</p>
-<ul>
-<li>希望可以快速存取資料</li>
-<li>已知陣列大小</li>
-<li>較少的記憶體空間使用</li>
-</ul>
-<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>在 JavaScript 中實在想不到什麼情境會使用 Linked List，目前想到只有在大量的資料處理的時候會用的，若有其他的情境可以使用，請分享給我知道 XD</p>
-<h2 id="leetcode-練習"><a href="#leetcode-練習" class="headerlink" title="leetcode 練習"></a>leetcode 練習</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/reverse-linked-list/">206. Reverse Linked List</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/linked-list-cycle/">141. Linked List Cycle</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/palindrome-linked-list/">234. Palindrome Linked List</a></p>
-<h2 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10216257">鏈結串列 Linked List - 第 11 屆 iThome 鐵人賽
-</a></li>
-<li><a href="alrightchiu.github.io/SecondRound/linked-list-introjian-jie.html">Linked List: Intro(簡介)</a></li>
-</ul>
-</body></html>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -322,6 +236,8 @@
         <li><a class="pagination-link is-current" href="/blog.rock070/5/">5</a></li>
         
         <li><a class="pagination-link" href="/blog.rock070/6/">6</a></li>
+        
+        <li><a class="pagination-link" href="/blog.rock070/7/">7</a></li>
         
     </ul>
 </nav>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>如何切換 Git 遠端分支 - Rock070 Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+<meta name="description" content="">
+
+
+
+
+
+<meta name="keywords" content="網頁前端,frontend,modern web, vue, ES6, Jest, CSS pattern, Unit Test">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+
+<link rel="stylesheet" href="/blog.rock070/css/style.css">
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/blog.rock070/">
+                
+                <span>Rock070</span>
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/blog.rock070/about">關於我</a>
+            
+            <a class="navbar-item "
+               href="/blog.rock070/categories">文章分類</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            
+            
+            <a class="navbar-item" target="_blank" title="Medium" href="https://medium.com/@mirthful_satin_dinosaur_426">
+                
+                <i class="fa-brands fa-medium"></i>
+                
+            </a>
+               
+            
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+      <div data-nosnippet style="margin-bottom: 1rem; padding: 12px 24px; border-radius: 12px; background:#ffe4c4; display: none;">
+        我最近正好奇著大家讀完我的技術文章後的感想，有空的話可以幫我填一下：<a href="https://forms.gle/QuTY9yvKK3KRiGDj6" target="_blank">表單連結</a>
+      </div>
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            如何切換 Git 遠端分支
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2022-06-03T13:32:00.000Z" itemprop="datePublished">2022年6月3日</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 分钟 讀完 (約 236 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><h2 id="檢查對應的遠端分支"><a href="#檢查對應的遠端分支" class="headerlink" title="檢查對應的遠端分支"></a>檢查對應的遠端分支</h2><p><code>git branch -vv</code></p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git branch -vv</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* develop 5c22fb6 [origin/develop] docs(README): 新增分支介紹</span><br><span class="line">  main    bc952a8 [origin/main: ahead 4, behind 13] deploy</span><br><span class="line">(END)</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h2 id="更換分支"><a href="#更換分支" class="headerlink" title="更換分支"></a>更換分支</h2><ul>
+<li>方法一</li>
+</ul>
+<p><code>git branch -u 遠端庫名/分支名</code></p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> 假設現在本地的 HEAD 在 develop</span></span><br><span class="line">git branch -u origin main</span><br><span class="line"></span><br><span class="line">Branch 'develop' set up to track remote branch 'main' from 'origin'.</span><br><span class="line"></span><br><span class="line">git branch -vv </span><br><span class="line"></span><br><span class="line">* develop 5c22fb6 [origin/main: ahead 42, behind 13] docs(README): 新增分支介紹</span><br><span class="line">  main    bc952a8 [origin/main: ahead 4, behind 13] deploy</span><br><span class="line">(END)</span><br></pre></td></tr></tbody></table></figure>
+
+
+<blockquote>
+<p>[!NOTE] 什麼是 HEAD<br>目前所在的分支。<br>可參考：<a target="_blank" rel="noopener" href="https://gitbook.tw/chapters/using-git/what-is-head">【冷知識】HEAD 是什麼東西？</a></p>
+</blockquote>
+<ul>
+<li>方法二</li>
+</ul>
+<p>git push -u 遠端庫名/</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> 假設現在本地的 HEAD 在 develop</span></span><br><span class="line"></span><br><span class="line">git branch -u origin main</span><br><span class="line"></span><br><span class="line">Branch 'develop' set up to track remote branch 'main' from 'origin'.</span><br><span class="line">Everything up-to-date</span><br><span class="line"></span><br><span class="line">git branch -vv </span><br><span class="line"></span><br><span class="line">* develop 5c22fb6 [origin/main: ahead 42, behind 13] docs(README): 新增分支介紹</span><br><span class="line">  main    bc952a8 [origin/main: ahead 4, behind 13] deploy</span><br><span class="line">(END)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h2><p><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/git-set-upstream">What Is Git Upstream And How To Set Upstream Branch</a></p>
+</body></html>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/blog.rock070/2022/04/27/tree-traversal/">樹的走訪：寬度優先走訪（BFS）、深度優先走訪（DFS）</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">評論</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://rock070.github.io/blog.rock070/2022/06/03/git-upstream/';
+        this.page.identifier = '2022/06/03/git-upstream/';
+        
+        this.language = 'zh';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'blog-rock070' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 Rock070&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/Rock070">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("zh-CN");
+</script>
+
+
+
+
+<script src="/blog.rock070/js/script.js"></script>
+
+
+    
+</body>
+</html>
