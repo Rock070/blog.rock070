@@ -11,3 +11,11 @@
 部署文章：yarn deploy 
 開啟本地伺服器：yarn serve
 ```
+
+
+分支
+
+```
+develop: 開發用
+main: 打包後的靜態檔
+```
