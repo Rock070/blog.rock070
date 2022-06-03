@@ -223,7 +223,7 @@
         <span class="column is-narrow">
             
             
-            1 分钟 讀完 (約 178 字)
+            2 分钟 讀完 (約 278 字)
         </span>
         
     </div>
@@ -231,11 +231,18 @@
     
         <html><head></head><body><p><img src="https://assets.matters.news/embed/2e178023-5650-4453-8199-bbb80a1e5a91.png"></p>
 <ul>
-<li>Hash Table 是一個陣列，陣列中每個元素都是一個 bucket。</li>
-<li>選出每筆資料都有的一個值當作 key（如姓名、編號），經過 <code>hash</code> 函式後可以得到索引，藉此知道資料要放在 Hash Table 中哪個 bucket 中。</li>
-<li>若遍歷原始資料 hash 過後，得到重覆的索引，就稱作衝突，可以用 Array 或是 Linked List 的結構讓資料共存在 bucket 內。</li>
-<li>公開的方法：set、get、delete</li>
-<li>私有的方法：hash</li>
+<li><p>當資料沒有數字可以當作索引，或是資料間當作索引的數字差距太大，導致 Array 過長，就可以透過某種 Hash function 把資料中某個 Key 雜湊為較小數字的索引，這樣就更容易儲存資料，也好存取。</p>
+</li>
+<li><p>Hash Table 是一個陣列，陣列中每個元素都是一個 bucket。</p>
+</li>
+<li><p>選出每筆資料都有的一個值當作 key（如姓名、編號），經過 <code>hash</code> 函式後可以得到索引，藉此知道資料要放在 Hash Table 中哪個 bucket 中。</p>
+</li>
+<li><p>若遍歷原始資料 hash 過後，得到重覆的索引，就稱作衝突，可以用 Array 或是 Linked List 的結構讓資料共存在 bucket 內。</p>
+</li>
+<li><p>公開的方法：set、get、delete</p>
+</li>
+<li><p>私有的方法：hash</p>
+</li>
 </ul>
 <p>時間複雜度</p>
 <ul>
@@ -243,6 +250,7 @@
 <li>Delete: O(1)</li>
 <li>get: O(1)：能夠透過 hash function 直接找出該 key 對應的 bucket</li>
 </ul>
+<h3 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h3><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sAjkAz75jis">十六分鐘略懂刷題面試</a></p>
 </body></html>
     
     </div>

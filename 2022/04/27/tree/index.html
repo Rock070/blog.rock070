@@ -112,19 +112,22 @@
         <span class="column is-narrow">
             
             
-            2 分钟 讀完 (約 374 字)
+            6 分钟 讀完 (約 917 字)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <html><head></head><body><p><img src="https://www.geeksforgeeks.org/wp-content/uploads/binary-tree-to-DLL.png"></p>
+<p><img src="https://miro.medium.com/max/1400/1*29CZ_RNJl_05PdPDCLqcFg.png"></p>
 <ul>
-<li>Tree 是一種不會循環的 Graph</li>
-<li>Tree 必須有一個唯一的 root</li>
+<li>由一個或多個節點（node）組成，一個節點也可以稱作樹</li>
+<li>樹必須有一個唯一的 root 根節點</li>
+<li>根節點以下的節點集合稱作子樹（subtree）</li>
+<li>由節點之間的有向連線(edges)組成</li>
+<li>樹是一種不會循環的圖形</li>
 </ul>
-<p>Tree 的應用</p>
-<ul>
+<h2 id="Tree-的應用"><a href="#Tree-的應用" class="headerlink" title="Tree 的應用"></a>Tree 的應用</h2><ul>
 <li>file system </li>
 </ul>
 <p>檔案系統就是一種樹狀資料結構的應用，同樣可以適用於廣度優先搜尋法與深度優先搜尋法</p>
@@ -138,8 +141,27 @@
 </ul>
 <p><img src="https://i.imgur.com/h0HoGRC.png"></p>
 <p>有接觸過網頁前端開發的人應該都有看過這個模型，是由 W3C 提出的瀏覽器的標準化模型，目前主流的瀏覽器皆已按照此模型設計。</p>
-<h3 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h3><ul>
+<h2 id="Binary-Tree"><a href="#Binary-Tree" class="headerlink" title="Binary Tree"></a>Binary Tree</h2><p>定義：</p>
+<ul>
+<li>每一個節點最多只有兩個節點，具有方向性，稱作左節點、右節點。</li>
+<li>符合樹的特性，但根節點必須至少擁有一個左子樹與右子樹。<h2 id="Binary-Tree-的形容詞"><a href="#Binary-Tree-的形容詞" class="headerlink" title="Binary Tree 的形容詞"></a>Binary Tree 的形容詞</h2></li>
+</ul>
+<p><img src="https://web.ntnu.edu.tw/~algo/BinaryTree2.png"></p>
+<p>full binary tree ：除了樹葉以外，每個節點都有兩個小孩。</p>
+<p>complete binary tree ：各層節點全滿，除了最後一層，最後一層節點全部靠左。</p>
+<p>perfect binary tree ：各層節點全滿。同時也是 full binary tree 和 complete binary tree 。</p>
+<h2 id="N-ary-Tree-多元樹表示法"><a href="#N-ary-Tree-多元樹表示法" class="headerlink" title="N-ary Tree 多元樹表示法"></a>N-ary Tree 多元樹表示法</h2><p>「多元樹」。分 N 岔的樹，每個節點可以有零個、一個、兩個、 …… 、 N 個小孩。</p>
+<p><img src="https://web.ntnu.edu.tw/~algo/N-aryTree1.png"></p>
+<p>注意到：多元樹，節點只有一個小孩時，沒有左小孩、右小孩的差別；二元樹，節點只有一個小孩時，有左小孩、右小孩的差別。</p>
+<h2 id="Left-child-Right-sibling-representation-左兒子-右兄弟表示法"><a href="#Left-child-Right-sibling-representation-左兒子-右兄弟表示法" class="headerlink" title="Left child-Right sibling representation 左兒子-右兄弟表示法"></a>Left child-Right sibling representation 左兒子-右兄弟表示法</h2><p>每個節點中都只有一個最靠左的子節點，以及一個最靠近它的右兄弟。</p>
+<p>多元樹重新表示成「左兒子右兄弟」：多元樹的左小孩，是「左兒子右兄弟」的左小孩；多元樹的其餘小孩（左小孩的兄弟），是「左兒子右兄弟」的右小孩、右右小孩、 …… 。</p>
+<p>然後將樹往順時針轉 45 度，即為二元樹。</p>
+<p><img src="https://web.ntnu.edu.tw/~algo/N-aryTree2.png"></p>
+<p>芸芸多元樹，皆得簡化成二元樹；區區二元樹，便可描述出多元樹。</p>
+<h2 id="樹的-Big-O"><a href="#樹的-Big-O" class="headerlink" title="樹的 Big O"></a>樹的 Big O</h2><h3 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://magiclen.org/dfs-bfs">深度優先搜尋(DFS)和廣度優先搜尋(BFS)演算法，實用的節點搜尋法</a></li>
+<li><a target="_blank" rel="noopener" href="https://web.ntnu.edu.tw/~algo/BinaryTree.html">Binary Tree - 演算法筆記</a></li>
+<li><a target="_blank" rel="noopener" href="http://epaper.gotop.com.tw/pdf/AEE003600.pdf">樹的定義與基本術語</a></li>
 </ul>
 </body></html>
     
