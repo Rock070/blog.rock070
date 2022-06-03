@@ -1,7 +1,7 @@
 ---
 title: 如何切換 Git 遠端分支
 date: 2022-06-03 21:32:00
-categories:
+categories: Git
 ---
 
 ## 檢查對應的遠端分支  
