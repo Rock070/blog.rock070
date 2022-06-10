@@ -15,10 +15,9 @@ CSS 是一個好理解但不好使用跟維護的語言，所以衍生出非常�
 
 ## 一、物件導向 CSS：OOCSS By Nicole Sullivan
 
-
 ### 兩大原則
 
-* ### Sperate Structure & Skin - 分離結構與顏色 
+* ### Sperate Structure & Skin - 分離結構與顏色
 
 即將顏色樣式與大小樣式分離，針對元素中的顏色的樣式單獨抽出做分離，避免重複性高的 CSS。
 
@@ -59,7 +58,7 @@ CSS 是一個好理解但不好使用跟維護的語言，所以衍生出非常�
   width: 320px;
   height: 400px;
   overflow: hidden;
-	
+ 
 };
 
 .button {
@@ -77,7 +76,6 @@ CSS 是一個好理解但不好使用跟維護的語言，所以衍生出非常�
 * ### Sperate Container & Content - 容器與內容分離
 
 分離 html 與 css，盡量將可共用的 class 單獨分離出來，這樣好處是若有多處重複的樣式，可使用同一個 class。
-
 
 範例：box 內有一個標題跟一個內文，標題內有一部分特殊樣式：
 
@@ -109,14 +107,11 @@ CSS 是一個好理解但不好使用跟維護的語言，所以衍生出非常�
 }
 ```
 
-
 簡單來說：使用 class 寫樣式，每個 class 又有不同用途，如大小、顏色等等
-
 
 範例：
 
 ``<button class="btn btn-primary btn-large"></button>``
-
 
 btn: 按鈕的基本樣式
 btn-primary: 按鈕的顏色
@@ -126,10 +121,9 @@ btn-large: 按鈕的大小
 
 範例：[Bootstrap](https://getbootstrap.com/)。
 
-## 二、SMACSS(Scalable and Modular Architecture for CSS) 
+## 二、SMACSS(Scalable and Modular Architecture for CSS)
 
 [SMACSS](http://smacss.com/) 由 Jonathan Snook 提出
-
 
 顧名思義就是可擴展與模組化的設計模式。
 
@@ -147,7 +141,7 @@ btn-large: 按鈕的大小
 ```css
 # reset css
 body, html {
-  padding: 0,
+  padding: 0,;
   margin: 0,
 }
 
@@ -162,7 +156,6 @@ a:focus {
   text-decoration: none;
 }
 ```
-
 
 ### 2. Layout
 
@@ -204,8 +197,6 @@ a:focus {
 ```
 
 但當 span 增加並需要另外的樣式時，就可能會需要同時修改 CSS 跟 html 的架構，具有較低的維護性，所以作者推薦這樣的寫法，向元素增加 class，提高了元素樣式的語意，更清楚知道當中的區別
-
-
 
 ```html
 <div class="fld">
@@ -263,7 +254,6 @@ a:focus {
 
 此架構可以讓主題可以切開來，按照需求引入主題檔案
 
-
 morning 主題：引入 `all.css` 與 `theme-morning.css`
 night 主題：引入 `all.css` 與 `theme-night.css`
 
@@ -287,6 +277,7 @@ night 主題：引入 `all.css` 與 `theme-night.css`
 }
 
 ```
+
 ## 三、BEM
 
 Block(區塊)-Element（元素）-Modifier（修飾子）
@@ -309,14 +300,11 @@ Block(區塊)-Element（元素）-Modifier（修飾子）
 
 Element 使用雙底線做分隔，Modifier 使用雙 dash 做分隔。
 
-
 menu 是區塊，menu__item 是 menu 的元素，active 是 menu__item 的一種狀態。
 
+## 四、CSS in JS
 
-
-## 四、CSS in JS 
-
-隨著前端框架的出現，前端的開發逐漸 component 化，一個頁面的個別元素可以切分 component 
+隨著前端框架的出現，前端的開發逐漸 component 化，一個頁面的個別元素可以切分 component
 
 ![](https://ithelp.ithome.com.tw/upload/images/20191001/20114645O78QEhrJLG.png)
 
@@ -397,10 +385,10 @@ render(
 
 Atomic CSS 由 Thierry Koblentz (Yahoo!)在 2013 年挑戰 [CSS 最佳實踐](https://www.smashingmagazine.com/2013/10/challenging-css-best-practices-atomic-approach/)中首次使用，將樣式的名稱指向每個單獨的 class ，並把名稱縮小化，將結構 html 與樣式 css 結合，當按鈕的樣式需要修改的時候，我們修改的是 HTML 而不是 CSS。
 
-
 ```html
 <div class="bw-2x bss p-1x"> 這是原子 CSS 範例 </div>
 ```
+
 ```css
 /* 原子 CSS */
 /* Atomic CSS */
@@ -422,10 +410,10 @@ Atomic CSS 由 Thierry Koblentz (Yahoo!)在 2013 年挑戰 [CSS 最佳實踐](ht
   font-style: sans-serif;
 }
 ```
+
 但會衍伸出的問題是，沒有一個命名的約定，若每個專案的命名者不同，那當你加入一個新專案的時候，就必須重新學習該專案的 class 命名方式，例如 A 專案對於 `border-width: 2px` 的命名是 `bw-2`，B 專案的命名是 `b-2`，這樣專案一多起來，使用上就會帶來大大的不便。
 
 後來誕生的 CSS 框架 [tailwindcss](https://tailwindcss.com/docs/utility-first) 提出了一個命名規範，並可以自行擴充樣式。
-
 
 ![圖ㄧ](https://i.imgur.com/oH9feYW.png)
 
@@ -434,7 +422,6 @@ Atomic CSS 由 Thierry Koblentz (Yahoo!)在 2013 年挑戰 [CSS 最佳實踐](ht
 ![圖二](https://i.imgur.com/8ZZD8e5.png)
 
 圖片源自 tailwindcss.com
-
 
 ### Tailwindcss 優缺點比較
 
@@ -445,12 +432,10 @@ Atomic CSS 由 Thierry Koblentz (Yahoo!)在 2013 年挑戰 [CSS 最佳實踐](ht
 * 修改樣式只需要修改 HTML
 * 沒有使用到的 CSS 將會在生產環境編譯時清除，達到輕巧化
 
-
 缺點
 
 * 需要學習一個既定的命名約定
 * HTML 會變得更加龐大
-
 
 ## 六、寫在 JS 中的原子樣式（Atomic CSS in JS ）
 
@@ -458,22 +443,20 @@ Atomic CSS 由 Thierry Koblentz (Yahoo!)在 2013 年挑戰 [CSS 最佳實踐](ht
 
 推薦文章：[Atomic-css-in-js](https://sebastienlorber.com/atomic-css-in-js)
 
+### 延伸閱讀
 
-### 延伸閱讀：
 [Atomic CSS 優化樣式開發
 ](https://linyencheng.github.io/2020/05/27/css-atomic-css/?utm_source=link&utm_medium=article&utm_campaign=internal_link)
 
-### 參考來源：
+### 參考來源
+
 [CSS 的模組化方法：OOCSS、SMACSS、BEM、CSS Modules、CSS in JS](https://cythilya.github.io/2018/06/05/css-methodologies/)
 
 [從 Vue 來看 CSS 管理方案的發展](https://kuro.tw/posts/2017/07/26/%E5%BE%9EVue%E4%BE%86%E7%9C%8BCSS%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88%E7%9A%84%E7%99%BC%E5%B1%95/)
 
-
 [SMACSS 教學](https://medium.com/@savemuse/smacss-%E6%95%99%E5%AD%B8-c94e858aa762)
 
-
 [Sass教學 (30) - SMACSS - State Rules](https://ithelp.ithome.com.tw/articles/10160128)
-
 
 [Day5. CSS 設計模式(一) - SMACSS
 ](https://ithelp.ithome.com.tw/articles/10236146)
