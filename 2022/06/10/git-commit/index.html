@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>Rock070 Blog</title>
+<title>建立可讀性高的 git 提交吧！ - Rock070 Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -89,11 +89,13 @@
 
     <section class="section">
     <div class="container">
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
+      <div data-nosnippet style="margin-bottom: 1rem; padding: 12px 24px; border-radius: 12px; background:#ffe4c4; display: none;">
+        我最近正好奇著大家讀完我的技術文章後的感想，有空的話可以幫我填一下：<a href="https://forms.gle/QuTY9yvKK3KRiGDj6" target="_blank">表單連結</a>
+      </div>
+    <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/blog.rock070/2022/06/10/git-commit/" itemprop="url">建立可讀性高的 git 提交吧！</a>
+            建立可讀性高的 git 提交吧！
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -258,90 +260,47 @@
     </div>
     
     
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/blog.rock070/2022/06/03/git-upstream/" itemprop="url">如何切換 Git 遠端分支</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2022-06-03T13:32:00.000Z" itemprop="datePublished">2022年6月3日</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/blog.rock070/categories/Git/">Git</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
             
-            
-            2 分钟 讀完 (約 227 字)
         </span>
-        
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/blog.rock070/2022/06/03/git-upstream/">如何切換 Git 遠端分支</a>
+            
+        </span>
     </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <html><head></head><body><h2 id="檢查對應的遠端分支"><a href="#檢查對應的遠端分支" class="headerlink" title="檢查對應的遠端分支"></a>檢查對應的遠端分支</h2><p><code>git branch -vv</code></p>
-<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git branch -vv</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* develop 5c22fb6 [origin/develop] docs(README): 新增分支介紹</span><br><span class="line">  main    bc952a8 [origin/main: ahead 4, behind 13] deploy</span><br><span class="line">(END)</span><br></pre></td></tr></tbody></table></figure>
-
-
-<h2 id="更換分支"><a href="#更換分支" class="headerlink" title="更換分支"></a>更換分支</h2><ul>
-<li>方法一</li>
-</ul>
-<p><code>git branch -u 遠端庫名/分支名</code></p>
-<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> 假設現在本地的 HEAD 在 develop</span></span><br><span class="line">git branch -u origin main</span><br><span class="line"></span><br><span class="line">Branch 'develop' set up to track remote branch 'main' from 'origin'.</span><br><span class="line"></span><br><span class="line">git branch -vv </span><br><span class="line"></span><br><span class="line">* develop 5c22fb6 [origin/main: ahead 42, behind 13] docs(README): 新增分支介紹</span><br><span class="line">  main    bc952a8 [origin/main: ahead 4, behind 13] deploy</span><br><span class="line">(END)</span><br></pre></td></tr></tbody></table></figure>
-
-
-<blockquote>
-<p>[!NOTE] 什麼是 HEAD<br>目前所在的分支。<br>可參考：<a target="_blank" rel="noopener" href="https://gitbook.tw/chapters/using-git/what-is-head">【冷知識】HEAD 是什麼東西？</a></p>
-</blockquote>
-<ul>
-<li>方法二</li>
-</ul>
-<p>git push -u 遠端庫名/分支名</p>
-<p>同時會把 commit 推向遠端</p>
-<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> 假設現在本地的 HEAD 在 develop</span></span><br><span class="line"></span><br><span class="line">git branch -u origin main</span><br><span class="line"></span><br><span class="line">Branch 'develop' set up to track remote branch 'main' from 'origin'.</span><br><span class="line">Everything up-to-date</span><br><span class="line"></span><br><span class="line">git branch -vv </span><br><span class="line"></span><br><span class="line">* develop 5c22fb6 [origin/main: ahead 42, behind 13] docs(README): 新增分支介紹</span><br><span class="line">  main    bc952a8 [origin/main: ahead 4, behind 13] deploy</span><br><span class="line">(END)</span><br></pre></td></tr></tbody></table></figure></body></html>
-    
-    </div>
-    
     
 </article>
 
 
 
 
+<div class="comments">
+    <h3 class="title is-4">評論</h3>
     
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://rock070.github.io/blog.rock070/2022/06/10/git-commit/';
+        this.page.identifier = '2022/06/10/git-commit/';
+        
+        this.language = 'zh';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'blog-rock070' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
-        
-<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-    <div class="pagination-previous is-invisible is-hidden-mobile">
-        <a href="/blog.rock070/0/">上一頁</a>
-    </div>
-    <div class="pagination-next">
-        <a href="/blog.rock070/2/">下一頁</a>
-    </div>
-    <ul class="pagination-list is-hidden-mobile">
-        
-        <li><a class="pagination-link is-current" href="/blog.rock070/">1</a></li>
-        
-        <li><a class="pagination-link" href="/blog.rock070/2/">2</a></li>
-        
-        <li><span class="pagination-ellipsis">&hellip;</span></li>
-        
-        <li><a class="pagination-link" href="/blog.rock070/7/">7</a></li>
-        
-    </ul>
-</nav>
-    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
     </div>
 </section>
     <footer class="footer">
