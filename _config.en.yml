@@ -120,9 +120,8 @@ deploy:
 navbar_links:
   Medium:
     icon: fa-brands fa-medium
-    url: https://medium.com/@mirthful_satin_dinosaur_426
+    url: https://medium.com/@Rock070
     
-
 # Links at the bottom of the page.
 footer_links:
   GitHub: https://github.com/Rock070
