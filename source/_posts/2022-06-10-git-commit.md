@@ -236,13 +236,12 @@ eslint --ext \".js,.vue\" --ignore-path .gitignore .",
 
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run eslint $(git diff --diff-filter=ACM --name-only HEAD | grep -E '\.(js|vue)$' | xargs) --ignore-path .gitignore .eslintignore
+npm run eslint $(git diff --diff-filter=ACM --name-only HEAD | grep -E '\.(js|vue)$') --ignore-path .gitignore .eslintignore
 ```
 
 - git diff --name-only HEAD :列出與目前分支有變更的檔案名稱
 - -diff-filter=ACM 過濾出 Add, Copy, Modified 檔案，排除 Delete
 - grep -E '\.(js|vue)$' 過濾出 js 檔 & vue 檔
-- xargs 把結果組成字串輸出
 - 忽略 ignore-path 指定「忽略文件」的位置
 
 ### **[Standard Version](https://github.com/conventional-changelog/standard-version) 更新版本號、產生 change log**
