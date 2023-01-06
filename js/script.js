@@ -80,6 +80,4 @@
             $(this).text(moment($(this).attr('datetime')).fromNow());
         });
     }*/
-    const GOOGLE_SEARCH_CONSOLE_VALIDATION = '<meta name="google-site-verification" content="YYZZWlYnr4GdRq2eYW8zN2hM9gw2rKFydgY2hvBPLw0" />'
-    hexo.extend.injector.register('head_end', GOOGLE_SEARCH_CONSOLE_VALIDATION, 'home')
 })(jQuery);
