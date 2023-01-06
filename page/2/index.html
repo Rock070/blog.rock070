@@ -93,6 +93,179 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/blog.rock070/2022/06/10/git-commit/" itemprop="url">建立可讀性高的 git 提交吧！</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2022-06-10T13:04:33.000Z" itemprop="datePublished">2022年6月10日</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/blog.rock070/categories/Git/">Git</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            21 分钟 讀完 (約 3126 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>在討論之前，我們應該先知道什麼是「可讀性低的提交」。</p>
+<p><img src="https://i.imgur.com/MLKNF02.png" alt="git"></p>
+<p>上方這個提交紀錄，可以四個提交大概看到提交的內容是什麼，但是又好像不太確定提交訊息所指的內容。<br>「會員登入」這個提交，可以看出是跟會員登入有關係，但是然後呢？可能會有些疑問浮出心頭：「他是製作了會員登入的功能嗎？」、「修改了會員登入的樣式？」、「修正了會員登入的 bug？」、「還是重構了？」<br>再看「調整會員登入」這個提交，「他修改了會員登入的什麼東西啊？」。</p>
+<p>我相信在開發的過程中如果看到其他成員的提交訊息是這樣，心中可能會冒起這些疑問。如果還沒有冒出這些疑問，那讓我們看看下面的範例：</p>
+<p><img src="https://i.imgur.com/eJR9MaC.png" alt="git"></p>
+<p>可以看到又有人提交了一個訊息叫做「會員登入」，跟第一個提交命名居然一樣，這時候團隊其他成員就生氣了：「這到底誰看得懂？」。</p>
+<h2 id="低可讀性造成什麼問題？"><a href="#低可讀性造成什麼問題？" class="headerlink" title="低可讀性造成什麼問題？"></a><strong>低可讀性造成什麼問題？</strong></h2><ul>
+<li>無法一眼看出提交的主要內容</li>
+<li>可能導致很多重複性的提交訊息</li>
+<li>使合併提交的人，無法簡單的了解為什麼需要這個變更</li>
+</ul>
+<p>這樣的提交訊息無論我們是要整理分支、cherry-pick、還是根據節點 code review，就會無法一眼就知道這個節點的修改內容，也因為這樣，整理起來就會變得困難。</p>
+<h2 id="高可讀性帶來什麼好處？"><a href="#高可讀性帶來什麼好處？" class="headerlink" title="高可讀性帶來什麼好處？"></a><strong>高可讀性帶來什麼好處？</strong></h2><p>讓我們再來看看下面這個提交：</p>
+<p><img src="https://i.imgur.com/XcDeQRH.png" alt="git"></p>
+<p>跟剛剛相比，新增了以下幾點描述，使提交更清楚，「feat(會員登入): 登入功能與切版」可以很清楚知道，製作了「會員登入」頁面的「功能」與「切版」；「refactor(會員登入): 重構 useLogin 程式碼」可以清楚知道「重構」了「會員登入」頁面的 「useLogin」 函式。</p>
+<p>如此，就能更清楚提交的內容了，而在不久的未來，可能會因為這樣貼心的舉動而感謝自己。<br>另外，我們其實可以建立一套提交規範，讓團隊去遵守，更可以透過提交工具來簡單化這個過程。</p>
+<h2 id="建立一套提交規範"><a href="#建立一套提交規範" class="headerlink" title="建立一套提交規範"></a><strong>建立一套提交規範</strong></h2><p>規範可以根據團隊自己建立，就像感情一樣，沒有絕對好的，只有最適合的，最適合就是最好的。</p>
+<p>目前被廣泛使用的就是 Angular 團隊使用的 <a target="_blank" rel="noopener" href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md">Git Commit Guidelines</a> ，也衍生了這一套規格： <a target="_blank" rel="noopener" href="https://www.conventionalcommits.org/en/v1.0.0/">conventional commit</a> ，目前我也是採用這一套。</p>
+<p>接下來我會大概闡述一下這套規範，加上一些我個人的想法：</p>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;footer&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>每個提交都必須要有 header, body, footer，header 是由 type, scope, subject 所組成</p>
+<p>而我們可以透過指令： <code>git commit -m 'header' -m 'body' -m 'footer'</code> 來達到這種提交訊息，如：</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am 'fix(全站): 修正 IOS 裝置頁面高度跑版問題' -m '因為用戶 在 IOS 裝置上收放 Toolbar 會導致頁面跑版，所以將 100vh 寫死更改為監聽 web resize 事件，每次 resize 都重新調整頁面高度 ' -m 'fix #22'</span><br></pre></td></tr></tbody></table></figure>
+
+<p>git log 出來看看</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">commit 88700ed8418fc8aa99c545cf5804fe3ba0d3c1b2 (HEAD -&gt; master)</span><br><span class="line">Author: rock070</span><br><span class="line">Date:   Fri Jun 10 09:54:17 2022 +0800</span><br><span class="line"></span><br><span class="line">    fix(全站): 修正 IOS 裝置頁面高度跑版問題</span><br><span class="line">    </span><br><span class="line">    因為用戶在 IOS 裝置上收放 Toolbar 會導致頁面跑版，所以將 100vh 寫死更改為監聽 web resize 事件，每次 resize 都重新調整頁面高度</span><br><span class="line">    </span><br><span class="line">    fix #22</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="type-類型"><a href="#type-類型" class="headerlink" title="type 類型"></a><strong>type 類型</strong></h3><p>下面是可以選用的類型：</p>
+<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">feat: 新功能</span><br><span class="line"><span class="hljs-attr">fix</span>: 修正 bug</span><br><span class="line"><span class="hljs-attr">docs</span> :文件內容修改</span><br><span class="line"><span class="hljs-attr">style</span>: 跟程式碼語意無關的修改，包含修改縮排、新增分號 ... 等等之類的</span><br><span class="line"><span class="hljs-attr">refactor</span>: 無關新功能與 bug 修正的程式碼修改</span><br><span class="line"><span class="hljs-attr">perf</span>: 程式碼對於提升效能有幫助的修改</span><br><span class="line"><span class="hljs-attr">test</span>: 新增或修改測試</span><br><span class="line"><span class="hljs-attr">ci</span>: 修改 ci 的配置檔</span><br><span class="line"><span class="hljs-attr">chore</span>: 無關 <span class="hljs-string">`src`</span>, <span class="hljs-string">`test`</span> 路徑內的檔案修改</span><br><span class="line"><span class="hljs-attr">revert</span>: 恢復某個提交</span><br><span class="line"><span class="hljs-attr">build</span>: 改變打包流程</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="Scope-範圍"><a href="#Scope-範圍" class="headerlink" title="Scope 範圍"></a><strong>Scope 範圍</strong></h4><p>任何可以劃分程式碼改變的範圍，例如：page, router, compile, component … 等等。</p>
+<h4 id="Subject-主題"><a href="#Subject-主題" class="headerlink" title="Subject 主題"></a><strong>Subject 主題</strong></h4><p>對程式碼的修改做簡單的敘述</p>
+<h4 id="body-內文"><a href="#body-內文" class="headerlink" title="body 內文"></a><strong>body 內文</strong></h4><p>敘述這次程式碼變更的動機，並說明這個提交與改變前的對比。</p>
+<p>若不知道怎麼寫，可以參考這三個問題：</p>
+<ol>
+<li>為什麼這個提交是必要的？<br>告訴審核 pull request 的人你的提交會帶來什麼改變，使他可以更簡單的辨認是否為不相干的提交。</li>
+<li>它如何解決問題？</li>
+<li>這個提交對專案有什麼副作用？<br>這個是很重要的，他可以有效地幫助你辨認，這個提交是否做太多改變了，如果一兩個副作用還可以接受，但如果是五、六個以上，就代表你做了太多了改變。</li>
+</ol>
+<h4 id="Footer-結尾"><a href="#Footer-結尾" class="headerlink" title="Footer 結尾"></a><strong>Footer 結尾</strong></h4><p>結尾通常會有兩種：</p>
+<ol>
+<li>標註 Breaking Change<br>超級大更新，通常需要以 <code>BREAKING CHANGE:</code> 為開頭，或是在 header 前面加上 <code>!</code>，如 <code>!feat(UI Library): 提供全新的 UI Library</code>。</li>
+<li>指出修正了什麼 issue，並關閉 issue，或是關閉了哪則 Pull Request。</li>
+</ol>
+<p>另外可以到 GitHub 上看一些關注度較高的開源專案的提交訊息，例如：<a target="_blank" rel="noopener" href="https://github.com/torvalds/linux/commits/master">Linux 的 commit</a>，基本上都是長篇大論的，或是 <a target="_blank" rel="noopener" href="https://github.com/facebook/react/commits/main">Facebook/react</a>。</p>
+<h3 id="使用工具建立團隊-commit-規範"><a href="#使用工具建立團隊-commit-規範" class="headerlink" title="使用工具建立團隊 commit 規範"></a><strong>使用工具建立團隊 commit 規範</strong></h3><ul>
+<li>使用 <a target="_blank" rel="noopener" href="https://github.com/conventional-changelog/commitlint">commitlint</a> 檢查 comit message</li>
+<li>搭配 <a target="_blank" rel="noopener" href="https://github.com/typicode/husky">husky</a><ul>
+<li>在 pre-commit 階段 lint 程式碼，搭配 eslint（可自由搭配不同 lint 工具）。</li>
+<li>在建立 commit message 前就自動執行 commitlint</li>
+</ul>
+</li>
+<li>使用&nbsp;<a target="_blank" rel="noopener" href="https://github.com/conventional-changelog/standard-version">standard version</a>&nbsp;來同時更新版本號和產生 CHANGELOG 檔</li>
+</ul>
+<p>這邊會使用 commitlint 官方推薦的規範，或是可以根據<a target="_blank" rel="noopener" href="https://commitlint.js.org/#/reference-configuration?id=configuration">官方文件</a> 建立自己的一套規範。</p>
+<ul>
+<li>@commitlint/cli&nbsp;是用來執行 commitlint 的工具</li>
+<li>@commitlint/config-conventional&nbsp;是根據 <a target="_blank" rel="noopener" href="https://www.conventionalcommits.org/en/v1.0.0/">conventional commit</a> 所建立的規範，詳細規則可以看這份 <a target="_blank" rel="noopener" href="https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional/index.js">source code</a>。</li>
+</ul>
+<p>根據官方建議的安裝步驟：</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -D @commitlint/{cli,config-conventional}</span><br><span class="line"></span><br><span class="line">// 建立 commitlint.config.js 檔案，並繼承 node_modules 內的 @commitlint/config/config-conventional/index.js 設定檔</span><br><span class="line">echo "module.exports = {extends: ['@commitlint/config-conventional']}" &gt; commitlint.config.js</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以自己簡單測試一下：</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 123 | npm exec commitlint</span><br></pre></td></tr></tbody></table></figure>
+
+<p>若是不符合規範，就會顯示錯誤訊息：</p>
+<p><img src="https://i.imgur.com/fIKfxA5.png" alt="git"></p>
+<p>補充：<a target="_blank" rel="noopener" href="https://docs.npmjs.com/cli/v7/commands/npm-exec">npm exec</a> 是 npm v7 推出的功能，可以執行本地依賴或遠端 npm packages 庫內的指令，當執行本地依賴沒有安裝的庫時，會問你要不要安裝，類似 npx，若本來沒有安裝，執行後會自動刪除。</p>
+<h3 id="搭配-husky"><a href="#搭配-husky" class="headerlink" title="搭配 husky"></a><strong>搭配 husky</strong></h3><p>建立 husky 是一款類似於捕捉 git 生命週期的一個工具，使我們可以 git 的每個階段都可以設定一段指令執行。</p>
+<p>因此，我們用來在「提交訊息」的時候，使用 commit lint 檢查訊息是否有符合 conventional commit。</p>
+<p>安裝</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install husky -D</span><br></pre></td></tr></tbody></table></figure>
+
+<p>接著執行 husky 的初始化</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm exec husky install</span><br><span class="line"><span class="hljs-meta"></span></span><br><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> husky - Git hooks installed</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>執行完後會出現 .husky 資料夾</p>
+<p><img src="https://i.imgur.com/D0tJeVW.png" alt="git"></p>
+<p>接著新增 hook</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm exec -- husky add .husky/commit-msg 'npm test'                              </span><br></pre></td></tr></tbody></table></figure>
+
+<p>執行後會產生 <code>.husky/commit-msg</code> 的檔案：</p>
+<p><img src="https://i.imgur.com/ky3xB8t.png" alt="git"></p>
+<p>藉著我們要把 <code>commit-msg</code> 階段要執行的指令 <code>npm test</code> 更換成 <code>npm exec --no -- commitlint --edit "\${1}"</code></p>
+<p>意思是抓取從 git commit 最後一個提交訊息，用 commitlint  檢查</p>
+<p><img src="https://i.imgur.com/iXXtGjN.png" alt="git"></p>
+<p>–edit 意思是會從某個指定檔案讀取最後一個 commit message ，或是到 ./.git/COMMIT_EDITMSG 裡面讀取</p>
+<p><img src="https://i.imgur.com/sRfxw6J.png" alt="git"></p>
+<p>接著來隨便 commit 看看，出現錯誤就代表成功啦，因為需要提交符合規範的訊息。</p>
+<p><img src="https://i.imgur.com/34fXcAf.png" alt="git"></p>
+<h2 id="在提交前執行eslint"><a href="#在提交前執行eslint" class="headerlink" title="在提交前執行eslint"></a>在提交前執行<strong>eslint</strong></h2><p>在協作開發的情況下，我們會使用 eslint 來統一 coding style，所以就會希望每個節點都是符合 codeing style。因此我們可以搭配 husky 的 <code>pre-commit</code> hook 來檢查。</p>
+<p>建立 pre-commit hook</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm exec -- husky add .husky/pre-commit 'npm test'                              </span><br></pre></td></tr></tbody></table></figure>
+
+<p>用 eslint 檢查 js, vue 檔案，並指定要忽略 <code>.gitignore</code> 內的檔案。</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash">!/usr/bin/env sh</span></span><br><span class="line"></span><br><span class="line">. "$(dirname -- "$0")/_/husky.sh"</span><br><span class="line"></span><br><span class="line">eslint --ext \".js,.vue\" --ignore-path .gitignore .",</span><br></pre></td></tr></tbody></table></figure>
+
+<p>但光是這樣還不夠，現在這樣只要做提交，eslint 就會去會檢查所有的檔案，若專案檔案一大，每次都要跑很久。</p>
+<p>所以我們只需要檢查 git 有偵測到變更的檔案就好了。</p>
+<p>修改為：</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash">!/usr/bin/env sh</span></span><br><span class="line"></span><br><span class="line">. "$(dirname -- "$0")/_/husky.sh"</span><br><span class="line"></span><br><span class="line">npm run eslint $(git diff --diff-filter=ACM --name-only HEAD | grep -E '\.(js|vue)$') --ignore-path .gitignore .eslintignore</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>git diff –name-only HEAD :列出與目前分支有變更的檔案名稱</li>
+<li>-diff-filter=ACM 過濾出 Add, Copy, Modified 檔案，排除 Delete</li>
+<li>grep -E ‘.(js|vue)$’ 過濾出 js 檔 &amp; vue 檔</li>
+<li>忽略 ignore-path 指定「忽略文件」的位置</li>
+</ul>
+<h3 id="Standard-Version-更新版本號、產生-change-log"><a href="#Standard-Version-更新版本號、產生-change-log" class="headerlink" title="Standard Version 更新版本號、產生 change log"></a><strong><a target="_blank" rel="noopener" href="https://github.com/conventional-changelog/standard-version">Standard Version</a> 更新版本號、產生 change log</strong></h3><p><img src="https://i.imgur.com/eiqp54i.png" alt="git"></p>
+<p>standard 是一套幫你自動化產生 changelog 跟更新版本號的工具，簡單來說會分為以下步驟：</p>
+<ol>
+<li>抓取上一個版本之前的 fix, feat 類型的提交訊息</li>
+<li>貼入 <code>CHANGELOG.md</code> 檔案中</li>
+<li>更新 package.json 的版本</li>
+<li>自動 commit</li>
+</ol>
+<p>安裝</p>
+<figure class="highlight shell hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D standard-version</span><br></pre></td></tr></tbody></table></figure>
+
+<p>package.json<br>``</p>
+<figure class="highlight json hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">"scripts"</span>: {</span><br><span class="line"> <span class="hljs-attr">"release"</span>: <span class="hljs-string">"standard-version"</span></span><br><span class="line">},</span><br></pre></td></tr></tbody></table></figure>
+
+<p>執行 <code>npm run release</code> 就會發現它自動幫你產生了 <code>CHANGELOG.md</code> 檔案（上圖），並把你提交內 type 為 feat &amp; fix 的變更抓進來，換句話說 refactor, build, chore 都不會被抓進來，這用來發布更新文件，真的非常方便！</p>
+<p>另外看 git 的線圖，也可以看到他幫我自動做了提交，也把 package.json 的 <code>version</code> 更新為新版號。</p>
+<p><img src="https://i.imgur.com/52BjeZr.png" alt="git"></p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a><strong>結語</strong></h2><p>上面我們透過工具 commit + husky + lint library + standard version，可以建立完整的提交流程：<br>阻擋不符合規範的提交，並透過 pre-commit hook 檢查 coding style，最後再自動戶產生 changelog 與更新版本號。</p>
+<p>具有語意化的提交訊息，與詳細的描述，對我而言目前只有優點沒有缺點，但並不是要我們每個提交都需要長篇大論，可以根據狀況做調整，最適合你的方式就是最好的。</p>
+<p>另外也有 <a target="_blank" rel="noopener" href="https://github.com/commitizen/cz-cli">Commitizen/cz-cli</a> 自動化提交工具，在你提交的時候問你一些問題，有些是選擇題，互動的方式，幫你自動產生提交，你只要回答他問你的問題就夠了；也可以參考 <a target="_blank" rel="noopener" href="https://gitmoji.dev/">Git Emoji</a>，設定屬於自己的 Emoji 提交，非常有趣，有興趣可以上去看看。</p>
+<p>最後，我想就算是自己一個人的專案，設定可讀性高的提交，未來在回顧 git 紀錄的時候，也是一個提高檢視效率的方法，所以開始讓提交的可讀性變高吧，Why not ?</p>
+<h3 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a><strong>參考文章</strong></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/21209619">知乎 - 如何写好 Git commit log?</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903606815064077">优雅的提交你的 Git Commit Message</a></li>
+<li><a target="_blank" rel="noopener" href="https://thoughtbot.com/blog/5-useful-tips-for-a-better-commit-message">5 Useful Tips For A Better Commit Message</a></li>
+<li><a target="_blank" rel="noopener" href="https://pjchender.blogspot.com/2021/07/git-commit-message.html">pjchender - 透過工具建立有規範的 git commit message 吧</a></li>
+</ul>
+</body></html>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/blog.rock070/2022/06/03/git-upstream/" itemprop="url">如何切換 Git 遠端分支</a>
         
     </h1>
@@ -146,83 +319,6 @@
 
 
     
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/blog.rock070/2022/04/27/tree-traversal/" itemprop="url">樹的走訪：寬度優先走訪（BFS）、深度優先走訪（DFS）</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2022-04-27T15:17:41.000Z" itemprop="datePublished">2022年4月27日</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/blog.rock070/categories/data-structure/">data structure</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            8 分钟 讀完 (約 1130 字)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <html><head></head><body><p>走訪的意思是，從根節點開始，逐個走訪各個節點，不同的拜訪順序，在程式碼的實作有很大的落差。</p>
-<p>依照走訪原則，可以分為兩種：</p>
-<ol>
-<li>寬度優先走訪 Breadth-First Tree Traversal</li>
-<li>深度優先走訪 Depth-First Tree Traversal(PreOrder, InOrder, PostOrder)</li>
-</ol>
-<h3 id="一、寬度優先走訪-Breadth-First-Tree-Traversal"><a href="#一、寬度優先走訪-Breadth-First-Tree-Traversal" class="headerlink" title="一、寬度優先走訪 Breadth-First Tree Traversal"></a><strong>一、寬度優先走訪 Breadth-First Tree Traversal</strong></h3><p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--1Aaplbiq--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://miro.medium.com/max/1400/1%2A3NKvODZparRFVKEwtVmrkw.gif"></p>
-<p>寬度優先的概念其實很簡單，從根開始，同一層都先走訪完之後，再進入下一層：如圖：level 1 的 1 開始，走訪完後進入 level 2 走訪 2, 3，再進入 level 走訪 4, 5, 6, 7。</p>
-<p><img src="https://i.imgur.com/lNZAO62.png"></p>
-<p>以上圖為例，這個樹狀圖有四層，分別為<br>第一層: 2<br>第二層: 7, 5<br>第三層: 2, 10, 6, 9<br>第四層: 5, 11, 4</p>
-<p>走訪的順序就會是： [ 2, 7, 5, 2, 10, 6, 9, 2, 11, 4 ]</p>
-<h4 id="用-JavaScript-實作寬度優先走訪"><a href="#用-JavaScript-實作寬度優先走訪" class="headerlink" title="用 JavaScript 實作寬度優先走訪"></a>用 JavaScript 實作寬度優先走訪</h4><p>實作一個 <code>BFTT</code> 函式，input 為 <code>Tree</code>，output 為依照 <code>寬度優先走訪</code> 的順序組成 <code>result</code> 陣列。</p>
-<p>有一個 Tree，每個節點都叫做 <code>TreeNode</code>，<code>TreeNode</code> 有兩個屬性 <code>value</code> 與 <code>children</code>，value 為數字，children 為 <code>TreeNode</code> 陣列或是 <code>null</code>。</p>
-<h5 id="Tree-Node-型別"><a href="#Tree-Node-型別" class="headerlink" title="Tree Node 型別"></a>Tree Node 型別</h5><figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@typedef <span class="hljs-type">{ Object }</span> <span class="hljs-variable">TreeNode</span></span></span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@property <span class="hljs-type">{ number }</span> <span class="hljs-variable">value</span></span></span></span><br><span class="line"><span class="hljs-comment"> * <span class="hljs-doctag">@property <span class="hljs-type">{ Array[TreeNode] | null }</span></span></span></span><br><span class="line"><span class="hljs-comment"> * /</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h5 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h5><figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> tree = {</span><br><span class="line">  <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>,</span><br><span class="line">  <span class="hljs-attr">children</span>: [</span><br><span class="line">    { </span><br><span class="line">      <span class="hljs-attr">value</span>: <span class="hljs-number">7</span>,</span><br><span class="line">      <span class="hljs-attr">children</span>: [</span><br><span class="line">        { <span class="hljs-attr">value</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">        { <span class="hljs-attr">value</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">        {</span><br><span class="line">          <span class="hljs-attr">value</span>: <span class="hljs-number">6</span>,</span><br><span class="line">          <span class="hljs-attr">children</span>: [</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">11</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> },</span><br><span class="line">          ],</span><br><span class="line">        },</span><br><span class="line">      ],</span><br><span class="line">    },</span><br><span class="line">    {</span><br><span class="line">      <span class="hljs-attr">value</span>: <span class="hljs-number">5</span>,</span><br><span class="line">      <span class="hljs-attr">children</span>: [</span><br><span class="line">        {</span><br><span class="line">          <span class="hljs-attr">value</span>: <span class="hljs-number">9</span>,</span><br><span class="line">          <span class="hljs-attr">children</span>: [</span><br><span class="line">            { <span class="hljs-attr">value</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">children</span>: <span class="hljs-literal">null</span> }</span><br><span class="line">          ],</span><br><span class="line">        },</span><br><span class="line">      ],</span><br><span class="line">    },</span><br><span class="line">  ],</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>一層層遍歷 children，存進 queue，然後依照 <code>queue 的特性：先進先出</code>，從 queue 內排序第一的開始處理，處理完則離開 queue。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/tree/master/data-structure/tree/BFS">完成程式碼 - GitHub</a></p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> BFTT = <span class="hljs-function"><span class="hljs-params">root</span> =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = []</span><br><span class="line">  <span class="hljs-keyword">let</span> queue = []</span><br><span class="line"></span><br><span class="line">  queue.push(root)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> traversal = <span class="hljs-function">(<span class="hljs-params">tree</span>) =&gt;</span> {</span><br><span class="line">    result.push(tree.value)</span><br><span class="line">    <span class="hljs-keyword">let</span> subTree = tree.children</span><br><span class="line">    <span class="hljs-keyword">if</span> (subTree) {</span><br><span class="line">      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; subTree.length; i++) {</span><br><span class="line">        queue.push(subTree[i]);</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="hljs-keyword">while</span> (queue.length !== <span class="hljs-number">0</span>) {</span><br><span class="line">    traversal(queue[<span class="hljs-number">0</span>]);</span><br><span class="line">    queue.shift()</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> result</span><br><span class="line">}</span><br><span class="line"><span class="hljs-keyword">let</span> result = BFTT(tree);</span><br><span class="line"><span class="hljs-built_in">console</span>.log(result)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// [2, 7, 5, 2, 10, 6, 9, 2, 11, 4];</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="二、Depth-First-Tree-Traversal（深度優先走訪）"><a href="#二、Depth-First-Tree-Traversal（深度優先走訪）" class="headerlink" title="二、Depth-First Tree Traversal（深度優先走訪）"></a><strong>二、Depth-First Tree Traversal（深度優先走訪）</strong></h3><p><code>深度優先走訪</code> 根據每個 <code>subTree</code> 的走訪順序，又可以區分為三種：<code>Pre-Order</code>、<code>In-Order</code>、<code>Post-Order</code>。</p>
-<h4 id="1-Pre-Order"><a href="#1-Pre-Order" class="headerlink" title="1. Pre-Order"></a><strong>1. Pre-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Preorder-traversal.gif"><br>先遇到的節點先處理。</p>
-<p>順序：root, left, right</p>
-<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若顯示紅色則為無法再走下去的情況，這時就會則回到上一層繼續走訪，直到沒辦法再繼續下去。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/pre-order-binary.js">完整程式碼 - GitHub</a></p>
-<p>實作方法：先遇到的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> preOrder = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {</span><br><span class="line">    result.push(node.value);</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left)</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right);</span><br><span class="line">  };</span><br><span class="line"></span><br><span class="line">  traversal(root);</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> result;</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// PreOrder: ["F", "B", "A", "D", "C", "E", "G", "I", "H"]</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="2-In-Order"><a href="#2-In-Order" class="headerlink" title="2. In-Order"></a><strong>2. In-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Inorder-traversal.gif"></p>
-<p>順序： left, root, right</p>
-<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若該節點為目前最左邊的節點，則推入 <code>Inorder</code> 陣列中；若顯示紅色則為無法再走下去的情況，這時就會則繼續尋找最左邊的節點，直到沒辦法再繼續下去。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/in-order-binary.js">完整程式碼 - GitHub</a></p>
-<p>實作方法：越左的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> InOrder = <span class="hljs-function"><span class="hljs-params">root</span> =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> result = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function"><span class="hljs-params">node</span> =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left)</span><br><span class="line">    result.push(node.value)</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right)</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  traversal(root)</span><br><span class="line">  <span class="hljs-keyword">return</span> result</span><br><span class="line">};</span><br><span class="line"><span class="hljs-comment">// // ["A", "B", "C", "D", "E", "F", "G", "H", "I"];</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="3-Post-Order"><a href="#3-Post-Order" class="headerlink" title="3. Post-Order"></a><strong>3. Post-Order</strong></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Postorder-traversal.gif"></p>
-<p>順序：left, root, right</p>
-<p>從圖片中可以看到從根節點 F 開始，藍色為走訪順序，若該節點為目前最左邊的節點，則推入 <code>Postorder</code> 陣列中，若找不到最左節點，就會將右邊的節點推入；若顯示紅色則為無法再走下去的情況，這時就會則繼續尋找，直到沒辦法再繼續下去。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Rock070/algorithms-data-structure-repo/blob/master/data-structure/tree/DFS/post-order-binary.js">完整程式碼 - GitHub</a></p>
-<p>實作方法：越左的節點先走訪，並採用遞迴方式，若有 left, right 節點則繼續遞迴。</p>
-<figure class="highlight js hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> PostOrder = <span class="hljs-function">(<span class="hljs-params">root</span>) =&gt;</span> {</span><br><span class="line">  <span class="hljs-keyword">let</span> queue = [];</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> traversal = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> {</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.left) traversal(node.left);</span><br><span class="line">    <span class="hljs-keyword">if</span> (node.right) traversal(node.right);</span><br><span class="line"></span><br><span class="line">    queue.push(node.value);</span><br><span class="line">  };</span><br><span class="line"></span><br><span class="line">  traversal(root);</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> queue;</span><br><span class="line">};</span><br><span class="line"><span class="hljs-comment">// ['A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F']</span></span><br></pre></td></tr></tbody></table></figure></body></html>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -242,7 +338,7 @@
         
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         
-        <li><a class="pagination-link" href="/blog.rock070/8/">8</a></li>
+        <li><a class="pagination-link" href="/blog.rock070/9/">9</a></li>
         
     </ul>
 </nav>

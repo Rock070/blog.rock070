@@ -93,6 +93,59 @@
         <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/blog.rock070/2022/04/21/doubly-linked-list/" itemprop="url">Doubly Linked List（雙向連結串列）</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2022-04-20T16:21:50.000Z" itemprop="datePublished">2022年4月21日</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/blog.rock070/categories/data-structure/">data structure</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            1 分钟 讀完 (約 167 字)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>在 <a href="https://rock070.github.io/blog.rock070/2022/04/20/linked-list/">singly linked list</a> 的基礎上，做一些變更：</p>
+<ol>
+<li>每個節點都新增一個 prev 屬性，指向上一個節點，第一個節點的 prev 指向 null。</li>
+<li>Linked List 屬性新增 tail 指向最後一個節點。</li>
+</ol>
+<p><img src="https://i.imgur.com/RNy8pQg.png"></p>
+<h3 id="相對於-singly-linked-list-的優缺點"><a href="#相對於-singly-linked-list-的優缺點" class="headerlink" title="相對於 singly linked list 的優缺點"></a>相對於 singly linked list 的優缺點</h3><p>優點</p>
+<ul>
+<li>可以簡單地做到反向存取，從尾巴的節點開始取值</li>
+<li>因為可以反向存去的關係，時間複雜度較 singly linked list 少一半</li>
+</ul>
+<p>缺點</p>
+<ul>
+<li>要花更多的記憶體空間</li>
+</ul>
+<h2 id="leetcode-練習"><a href="#leetcode-練習" class="headerlink" title="leetcode 練習"></a>leetcode 練習</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/">430. Flatten a Multilevel Doubly Linked List</a></p>
+</body></html>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/blog.rock070/2022/04/20/linked-list/" itemprop="url">Linked List(連結串列)</a>
         
     </h1>
@@ -249,88 +302,6 @@
 
 
     
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/blog.rock070/2022/04/19/algorithms-motivation/" itemprop="url">學習動機與目標</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2022-04-19T13:24:58.000Z" itemprop="datePublished">2022年4月19日</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/blog.rock070/categories/algorithms/">algorithms</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            4 分钟 讀完 (約 636 字)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <html><head></head><body><h3 id="先說一下我的背景"><a href="#先說一下我的背景" class="headerlink" title="先說一下我的背景"></a>先說一下我的背景</h3><p>我讀的科系跟軟體知識完全沒有關係，是大四下對軟體開發有興趣，學了之後就奮不顧身的踏進了網頁開發的領域。</p>
-<p>目前是資歷一年的前端工程師，工作之後在切版都沒有什麼問題，邏輯的設計上都可以應付，但總覺得自己寫出的程式碼與資深同事寫出來的總是有落差，研究了一陣子演算法之後，發現對自己的開發的邏輯跟思考脈絡有很大的幫助，所以決定開始一系列的學習，也希望自己可以朝成為資深工程師的路更前進一步。</p>
-<p>接下來會寫一系列的演算法與資料結構相關系列筆記跟心得，也會搭配一些 LeetCode 的題目，脈絡會根據下方參考資料中綜合出一個版本。</p>
-<h3 id="動機"><a href="#動機" class="headerlink" title="動機"></a>動機</h3><ul>
-<li>資料結構：就是把資料整理成最佳存取效率的結構</li>
-</ul>
-<p>正如居家收納，好的收納方式可以讓物品井然有序，取用時方便又快速，反之，凌亂的收納方式，當想要找出想要的物品時，就得要大費周章。資料結構就是程式執行過程中，資料被收納的方式，同樣的一堆資料，用不同結構儲存，就會帶來不同的優缺點，進而左右資料存取的效率。</p>
-<p>在成為資深工程師的路上，學習資料結構可以促進我解決能力的問題，使複雜的問題變得簡單，好處理。</p>
-<h3 id="學習目標與文章架構（待邊寫邊更新）"><a href="#學習目標與文章架構（待邊寫邊更新）" class="headerlink" title="學習目標與文章架構（待邊寫邊更新）"></a>學習目標與文章架構（待邊寫邊更新）</h3><ul>
-<li><p>什麼是 Big O</p>
-</li>
-<li><p>演算法</p>
-<ul>
-<li>六種排序（bubble、insertion、selection、merge、heap、quick）</li>
-<li>搜尋（Linear、binary）</li>
-<li>遞迴(recursion)</li>
-<li>Dynamic Programming</li>
-<li>Greedy</li>
-</ul>
-</li>
-<li><p>資料結構 </p>
-<ul>
-<li>B Linked List</li>
-<li>B Doubly Linked List</li>
-<li>B Queue</li>
-<li>B Stack</li>
-<li>B Hash Table</li>
-<li>B Heap - max and min heap versions</li>
-<li>B Priority Queue</li>
-<li>A Trie</li>
-<li>A Tree</li>
-<li>A Binary Search Tree</li>
-<li>A AVL Tree</li>
-<li>A Red-Black Tree</li>
-<li>A Graph (both directed and undirected)</li>
-<li>A Bloom Filter</li>
-</ul>
-</li>
-</ul>
-<h3 id="javascript-演算法與資料結構路線圖與參考文章"><a href="#javascript-演算法與資料結構路線圖與參考文章" class="headerlink" title="javascript 演算法與資料結構路線圖與參考文章"></a>javascript 演算法與資料結構路線圖與參考文章</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/trekhleb/javascript-algorithms">trekhleb/javascript-algorithms</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/sisterAn/JavaScript-Algorithms">sisterAn/JavaScript-Algorithms</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.udemy.com/course/algorithm-data-structure/">資料結構與演算法 (JavaScript) - Udemy</a></li>
-<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/users/20106426/ironman/2136">前端工程師用 javaScript 學演算法 - hannahpun 第 11 屆 iThome 鐵人賽</a></li>
-</ul>
-</body></html>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -351,6 +322,8 @@
         <li><a class="pagination-link is-current" href="/blog.rock070/7/">7</a></li>
         
         <li><a class="pagination-link" href="/blog.rock070/8/">8</a></li>
+        
+        <li><a class="pagination-link" href="/blog.rock070/9/">9</a></li>
         
     </ul>
 </nav>
